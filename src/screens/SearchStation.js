@@ -1,6 +1,7 @@
-import React from 'react';
-import {Button} from 'react-native';
+import React,{useState,useEffect} from 'react';
+import {Button,StyleSheet,TextInput,Text,View,SafeAreaView} from 'react-native';
 import styled from 'styled-components/native';
+import Search from '../modules/Search';
 
 /*정류소 검색*/
 /*todo: (1) 검색창 보이고 입력되게 하기
@@ -24,8 +25,21 @@ margin-bottom : 10px;
 `;
 
 const SearchStation = ({ navigation }) => {
+    const [station, setStation] = useState('');
     return(
         <Container>
+           <TextInput
+           
+    style={styles.input}
+    placeholder='정류장 이름을 입력하세요'
+    autoCorrect = {false}
+     value = {station}
+     onChangeText={(text)=>setStation(text)}
+     {...console.log(station)}
+     onSubmitEditing = {()=><Search station={station}/>}
+     multiline={false}
+     returnKeyType="search"
+      />
             <StyledText>정류장 검색</StyledText>
             <DetailText>Todo: 1. 검색창 보이고 입력되게 하기</DetailText>
             <DetailText>2. 검색어를 키워드로 하는 전체 정류소 목록 띄우기</DetailText>
@@ -37,5 +51,24 @@ const SearchStation = ({ navigation }) => {
         </Container>
     )
 }
-
+const styles=StyleSheet.create({
+    input:{
+      height: 40,
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
+    },
+    container:{
+      flex:1,
+      alignItems:'center'
+    },
+    text:{
+    fontsize:10,
+    alignItems:'center'
+    },
+    title:{
+      margin:10,
+      fontsize:10
+    }
+    });
 export default SearchStation;
