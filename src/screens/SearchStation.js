@@ -1,7 +1,8 @@
+import { useLinkProps } from '@react-navigation/native';
 import React,{useState,useEffect} from 'react';
 import {Button,StyleSheet,TextInput,Text,View,SafeAreaView} from 'react-native';
 import styled from 'styled-components/native';
-import Search from '../modules/Search';
+import Search from '../modules/search';
 
 /*정류소 검색*/
 /*todo: (1) 검색창 보이고 입력되게 하기
@@ -29,14 +30,13 @@ const SearchStation = ({ navigation }) => {
     return(
         <Container>
            <TextInput
-           
     style={styles.input}
     placeholder='정류장 이름을 입력하세요'
     autoCorrect = {false}
      value = {station}
      onChangeText={(text)=>setStation(text)}
-     {...console.log(station)}
-     onSubmitEditing = {()=><Search station={station}/>}
+     props:station
+     onSubmitEditing = {()=>{<Search/>}}
      multiline={false}
      returnKeyType="search"
       />

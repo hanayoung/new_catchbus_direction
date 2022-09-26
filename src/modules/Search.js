@@ -11,8 +11,9 @@ const print=()=>{
   </Text>
 }
 
-const Search = ({station})=>{//param1은 busstationservice같은 첫 번째 param, param2는 getBustStaionList처럼 두 번째 param
+const Search = ({props})=>{//param1은 busstationservice같은 첫 번째 param, param2는 getBustStaionList처럼 두 번째 param
   const [result, setResult] = useState([]);
+  const [station,setStation]=useState(props.station);
   console.log("come in");
   try{
     var xhr = new XMLHttpRequest();
