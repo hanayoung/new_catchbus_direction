@@ -1,15 +1,9 @@
 import React from 'react';
 import styled from'styled-components/native';
 import PropTypes from 'prop-types';
-
-const Container = styled.View`
-flex-direction: column;
-align-items: center;
-background-color: ${({ theme }) => theme.itemBackground};
-border-radius: 10px;
-padding: 5px;
-margin: 3px 0px;
-`;
+import IconButton from '../components/IconButton'
+import {images} from '../modules/images'
+import {TouchableOpacity, StyleSheet} from 'react-native';
 
 const Content_name = styled.Text`
 flex: 1;
@@ -21,21 +15,64 @@ flex: 1;
 font-size: 15px;
 `;
 
-//list 출력용 모듈
+const styles = StyleSheet.create({
+    button: {
+        alignItems: "center",
+    },
+});
 
-const StationList = ({ item }) => {
+const StationList = ({ item, saveResult, storage }) => {
+
+    var choice = new Object();
+
+    const changeClicked = item => {
+        if (item.clicked == false) {
+            const newStorageObject = {
+                [item.id] : {
+                    id: item.id,
+                    name: item.name,
+                    x: item.x,
+                    y: item.y,
+                },
+            };
+            saveResult({...storage, ...newStorageObject});
+            item.clicked = true;
+        }
+        else {
+            const currentResults = Object.assign({}, storage);
+            delete currentResults[item.id];
+            saveResult(currentResults);
+            item.clicked = false;
+        }
+    }
 
     return (
-        <Container>
+        <TouchableOpacity
+        onPressOut = {() => {
+            choice = item;
+        }}
+        style = {styles.button}
+        >
             <Content_name>{item.name}</Content_name>
             <Content_locate>{item.id}</Content_locate>
             <Content_locate>위치: {item.x}, {item.y}</Content_locate>
-        </Container>
+            <IconButton 
+            type={item.clicked ? images.clicked : images.unclicked} 
+            id={item} 
+            onPressOut={changeClicked}
+            clicked={item.clicked}
+            />
+        </TouchableOpacity>
     );
+};
+
+StationList.defaultProps = {
+    onPressOut: () => {},
 };
 
 StationList.propTypes = {
     item: PropTypes.object.isRequired,
+    onPressOut : PropTypes.func,
 };
 
 export default StationList;

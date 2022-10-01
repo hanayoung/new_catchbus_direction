@@ -7,7 +7,8 @@ import styled from 'styled-components/native';
 import StationList from '../modules/StationList';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from "expo-location";
-import Svg from 'react-native-svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppLoading from 'expo-app-loading';
 
 const List = styled.ScrollView`
 flex: 1;
@@ -15,15 +16,12 @@ width: ${({ width }) => width - 40}px;
 `;
 
 function SearchStation() {
-  const [mapWidth,setMapWidth]=useState('99%');
+
   const [station, setStation] = useState('');
   const [result, setResult] = useState([]);
-  const [initialRegion, setinitialRegion] = useState({
-    latitude:37.498095,
-    longitude:127.027610,
-    latitudeDelta:0.2,
-    longitudeDelta:0.2
-  });
+  const [initialRegion, setinitialRegion] = useState();
+  const [isReady, setIsReady] = useState(false);
+  const [storage, setStorage] = useState({});
   //함수형 컴포넌트 const -> useEffect로 해결
 
   const ask = async () => {
@@ -41,9 +39,23 @@ function SearchStation() {
     setStation(text);
   }
 
+  const _saveResults = async result => {
+    try {
+      await AsyncStorage.setItem('results', JSON.stringify(result));
+      setStorage(result);
+      console.log('Storage', storage);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const _loadResult = async () => {
+    const loadedResult = await AsyncStorage.getItem('results');
+    setStorage(JSON.parse(loadedResult));
+  };
+
 
   const searchStation = async () => {
-    
     console.log("working");
     try {
       var xhr = new XMLHttpRequest();
@@ -65,9 +77,13 @@ function SearchStation() {
             tmpnode.name = xmlDoc.getElementsByTagName("stationName")[i].textContent;
             tmpnode.x = xmlDoc.getElementsByTagName("x")[i].textContent;
             tmpnode.y = xmlDoc.getElementsByTagName("y")[i].textContent;
+            tmpnode.clicked = false;
             array.push(tmpnode);
+            for (var id in storage) {
+              if (tmpnode.id == id)
+                tmpnode.clicked = true;
+            }
             i++;
-            console.log(tmpnode.index, tmpnode)
             if (xmlDoc.getElementsByTagName("stationId")[i] == undefined) break;
           }
           setResult(array);
@@ -93,7 +109,8 @@ function SearchStation() {
     ask();
     searchStation();
   }, []);
-  return (
+
+  return isReady ? (
     <View style={styles.container}>
       <Text style={styles.title}>CatchBus</Text>
       <TextInput
@@ -106,7 +123,6 @@ function SearchStation() {
         multiline={false}
         returnKeyType="search"
       />
-
       <MapView
         region={initialRegion}
         style={[styles.map]}
@@ -132,12 +148,21 @@ function SearchStation() {
         data={result}
         style={[styles.flatlist]}
         renderItem={({ item }) => (
-          <StationList item={item}
+          <StationList
+            item={item}
+            saveResult={_saveResults}
+            storage={storage}
           />
         )}
         windowSize={3}
       />
     </View>
+  ) : (
+    <AppLoading
+      startAsync={_loadResult}
+      onFinish={() => setIsReady(true)}
+      onError={console.error}
+    />
   );
 
 }
@@ -163,8 +188,8 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
-    width:500,
-    height:500
+    width: 500,
+    height: 500
   },
   flatlist: {
     flex: 1,
