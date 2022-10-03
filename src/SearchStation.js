@@ -10,19 +10,26 @@ import * as Location from "expo-location";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
 
+// 2. screens/SearchStation의 자식
+
 const List = styled.ScrollView`
 flex: 1;
 width: ${({ width }) => width - 40}px;
 `;
 
-function SearchStation() {
-
+function SearchStation({stationToBus})
+ {
   const [station, setStation] = useState('');
   const [result, setResult] = useState([]);
   const [initialRegion, setinitialRegion] = useState();
   const [isReady, setIsReady] = useState(false);
   const [storage, setStorage] = useState({});
   //함수형 컴포넌트 const -> useEffect로 해결
+ 
+  const goBus = (item) => {
+    console.log("list", item);
+    stationToBus(item);
+  }
 
   const ask = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
@@ -38,7 +45,7 @@ function SearchStation() {
   const handleStation = text => {
     setStation(text);
   }
-
+  
   const _saveResults = async result => {
     try {
       await AsyncStorage.setItem('results', JSON.stringify(result));
@@ -152,6 +159,7 @@ function SearchStation() {
             item={item}
             saveResult={_saveResults}
             storage={storage}
+            goBus={goBus}
           />
         )}
         windowSize={3}

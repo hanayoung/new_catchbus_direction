@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Button} from 'react-native';
 import styled from 'styled-components/native';
 import SearchStationsrc from '../src/SearchStation';
@@ -25,12 +25,18 @@ margin-bottom : 10px;
 `;
 
 const SearchStation = ({ navigation }) => {
+    
+    const [item, setItem] = useState([]);
+
+    const stationToBus = (item) => {
+        console.log("before bus search", item);
+        setItem(item);
+        navigation.navigate('SearchBus', { itemId : item.id });
+      }
+
     return(
         <Container>
-            <SearchStationsrc/>
-            <Button 
-            title = "버스 선택" 
-            onPress = {()=> navigation.navigate('SearchBus')}/>
+            <SearchStationsrc stationToBus = {stationToBus}/>
         </Container>
     )
 }

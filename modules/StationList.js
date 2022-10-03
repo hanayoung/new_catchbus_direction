@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import IconButton from '../components/IconButton'
 import {images} from '../modules/images'
 import {TouchableOpacity, StyleSheet} from 'react-native';
+// 1. src/searchStation의 자식
 
 const Content_name = styled.Text`
 flex: 1;
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const StationList = ({ item, saveResult, storage }) => {
+const StationList = ({ item, saveResult, storage, goBus}) => {
 
     var choice = new Object();
 
@@ -50,6 +51,8 @@ const StationList = ({ item, saveResult, storage }) => {
         <TouchableOpacity
         onPressOut = {() => {
             choice = item;
+            console.log("item clicked", item.id, item.name);
+            goBus(item);
         }}
         style = {styles.button}
         >

@@ -13,6 +13,7 @@ import History from '../screens/History';
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
+
     return (
         <Stack.Navigator initialRouteName = "Home">
             <Stack.Screen name = "Main" component = {Main}/>

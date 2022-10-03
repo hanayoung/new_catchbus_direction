@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button} from 'react-native';
 import styled from 'styled-components/native';
+import SearchBussrc from '../src/SearchBus';
 
 /*버스 검색*
 /*todo: (1) 해당 정류장에 오는 모든 버스 목록 조회
@@ -24,14 +25,18 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const SearchBus = ({ navigation }) => {
+const SearchBus = ({ route, navigation }) => {
+
+    const itemId = route.params;
+    console.log("item id route is", itemId);
+
+    const ID = itemId.itemId;
+
+    console.log(ID);
+
     return(
         <Container>
-            <StyledText>버스 검색</StyledText>
-            <DetailText>Todo: 1. 해당 정류장에 오는 버스 분류해서 보이게 하기</DetailText>
-            <DetailText>2. 버스 누르면 노선 보이게 하기</DetailText>
-            <DetailText>3. 옆에 타이머 누르면 설정되게 하기</DetailText>
-            <DetailText>4. 별 누르면 즐찾등록되게 하기</DetailText>
+            <SearchBussrc/>
             <Button 
             title = "버스" 
             onPress = {()=> navigation.navigate('BusRoute')}/>
