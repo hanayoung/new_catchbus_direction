@@ -11,6 +11,8 @@ import SearchBussrc from '../src/SearchBus';
 (5) 별 누르면 즐찾등록 (즐찾버튼 누르면 타이머 설정 넘어갔다가 즐찾가는 건 어떤지?)
 */
 
+// SearchBussrc의 부모
+
 const Container = styled.View`
 flex : 1;
 justify-content: center;
@@ -27,16 +29,17 @@ margin-bottom : 10px;
 
 const SearchBus = ({ route, navigation }) => {
 
-    const itemId = route.params;
+    const itemId = route.params.itemId;
+
     console.log("item id route is", itemId);
 
-    const ID = itemId.itemId;
+    const ID = itemId;
 
     console.log(ID);
 
     return(
         <Container>
-            <SearchBussrc/>
+            <SearchBussrc ID = {ID}/>
             <Button 
             title = "버스" 
             onPress = {()=> navigation.navigate('BusRoute')}/>

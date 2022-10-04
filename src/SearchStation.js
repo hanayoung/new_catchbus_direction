@@ -27,7 +27,6 @@ function SearchStation({stationToBus})
   //함수형 컴포넌트 const -> useEffect로 해결
  
   const goBus = (item) => {
-    console.log("list", item);
     stationToBus(item);
   }
 
@@ -45,7 +44,7 @@ function SearchStation({stationToBus})
   const handleStation = text => {
     setStation(text);
   }
-  
+
   const _saveResults = async result => {
     try {
       await AsyncStorage.setItem('results', JSON.stringify(result));
