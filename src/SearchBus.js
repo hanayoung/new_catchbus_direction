@@ -23,7 +23,8 @@ function SearchBus({ ID }) {
     const [routeInfo, setRouteInfo] = useState([]); //노선정보 저장
 
     const handleRouteInfo = (item) => {
-        setRouteInfo( routeInfo => { return routeInfo.push(item) })
+      routeInfo.push(item);
+        setRouteInfo(routeInfo);
     }
 
     // 여기서부터 루트아이디 핸들링, 검색, Input : routeId (from busSearch), Output: 노선 번호/유형/종점정보
@@ -38,23 +39,14 @@ function SearchBus({ ID }) {
               if (this.readyState == 4) {
                 let xmlParser = new DOMParser();
                 let xmlDoc = xmlParser.parseFromString(this.responseText, "text/xml");
-                let i = 0;
-                let array = [];
-                while (1) {
-                  var tmpnode = new Object();
-                  tmpnode.index = i;
-                  tmpnode.routeId = xmlDoc.getElementsByTagName("routeId")[i].textContent;
-                  tmpnode.routeName = xmlDoc.getElementsByTagName("routeName")[i].textContent;
-                  tmpnode.routeType = xmlDoc.getElementsByTagName("routeTypeName")[i].textContent;
-                  tmpnode.startName = xmlDoc.getElementsByTagName("startStationName")[i].textContent;
-                  tmpnode.endName = xmlDoc.getElementsByTagName("endStationName")[i].textContent;
-                  tmpnode.region = xmlDoc.getElementsByTagName("regionName")[i].textContent;
-                  array.push(tmpnode);
-                  i++;
-                  if (xmlDoc.getElementsByTagName("routeId")[i] == undefined) break;
-                }
-                handleRouteInfo(array);
-                setRouteInfo(routeInfo);
+                  var route = new Object();
+                  route.routeId = xmlDoc.getElementsByTagName("routeId")[0].textContent;
+                  route.routeName = xmlDoc.getElementsByTagName("routeName")[0].textContent;
+                  route.routeType = xmlDoc.getElementsByTagName("routeTypeName")[0].textContent;
+                  route.startName = xmlDoc.getElementsByTagName("startStationName")[0].textContent;
+                  route.endName = xmlDoc.getElementsByTagName("endStationName")[0].textContent;
+                  route.region = xmlDoc.getElementsByTagName("regionName")[0].textContent;
+                handleRouteInfo(route);
               }
             }
             xhr.send();
@@ -117,7 +109,8 @@ function SearchBus({ ID }) {
       }, []);
 
     return(
-        console.log("노선 정보", routeInfo.length, "도착 정보", result.length),
+      console.log(result),
+      console.log(routeInfo),
         <Container>
         </Container>
     )
