@@ -55,7 +55,7 @@ const BusList = ({ item, saveResult, storage}) => {
         style = {styles.button}
         >
             <Content_name>{item.routeName}</Content_name>
-            <Content_locate>{item.predict1}분 전 도착  {item.predict2} 분 전 도착</Content_locate>
+            <Content_locate>{item.predict1}분 후 도착  {item.predict2} 분 후 도착</Content_locate>
             <Content_locate>{item.routeType}</Content_locate>
             <IconButton 
             type={item.clicked ? images.clicked : images.unclicked} 
