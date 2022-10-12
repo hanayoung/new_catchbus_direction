@@ -27,9 +27,9 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const SearchBus = ({ route, navigation }) => {
+const SearchBus = ({ route, navigation, storage, setStorage, item }) => {
 
-    const itemId = route.params.itemId;
+    const itemId = item.id;
 
     console.log("item id route is", itemId);
 
@@ -39,7 +39,7 @@ const SearchBus = ({ route, navigation }) => {
 
     return(
         <Container>
-            <SearchBussrc ID = {ID}/>
+            <SearchBussrc ID = {ID} storage={storage} setStorage={setStorage}/>
         </Container>
     )
 }

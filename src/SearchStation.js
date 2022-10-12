@@ -2,13 +2,9 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Dimensions, FlatList, StatusBar, SafeAreaView } from 'react-native';
 import { DOMParser } from 'xmldom';
-import ReactDOM, { render } from 'react-dom';
-import styled from 'styled-components/native';
 import StationList from '../modules/StationList';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from "expo-location";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppLoading from 'expo-app-loading';
 
 // 2. screens/SearchStation의 자식
 

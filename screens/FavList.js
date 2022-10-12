@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button} from 'react-native';
 import styled from 'styled-components/native';
+import FavListsrc from '../src/FavListsrc';
 
 /*즐겨찾기*/
 /*todo: (1) 즐겨찾기에 등록된 목록 띄우기
@@ -22,7 +23,7 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const FavList = ({ navigation }) => {
+const FavList = ({ navigation, storage, setStorage }) => {
     return(
         <Container>
             <StyledText>즐겨찾기</StyledText>
@@ -35,6 +36,7 @@ const FavList = ({ navigation }) => {
             <Button
             title = "메인페이지"
             onPress = {()=> navigation.navigate('Main')}/>
+            <FavListsrc storage={storage} setStorage={setStorage}></FavListsrc>
         </Container>
     )
 }

@@ -2,8 +2,9 @@ import React from 'react';
 import styled from'styled-components/native';
 import PropTypes from 'prop-types';
 import IconButton from '../components/IconButton'
-import {images} from '../modules/images'
+import {images} from './images'
 import {TouchableOpacity, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // 1. src/searchStation의 자식
 
 const Content_name = styled.Text`
@@ -22,14 +23,23 @@ const styles = StyleSheet.create({
     },
 });
 
-const BusList = ({ item, saveResult, storage}) => {
+const FavListModule = ({ item, storage, setStorage}) => {
 
     var choice = new Object();
+
+    const saveResult = async result => {
+        try {
+          await AsyncStorage.setItem('results', JSON.stringify(result));
+          setStorage(result);
+        } catch (e) {
+          console.error(e);
+        }
+      };
 
     const changeClicked = item => {
         if (item.clicked == false) {
             const newStorageObject = {
-                [item.routeId] : {
+                [item.id] : {
                     routeid: item.routeId,
                     routename: item.routeName,
                     routetype: item.routetype,
@@ -48,6 +58,7 @@ const BusList = ({ item, saveResult, storage}) => {
     }
 
     return (
+        console.log("hi"),
         <TouchableOpacity
         onPressOut = {() => {
             choice = item;
@@ -55,7 +66,6 @@ const BusList = ({ item, saveResult, storage}) => {
         style = {styles.button}
         >
             <Content_name>{item.routeName}</Content_name>
-            <Content_locate>{item.predict1}분 후 도착  {item.predict2} 분 후 도착</Content_locate>
             <Content_locate>{item.routeType}</Content_locate>
             <IconButton 
             type={item.clicked ? images.clicked : images.unclicked} 
@@ -67,13 +77,13 @@ const BusList = ({ item, saveResult, storage}) => {
     );
 };
 
-BusList.defaultProps = {
+FavListModule.defaultProps = {
     onPressOut: () => {},
 };
 
-BusList.propTypes = {
+FavListModule.propTypes = {
     item: PropTypes.object.isRequired,
     onPressOut : PropTypes.func,
 };
 
-export default BusList;
+export default FavListModule;

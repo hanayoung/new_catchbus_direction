@@ -21,8 +21,11 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
+
+  
 const Main = ({ navigation }) => {
-    return(
+
+    return (
         <Container>
             <StyledText>초기 화면</StyledText>
             <DetailText>Todo: 1. 즐겨찾기 목록이 빈 경우, 추가 버튼과 안내 문구</DetailText>
@@ -40,7 +43,7 @@ const Main = ({ navigation }) => {
             title = "아주대"
             onPress = {() => navigation.navigate('AjouList')}/>
         </Container>
-    )
+    );
 }
 
 export default Main;

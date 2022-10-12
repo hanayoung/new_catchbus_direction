@@ -2,9 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components/native';
 import { DOMParser } from 'xmldom';
 import { FlatList, StyleSheet, Text } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppLoading from 'expo-app-loading';
-import BusList from '../modules/BusList';
+import Bus from '../modules/Bus';
 
 const Container = styled.View`
 flex : 1;
@@ -20,45 +18,16 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-function SearchBus({ ID }) {
+function SearchBus({ ID, storage, setStorage }) {
   //1. screens/SearchBus의 자식, screens/SearchBus로부터 stationID 받음
 
   const [result, setResult] = useState([]); //도착정보 저장
   const [routeInfo, setRouteInfo] = useState([]); //노선정보 저장
-  const [merge, setMerge] = useState([]); //두 배열 합치기
-  const [isReady, setIsReady] = useState(false);
-  const [storage, setStorage] = useState({});
 
   const handleRouteInfo = (item) => {
     setRouteInfo(routeInfo => [...routeInfo, item]);
   }
 
-  const Merge = async () => {    //result, routeInfo 병합
-    let array = [];
-    let me = {};
-
-
-    for (var i = 0; i < result.length; i++) {
-      me = { ...result[i], ...routeInfo[i] };
-      array.push(me);
-    }
-    setMerge(array);
-  };
-
-  const _saveResults = async result => {
-    try {
-      await AsyncStorage.setItem('results', JSON.stringify(result));
-      setStorage(result);
-      console.log('Storage', storage);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const _loadResult = async () => {
-    const loadedResult = await AsyncStorage.getItem('results');
-    setStorage(JSON.parse(loadedResult));
-  };
 
   // 여기서부터 루트아이디 핸들링, 검색, Input : routeId (from busSearch), Output: 노선 번호/유형/종점정보
   const searchRouteName = async (routeId) => {
@@ -120,6 +89,8 @@ function SearchBus({ ID }) {
             tmpnode.remain2 = xmlDoc.getElementsByTagName("remainSeatCnt2")[i].textContent;
             tmpnode.staOrder = xmlDoc.getElementsByTagName("staOrder")[i].textContent;
             tmpnode.clicked = false;
+
+            
             array.push(tmpnode);
             for (var routeId in storage) {
               if (tmpnode.routeId == routeId)
@@ -147,35 +118,13 @@ function SearchBus({ ID }) {
     searchBus();
   }, []);
 
-  useEffect(() => {
-    Merge();
-  }, [routeInfo.length]);
 
-
-  return isReady ? (
-    console.log("result", result.length, "routeInfo", routeInfo.length, "merge", merge.length),
+  return (
+    console.log("result", result.length, "routeInfo", routeInfo.length),
 
     <Container>
-      <FlatList
-        keyExtractor={item => item.routeId}
-        data={merge}
-        style={[styles.flatlist]}
-        renderItem={({ item }) => (
-          <BusList
-            item={item}
-            saveResult={_saveResults}
-            storage={storage}
-          />
-        )}
-        windowSize={3}
-      />
+      <Bus result={result} routeInfo={routeInfo} storage={storage} setStorage={setStorage}/>
     </Container>
-  ) : (
-    <AppLoading
-      startAsync={_loadResult}
-      onFinish={() => setIsReady(true)}
-      onError={console.error}
-    />
   );
 }
 
