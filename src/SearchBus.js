@@ -90,12 +90,15 @@ function SearchBus({ ID, storage, setStorage }) {
             tmpnode.staOrder = xmlDoc.getElementsByTagName("staOrder")[i].textContent;
             tmpnode.clicked = false;
 
+            for (var routeId in storage) {
+              if (tmpnode.routeId == routeId){
+                console.log("routeName: ", storage[routeId].routename);
+                tmpnode.clicked = true;
+                console.log("tmpnode: ", tmpnode);
+              }
+            }
             
             array.push(tmpnode);
-            for (var routeId in storage) {
-              if (tmpnode.routeId == routeId)
-                tmpnode.clicked = true;
-            }
             i++;
             if (xmlDoc.getElementsByTagName("routeId")[i] == undefined) break;
           }

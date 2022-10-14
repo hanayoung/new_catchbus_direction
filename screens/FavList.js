@@ -2,6 +2,7 @@ import React from 'react';
 import {Button} from 'react-native';
 import styled from 'styled-components/native';
 import FavListsrc from '../src/FavListsrc';
+import {StyleSheet} from 'react-native';
 
 /*즐겨찾기*/
 /*todo: (1) 즐겨찾기에 등록된 목록 띄우기
@@ -28,17 +29,21 @@ const FavList = ({ navigation, storage, setStorage }) => {
         <Container>
             <StyledText>즐겨찾기</StyledText>
             <DetailText>Todo: 1. 즐겨찾기 목록 전부 보이기</DetailText>
-            <DetailText>2. 끌어올리면 별도의 변수로 저장, 메인페이지 띄우기</DetailText>
-            <DetailText>3. + 누르면 정류장검색으로 넘기기</DetailText>
-            <Button 
-            title = "+" 
-            onPress = {()=> navigation.navigate('SearchStation')}/>
+            <DetailText>2. 끌어올리면 별도의 변수로 저장, 메인페이지 띄우기 </DetailText>
+            <DetailText>3. 하나 골라서 오브젝트 만들기</DetailText>
             <Button
             title = "메인페이지"
             onPress = {()=> navigation.navigate('Main')}/>
-            <FavListsrc storage={storage} setStorage={setStorage}></FavListsrc>
+            <FavListsrc storage={storage} setStorage={setStorage} style={[styles.favlistsrc]}></FavListsrc>
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    favlistsrc: {
+      flex: 1,
+      width: '100%',
+    }
+  })
 
 export default FavList;

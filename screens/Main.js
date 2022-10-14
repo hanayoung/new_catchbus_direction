@@ -32,7 +32,7 @@ const Main = ({ navigation }) => {
             <DetailText>2. 즐겨찾기가 선택된 경우, 해당 버스 정보 나타내기</DetailText>
             <Button 
             title = "+" 
-            onPress = {()=> navigation.navigate('FavList')}/>
+            onPress = {()=> navigation.navigate('SearchStation')}/>
             <Button
             title = "설정"
             onPress = {()=> navigation.navigate('Settings')}/>

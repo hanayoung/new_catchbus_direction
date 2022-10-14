@@ -36,15 +36,16 @@ const BusList = ({ item, saveResult, storage}) => {
                     routetype: item.routetype,
                     region: item.region,
                     clicked: item.clicked,
+                    selected: false,
                 },
             };
             saveResult({...storage, ...newStorageObject});
         }
         else {
-            const currentResults = Object.assign({}, storage);
-            delete currentResults[item.id];
-            saveResult(currentResults);
             item.clicked = false;
+            const currentResults = Object.assign({}, storage);
+            delete currentResults[item.routeId];
+            saveResult(currentResults);
         }
     }
 

@@ -21,14 +21,17 @@ margin-bottom : 10px;
 
 function Bus({ result, routeInfo, storage, setStorage }) {
 
-  const [merge, setMerge] = useState([]); //두 배열 합치기]
+  const [merge, setMerge] = useState([]); //두 배열 합치기
 
   const Merge = async () => {    //result, routeInfo 병합
     let array = [];
     let me = {};
 
     for (var i = 0; i < result.length; i++) {
-      me = { ...result[i], ...routeInfo[i] };
+      for (var j = 0; j < result.length; j++) {
+        if (result[i].routeId == routeInfo[j].routeId)
+          me = { ...result[i], ...routeInfo[j] };
+      }
       array.push(me);
     }
     setMerge(array);
@@ -38,15 +41,13 @@ function Bus({ result, routeInfo, storage, setStorage }) {
     try {
       await AsyncStorage.setItem('results', JSON.stringify(result));
       setStorage(result);
-      console.log('Storage', storage);
     } catch (e) {
       console.error(e);
     }
   };
 
-
   useEffect(() => {
-    Merge();
+      Merge();
   }, [routeInfo.length]);
 
   return (

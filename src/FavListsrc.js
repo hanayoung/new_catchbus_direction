@@ -31,7 +31,7 @@ function FavListsrc({ storage, setStorage }) {
       </List>
     </View>
   ) : (
-<Text>즐겨찾기가 없습니다.</Text>
+<Text></Text>
   );
 
 }

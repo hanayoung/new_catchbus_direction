@@ -1,12 +1,16 @@
-import React from 'react';
-import styled from'styled-components/native';
+import React, { useState } from 'react';
+import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import IconButton from '../components/IconButton'
-import {images} from './images'
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import { images } from './images'
+import { StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // 1. src/searchStation의 자식
-
+const Container = styled.View`
+flex : 1;
+justify-content: center;
+align-items: center;
+`;
 const Content_name = styled.Text`
 flex: 1;
 font-size: 14px;
@@ -20,35 +24,37 @@ font-size: 15px;
 const styles = StyleSheet.create({
     button: {
         alignItems: "center",
+        flex: 1,
     },
 });
 
-const FavListModule = ({ item, storage, setStorage}) => {
+const FavListModule = ({ item, storage, setStorage }) => {
 
     var choice = new Object();
 
     const saveResult = async result => {
         try {
-          await AsyncStorage.setItem('results', JSON.stringify(result));
-          setStorage(result);
+            await AsyncStorage.setItem('results', JSON.stringify(result));
+            setStorage(result);
         } catch (e) {
-          console.error(e);
+            console.error(e);
         }
-      };
+    };
 
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
             const newStorageObject = {
-                [item.routeid] : {
+                [item.routeid]: {
                     routeid: item.routeId,
                     routename: item.routeName,
                     routetype: item.routetype,
                     region: item.region,
                     clicked: item.clicked,
+                    selected: item.selected,
                 },
             };
-            saveResult({...storage, ...newStorageObject});
+            saveResult({ ...storage, ...newStorageObject });
         }
         else {
             const currentResults = Object.assign({}, storage);
@@ -58,32 +64,49 @@ const FavListModule = ({ item, storage, setStorage}) => {
         }
     }
 
-    return (
-        console.log("item", item),
-        <TouchableOpacity
-        onPressOut = {() => {
+    const changeSelected = item => {
+        if (item.selected == false) {
+            for (var routeid in storage) {
+                storage[routeid].selected = false;
+            }
+            storage[item.routeid].selected = true;
             choice = item;
-        }}
-        style = {styles.button}
-        >
+        }
+        else {
+            storage[item.routeid].selected = false;
+        }
+        saveResult(storage);
+    }
+
+
+
+    return (
+        console.log("choice", item),
+        <Container>
             <Content_name>{item.routename}</Content_name>
-            <IconButton 
-            type={item.clicked ? images.clicked : images.unclicked} 
-            id={item} 
-            onPressOut={changeClicked}
-            clicked={item.clicked}
+            <IconButton
+                type={item.clicked ? images.clicked : images.unclicked}
+                id={item}
+                onPressOut={changeClicked}
+                clicked={item.clicked}
             />
-        </TouchableOpacity>
+            <IconButton
+                type={item.selected ? images.selected : images.unselected}
+                id={item}
+                onPressOut={changeSelected}
+                selected={item.selected}
+            />
+        </Container>
     );
 };
 
 FavListModule.defaultProps = {
-    onPressOut: () => {},
+    onPressOut: () => { },
 };
 
 FavListModule.propTypes = {
     item: PropTypes.object.isRequired,
-    onPressOut : PropTypes.func,
+    onPressOut: PropTypes.func,
 };
 
 export default FavListModule;
