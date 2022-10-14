@@ -28,9 +28,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const FavListModule = ({ item, storage, setStorage }) => {
+const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
 
-    var choice = new Object();
 
     const saveResult = async result => {
         try {
@@ -70,7 +69,7 @@ const FavListModule = ({ item, storage, setStorage }) => {
                 storage[routeid].selected = false;
             }
             storage[item.routeid].selected = true;
-            choice = item;
+            setChoice(item);
         }
         else {
             storage[item.routeid].selected = false;
@@ -81,7 +80,7 @@ const FavListModule = ({ item, storage, setStorage }) => {
 
 
     return (
-        console.log("choice", item),
+        console.log("choice", choice),
         <Container>
             <Content_name>{item.routename}</Content_name>
             <IconButton

@@ -19,6 +19,7 @@ const StackNavigation = () => {
     const [isReady, setIsReady] = useState(false);
     const [storage, setStorage] = useState([]);
     const [item, setItem] = useState([]);
+    const [choice, setChoice] = useState({});
 
     const _loadResult = async () => {
         const loadedResult = await AsyncStorage.getItem('results');
@@ -31,7 +32,7 @@ const StackNavigation = () => {
                 {({ navigation }) => <Main navigation={navigation} />}
             </Stack.Screen>
             <Stack.Screen name="FavList">
-                {({ navigation }) => <FavList navigation={navigation} storage={storage}  setStorage={setStorage}/>}
+                {({ navigation }) => <FavList navigation={navigation} storage={storage}  setStorage={setStorage} choice={choice} setChoice={setChoice}/>}
             </Stack.Screen>
             <Stack.Screen name="SearchStation">
                 {({ navigation }) => <SearchStation navigation={navigation} item={item} setItem={setItem} />}

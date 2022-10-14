@@ -11,7 +11,7 @@ flex: 1;
 width: ${({ width }) => width - 40}px;
 `;
 
-function FavListsrc({ storage, setStorage }) {
+function FavListsrc({ storage, setStorage, choice, setChoice }) {
   //함수형 컴포넌트 const -> useEffect로 해결
   const width = Dimensions.get('window').width;
 
@@ -26,6 +26,8 @@ function FavListsrc({ storage, setStorage }) {
               item={item}
               storage={storage}
               setStorage={setStorage}
+              choice={choice}
+              setChoice={setChoice}
             />
           ))}
       </List>

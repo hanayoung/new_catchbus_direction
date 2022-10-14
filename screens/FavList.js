@@ -24,7 +24,7 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const FavList = ({ navigation, storage, setStorage }) => {
+const FavList = ({ navigation, storage, setStorage, choice, setChoice }) => {
     return(
         <Container>
             <StyledText>즐겨찾기</StyledText>
@@ -34,7 +34,7 @@ const FavList = ({ navigation, storage, setStorage }) => {
             <Button
             title = "메인페이지"
             onPress = {()=> navigation.navigate('Main')}/>
-            <FavListsrc storage={storage} setStorage={setStorage} style={[styles.favlistsrc]}></FavListsrc>
+            <FavListsrc storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} style={[styles.favlistsrc]}></FavListsrc>
         </Container>
     )
 }
