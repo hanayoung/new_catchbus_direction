@@ -38,35 +38,35 @@ const FavListModule = ({ item, storage, setStorage}) => {
 
     const changeClicked = item => {
         if (item.clicked == false) {
+            item.clicked = true;
             const newStorageObject = {
-                [item.id] : {
+                [item.routeid] : {
                     routeid: item.routeId,
                     routename: item.routeName,
                     routetype: item.routetype,
                     region: item.region,
+                    clicked: item.clicked,
                 },
             };
             saveResult({...storage, ...newStorageObject});
-            item.clicked = true;
         }
         else {
             const currentResults = Object.assign({}, storage);
-            delete currentResults[item.id];
+            delete currentResults[item.routeid];
             saveResult(currentResults);
             item.clicked = false;
         }
     }
 
     return (
-        console.log("hi"),
+        console.log("item", item),
         <TouchableOpacity
         onPressOut = {() => {
             choice = item;
         }}
         style = {styles.button}
         >
-            <Content_name>{item.routeName}</Content_name>
-            <Content_locate>{item.routeType}</Content_locate>
+            <Content_name>{item.routename}</Content_name>
             <IconButton 
             type={item.clicked ? images.clicked : images.unclicked} 
             id={item} 

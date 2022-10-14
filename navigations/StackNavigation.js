@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 
 const StackNavigation = () => {
     const [isReady, setIsReady] = useState(false);
-    const [storage, setStorage] = useState({});
+    const [storage, setStorage] = useState([]);
     const [item, setItem] = useState([]);
 
     const _loadResult = async () => {

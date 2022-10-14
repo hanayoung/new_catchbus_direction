@@ -28,16 +28,17 @@ const BusList = ({ item, saveResult, storage}) => {
 
     const changeClicked = item => {
         if (item.clicked == false) {
+            item.clicked = true;
             const newStorageObject = {
                 [item.routeId] : {
                     routeid: item.routeId,
                     routename: item.routeName,
                     routetype: item.routetype,
                     region: item.region,
+                    clicked: item.clicked,
                 },
             };
             saveResult({...storage, ...newStorageObject});
-            item.clicked = true;
         }
         else {
             const currentResults = Object.assign({}, storage);
