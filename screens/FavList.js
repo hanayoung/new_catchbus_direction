@@ -27,10 +27,6 @@ margin-bottom : 10px;
 const FavList = ({ navigation, storage, setStorage, choice, setChoice }) => {
     return(
         <Container>
-            <StyledText>즐겨찾기</StyledText>
-            <DetailText>Todo: 1. 즐겨찾기 목록 전부 보이기</DetailText>
-            <DetailText>2. 끌어올리면 별도의 변수로 저장, 메인페이지 띄우기 </DetailText>
-            <DetailText>3. 하나 골라서 오브젝트 만들기</DetailText>
             <Button
             title = "메인페이지"
             onPress = {()=> navigation.navigate('Main')}/>
