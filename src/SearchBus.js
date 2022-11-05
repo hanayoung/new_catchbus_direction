@@ -80,6 +80,7 @@ function SearchBus({ ID, storage, setStorage }) {
           while (1) {
             var tmpnode = new Object();
             tmpnode.routeId = xmlDoc.getElementsByTagName("routeId")[i].textContent;
+            console.log("routeId: ", tmpnode.routeId);
             searchRouteName(tmpnode.routeId);
             tmpnode.predict1 = xmlDoc.getElementsByTagName("predictTime1")[i].textContent;
             tmpnode.loc1 = xmlDoc.getElementsByTagName("locationNo1")[i].textContent;

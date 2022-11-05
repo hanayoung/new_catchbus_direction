@@ -22,6 +22,8 @@ const url = 'http://apis.data.go.kr/6410000/busstationservice/getBusStationList'
 
 
 npm install react-native-gesture-handler
+npm install react-native-select-dropdown
+npm install --save react-native-vector-icons
 
 구글 아이콘
 https://fonts.google.com/icons?selected=Material+Icons

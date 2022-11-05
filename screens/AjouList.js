@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from 'react-native';
 import styled from 'styled-components/native';
-
+import AjouBusList from '../src/AjouBusList';
 /*아주대 노선 보여주기*/
 
 const Container = styled.View`
@@ -14,14 +14,15 @@ font-size : 30px;
 margin-bottom: 10px;
 `
 const DetailText = styled.Text`
-font-size : 15px;
-margin-bottom : 10px;
+font-size : 20px;
+margin-top : 10px;
+margin-bottom : 20px;
 `;
 
 const AjouList = ({ navigation }) => {
     return(
         <Container>
-            <StyledText>아주대 노선</StyledText>
+            <AjouBusList/>
         </Container>
     )
 }
