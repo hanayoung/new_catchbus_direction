@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button} from 'react-native';
 import styled from 'styled-components/native';
+import BusRouteList from '../src/BusRouteList';
 
 /*버스 노선 보이기
 /*todo: (1) 버스유형, 지역, 차고지 받아와서 보여주기
@@ -27,10 +28,7 @@ margin-bottom : 10px;
 const SearchBus = ({ navigation }) => {
     return(
         <Container>
-            <StyledText>버스 노선</StyledText>
-            <DetailText>Todo: 1. 버스유형, 지역 차고지 보여주기</DetailText>
-            <DetailText>2. 해당 버스 노선의 정류장과 버스현황 보여주기</DetailText>
-            <DetailText>3. 간선/지선 분류해서 보이기</DetailText>
+        <BusRouteList/>
         </Container>
     )
 }

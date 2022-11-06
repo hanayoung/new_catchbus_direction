@@ -42,6 +42,9 @@ const Main = ({ navigation }) => {
             <Button
             title = "아주대"
             onPress = {() => navigation.navigate('AjouList')}/>
+            <Button
+            title = "버스 노선"
+            onPress = {() => navigation.navigate('BusRoute')}/>
         </Container>
     );
 }
