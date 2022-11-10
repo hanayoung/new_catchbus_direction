@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Button} from 'react-native';
 import styled from 'styled-components/native';
 import SearchStationsrc from '../src/SearchStation';
+import SearchBus from './SearchBus';
 
 /*정류소 검색*/
 /*todo: (1) 검색창 보이고 입력되게 하기
@@ -24,7 +25,7 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const SearchStation = ({ navigation, item, setItem }) => {
+const SearchStation = ({ navigation, item, setItem, storage, setStorage, }) => {
 
     const stationToBus = (item) => {
         console.log("before bus search", item);

@@ -1,9 +1,11 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import StackNavigation from './navigations/StackNavigation';
 
+
 const App = () => {
-    return(
+
+    return (
         <NavigationContainer>
             <StackNavigation/>
         </NavigationContainer>

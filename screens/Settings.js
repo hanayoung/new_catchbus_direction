@@ -25,10 +25,10 @@ const Settings = ({ navigation }) => {
             <StyledText>설정</StyledText>
             <Button 
             title = "기록" 
-            onPress = {()=> navigation.navigate('History')}/>
+            onPress = {<History/>}/>
             <Button
             title = "타이머"
-            onPress = {()=> navigation.navigate('Timer')}/>
+            onPress = {<Timer/>}/>
             <Button
             title = "즐겨찾기"
             onPress = {()=> navigation.navigate('FavList')}/>

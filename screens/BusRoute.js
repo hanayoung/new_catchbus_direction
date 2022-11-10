@@ -25,7 +25,7 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const SearchBus = ({ navigation }) => {
+const BusRoute = ({ navigation }) => {
     return(
         <Container>
         <BusRouteList/>
@@ -33,4 +33,4 @@ const SearchBus = ({ navigation }) => {
     )
 }
 
-export default SearchBus;
+export default BusRoute;
