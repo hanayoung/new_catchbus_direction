@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import StationContext, { StationConsumer } from '../src/context/Station';
 import styled from'styled-components/native';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
+
 // 1. src/searchStation의 자식
 
 const Content_name = styled.Text`
@@ -29,10 +31,14 @@ const StationList = ({ item, goBus}) => {
 
     var choice = new Object();
 
+    const [station, setStation] = useState([]);
+    const { dispatch } = useContext(StationContext);
+
     return (
         <TouchableOpacity
         onPressOut = {() => {
-            console.log("item clicked", item.id, item.name);
+            setStation(item)
+            dispatch(item);
             goBus(item);
         }}
         style = {styles.button}

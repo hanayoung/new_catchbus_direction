@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useContext } from 'react'
 import styled from 'styled-components/native';
 import { DOMParser } from 'xmldom';
 import { FlatList, StyleSheet, Text } from 'react-native';
 import Bus from '../modules/Bus';
+import StationContext, { StationConsumer } from './context/Station';
 
 const Container = styled.View`
 flex : 1;
@@ -24,6 +25,10 @@ function SearchBus({ ID, storage, setStorage }) {
   const [result, setResult] = useState([]); //도착정보 저장
   const [routeInfo, setRouteInfo] = useState([]); //노선정보 저장
 
+  const { station } = useContext(StationContext);
+
+  console.log("from context", station.id);
+
   const handleRouteInfo = (item) => {
     setRouteInfo(routeInfo => [...routeInfo, item]);
   }
@@ -35,7 +40,7 @@ function SearchBus({ ID, storage, setStorage }) {
       var xhr = new XMLHttpRequest();
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busrouteservice/getBusRouteInfoItem';
-      var queryParams = `${url}?serviceKey=${API_KEY}&routeId=${routeId}`;
+      var queryParams = `${url}?serviceKey=${API_KEY}&routeId=`+ encodeURIComponent(routeId);
       xhr.open('GET', queryParams);
       xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -69,7 +74,7 @@ function SearchBus({ ID, storage, setStorage }) {
       var xhr = new XMLHttpRequest();
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList'; /*URL*/
-      var queryParams = `${url}?serviceKey=${API_KEY}&stationId=${ID}`;
+      var queryParams = `${url}?serviceKey=${API_KEY}&stationId=`+ encodeURIComponent(station.id);
       xhr.open('GET', queryParams);
       xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
