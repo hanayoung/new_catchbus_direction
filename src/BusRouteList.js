@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,20 +7,22 @@ import {
 } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
 import { DOMParser } from 'xmldom';
+import BusContext, { BusConsumer } from './context/Bus';
 
 const BusRouteList = () => {
   const [data, setData] = useState([]);
   const [location, setLocation] = useState([]);
-  const routeId = '200000196';
+
+  const { bus } = useContext(BusContext);
 
   const searchStation = async () => {
-    console.log("working");
-    console.log("location: ", location);
+    //console.log("working");
+    //console.log("location: ", location);
     try {
       var xhr = new XMLHttpRequest();
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busrouteservice/getBusRouteStationList'; /*URL*/
-      var queryParams = `${url}?serviceKey=${API_KEY}&routeId=` +  encodeURIComponent(station);
+      var queryParams = `${url}?serviceKey=${API_KEY}&routeId=${bus.routeId}`;
       xhr.open('GET', queryParams);
       xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -57,12 +59,12 @@ const BusRouteList = () => {
   };
 
   const locationList = async () => {
-    console.log("working");
+    //console.log("working");
     try {
       var xhr = new XMLHttpRequest();
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/buslocationservice/getBusLocationList'; /*URL*/
-      var queryParams = `${url}?serviceKey=${API_KEY}&routeId=`+ encodeURIComponent(routeId);
+      var queryParams = `${url}?serviceKey=${API_KEY}&routeId=${bus.routeId}`;
       xhr.open('GET', queryParams);
       xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -99,7 +101,7 @@ const BusRouteList = () => {
   }, [location]);
 
   return (
-    console.log(data),
+    //console.log(data),
     <View style={styles.container}>
       <Timeline
         style={styles.list}

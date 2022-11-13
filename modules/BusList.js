@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from'styled-components/native';
 import PropTypes from 'prop-types';
 import IconButton from '../components/IconButton'
 import {images} from '../modules/images'
 import {TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
+import BusContext, { BusConsumer } from '../src/context/Bus';
 // 1. src/searchStation의 자식
 const Container = styled.View`
 flex : 1;
@@ -38,6 +39,9 @@ const BusList = ({ item, saveResult, storage}) => {
 
     var choice = new Object();
 
+    const [bus, setBus] = useState([]);
+    const { dispatch } = useContext(BusContext);
+
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
@@ -65,6 +69,9 @@ const BusList = ({ item, saveResult, storage}) => {
         <TouchableOpacity
         onPressOut = {() => {
             choice = item;
+            console.log("see what is in ", item);
+            setBus(item)
+            dispatch(item);
         }}
         style = {styles.button}
         >
