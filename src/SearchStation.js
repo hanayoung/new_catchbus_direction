@@ -15,8 +15,8 @@ function SearchStation({stationToBus})
   const [initialRegion, setinitialRegion] = useState();
   //함수형 컴포넌트 const -> useEffect로 해결
  
-  const goBus = (item) => {
-    stationToBus(item);
+  const goBus = () => {
+    stationToBus();
   }
 
   const ask = async () => {

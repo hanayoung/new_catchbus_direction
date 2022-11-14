@@ -39,7 +39,7 @@ const StationList = ({ item, goBus}) => {
         onPressOut = {() => {
             setStation(item)
             dispatch(item);
-            goBus(item);
+            goBus();
         }}
         style = {styles.button}
         >
