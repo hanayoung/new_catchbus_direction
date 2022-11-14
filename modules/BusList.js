@@ -42,6 +42,7 @@ const BusList = ({ item, saveResult, storage}) => {
     const [bus, setBus] = useState([]);
     const { dispatch } = useContext(BusContext);
 
+
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
@@ -78,7 +79,8 @@ const BusList = ({ item, saveResult, storage}) => {
             <Container>
             <Content_name>{item.routeName}</Content_name>
             <Content_locate>{item.predict1}분 후 도착  {item.predict2} 분 후 도착</Content_locate>
-            <Content_locate>{item.routeType}</Content_locate>
+            <Content_locate>{item.stationDirection} 방면</Content_locate>
+            <Content_locate>{item.predict} 분 후 회차지 도착</Content_locate>
             </Container>
             <IconButton 
             type={item.clicked ? images.clicked : images.unclicked} 

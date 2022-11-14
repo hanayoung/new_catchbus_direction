@@ -19,23 +19,7 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-function Bus({ result, routeInfo, storage, setStorage }) {
-
-  const [merge, setMerge] = useState([]); //두 배열 합치기
-
-  const Merge = async () => {    //result, routeInfo 병합
-    let array = [];
-    let me = {};
-
-    for (var i = 0; i < result.length; i++) {
-      for (var j = 0; j < result.length; j++) {
-        if (result[i].routeId == routeInfo[j].routeId)
-          me = { ...result[i], ...routeInfo[j] };
-      }
-      array.push(me);
-    }
-    setMerge(array);
-  };
+function Bus({ merge, storage, setStorage }) {
 
   const _saveResults = async result => {
     try {
@@ -45,10 +29,6 @@ function Bus({ result, routeInfo, storage, setStorage }) {
       console.error(e);
     }
   };
-
-  useEffect(() => {
-      Merge();
-  }, [routeInfo.length]);
 
   return (
     console.log("merge", merge.length),

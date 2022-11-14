@@ -15,10 +15,11 @@ const BusRouteList = () => {
 
   const { bus } = useContext(BusContext);
 
+  console.log("bus routeId",bus.routeId);
   const searchStation = async () => {
     //console.log("working");
     //console.log("location: ", location);
-    try {
+    try { 
       var xhr = new XMLHttpRequest();
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busrouteservice/getBusRouteStationList'; /*URL*/
@@ -40,7 +41,6 @@ const BusRouteList = () => {
               tmpnode.icon = require('../assets/icons/bus2x.png');
               }
             })
-
             array.push(tmpnode);
             i++;
             if (xmlDoc.getElementsByTagName("stationId")[i] == undefined) break;
@@ -53,9 +53,9 @@ const BusRouteList = () => {
     catch (err) {
       alert(err);
     }
-    if (result.length == 0) {
-      console.log("result is empty");
-    }
+    // if (result.length == 0) {
+    //   console.log("result is empty");
+    // }
   };
 
   const locationList = async () => {
@@ -87,18 +87,15 @@ const BusRouteList = () => {
     catch (err) {
       alert(err);
     }
-    if (result.length == 0) {
-      console.log("result is empty");
-    }
+    // if (result.length == 0) {
+    //   console.log("result is empty");
+    // }
   };
 
   useEffect(() => {
-    locationList();
-  }, []);
-
-  useEffect(() => {
     searchStation();
-  }, [location]);
+    locationList();
+  }, [bus]);
 
   return (
     //console.log(data),

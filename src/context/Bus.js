@@ -7,7 +7,7 @@ const BusContext = createContext({
 
 const BusProvider = ({ children }) => {
   const [bus, setBus] = useState([]);
-  //console.log("providers", bus.id);
+  console.log("providers", bus.routeId);
   //console.log("in?", bus.name);
 
   const value = { bus , dispatch: setBus };
