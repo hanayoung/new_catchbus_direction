@@ -5,6 +5,7 @@ import SearchStation from '../screens/SearchStation';
 import SearchBus from '../screens/SearchBus';
 import BusRoute from '../screens/BusRoute';
 import AjouList from '../screens/AjouList';
+import BusList from '../modules/BusList';
 import History from '../screens/History';
 
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -27,6 +28,8 @@ const SearchStack = ({ navigation, item, setItem, storage, setStorage }) => {
             <Stack.Screen name="SearchBus">
                 {({ navigation }) => <SearchBus storage={storage} setStorage={setStorage} navigation={navigation} item={item} />}
             </Stack.Screen>
+            <Stack.Screen name = "BusList" component = {BusList}/>
+            <Stack.Screen name = "BusRoute" component = {BusRoute}/>
         </Stack.Navigator>
     )
 }
