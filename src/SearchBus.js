@@ -21,10 +21,8 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-function SearchBus({navigation, storage,setStorage}) {
-  const goRoute = (item) => {
-    navigation.navigate('BusRoute');
-  }
+function SearchBus({storage,setStorage}) {
+
   //1. screens/SearchBus의 자식, screens/SearchBus로부터 stationID 받음
   function useInterval(callback, delay) {
     
@@ -50,7 +48,7 @@ const [routeInfo, setRouteInfo] = useState([]); //노선정보 저장
 const [merge, setMerge] = useState([]); //두 배열 합치기
 const [isReady, setIsReady] = useState(false);
 const [isRunning, setIsRunning] = useState(false);
-const [delay, setDelay] = useState(30000);
+const [delay, setDelay] = useState(1000);
 const [routearray, setRouteArray] = useState([]);
 const [ok, setOk] = useState(false);
 const [endStation, setEndStation]=useState([]);
@@ -288,7 +286,7 @@ const [endStation, setEndStation]=useState([]);
     console.log("result", result.length, "routeInfo", routeInfo.length),
 
     <Container>
-      <Bus merge={merge} storage={storage} setStorage={setStorage} goRoute={goRoute}/>
+      <Bus merge={merge} storage={storage} setStorage={setStorage}/>
     </Container>
   );
 }

@@ -31,7 +31,7 @@ const SearchBus = ({ route, navigation, storage, setStorage}) => {
 
     return(
         <Container>
-            <SearchBussrc navigation={navigation} storage={storage} setStorage={setStorage}/>
+            <SearchBussrc storage={storage} setStorage={setStorage}/>
         </Container>
     )
 }
