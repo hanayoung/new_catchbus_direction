@@ -25,17 +25,11 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const SearchStation = ({ navigation, item, setItem, storage, setStorage, }) => {
-
-    const stationToBus = (item) => {
-        console.log("before bus search", item);
-        setItem(item);
-        navigation.navigate('SearchBus');
-      }
+const SearchStation = ({ navigation, storage, setStorage, }) => {
 
     return(
         <Container>
-            <SearchStationsrc stationToBus = {stationToBus}/>
+            <SearchStationsrc navigation={navigation}/>
         </Container>
     )
 }

@@ -5,7 +5,11 @@ import SearchStation from '../screens/SearchStation';
 import SearchBus from '../screens/SearchBus';
 import BusRoute from '../screens/BusRoute';
 import AjouList from '../screens/AjouList';
+import BusList from '../modules/BusList';
 import History from '../screens/History';
+import TrainMain from '../screens/TrainMain';
+import TrainOption from '../screens/TrainOption';
+import Main from '../screens/Main';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import FontIcon from 'react-native-vector-icons/FontAwesome5';
@@ -18,15 +22,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const SearchStack = ({ navigation, item, setItem, storage, setStorage }) => {
+const SearchStack = ({ navigation, storage, setStorage }) => {
     return (
         <Stack.Navigator initialRouteName="SearchStation" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="SearchStation">
-                {({ navigation }) => <SearchStation navigation={navigation} item={item} setItem={setItem} storage={storage} setStorage={setStorage} />}
+                {({ navigation }) => <SearchStation navigation={navigation} storage={storage} setStorage={setStorage} />}
             </Stack.Screen>
             <Stack.Screen name="SearchBus">
-                {({ navigation }) => <SearchBus storage={storage} setStorage={setStorage} navigation={navigation} item={item} />}
+                {({ navigation }) => <SearchBus storage={storage} setStorage={setStorage} navigation={navigation} />}
             </Stack.Screen>
+            <Stack.Screen name = "BusList" component = {BusList}/>
+            <Stack.Screen name = "BusRoute" component = {BusRoute}/>
         </Stack.Navigator>
     )
 }
@@ -39,6 +45,14 @@ const SettingStack = ({ navigation }) => {
     )
 }
 
+const TrainStack = ({ navigation }) => {
+  return (
+      <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="TrainMain" component={TrainMain} />
+          <Stack.Screen name="TrainOption" component={TrainOption} />
+      </Stack.Navigator>
+  )
+}
 
 const TabNavigation = () => {
     const [isReady, setIsReady] = useState(false);
@@ -67,11 +81,17 @@ const TabNavigation = () => {
               } else if (route.name === 'BusRoute'){
                 iconName = 'route';
                 return <FontIcon name={iconName} size={size}  color={color}/>;
-              } else if (route.name === 'AjouList'){
+              } else if (route.name === 'AjouBusList'){
                 iconName = 'bus';
                 return <FontIcon name={iconName} size={size}  color={color}/>;
               } else if (route.name === 'Settings'){
                 iconName = focused ? 'settings' : 'settings-outline';
+                return <Ionicons name={iconName} size={size}  color={color}/>;
+              } else if (route.name === 'Train'){
+                iconName = focused ? 'train-sharp' : 'train-outline';
+                return <Ionicons name={iconName} size={size}  color={color}/>;
+              } else if (route.name === 'Main'){
+                iconName = focused ? 'alarm-sharp' : 'alarm-outline';
                 return <Ionicons name={iconName} size={size}  color={color}/>;
               }
   
@@ -84,13 +104,16 @@ const TabNavigation = () => {
             inactiveTintColor: 'gray',
           }}>
             <Tab.Screen name="Search">
-                {({ navigation }) => <SearchStack navigation={navigation} item={item} setItem={setItem} storage={storage} setStorage={setStorage} />}
+                {({ navigation }) => <SearchStack navigation={navigation} storage={storage} setStorage={setStorage} />}
             </Tab.Screen>
             <Tab.Screen name="FavList">
                 {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} />}
             </Tab.Screen>
-            <Tab.Screen name="BusRoute" component={BusRoute} />
-            <Tab.Screen name="AjouList" component={AjouList} />
+            <Tab.Screen name="Main" component={Main} />
+            <Tab.Screen name="AjouBusList" component={AjouList} />
+            <Tab.Screen name="Train">
+                {({ navigation }) => <TrainStack/>}
+            </Tab.Screen>
             <Tab.Screen name="Settings" component={SettingStack} />
         </Tab.Navigator>
     ) : (

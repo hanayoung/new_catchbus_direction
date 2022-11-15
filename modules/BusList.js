@@ -5,6 +5,8 @@ import IconButton from '../components/IconButton'
 import {images} from '../modules/images'
 import {TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 import BusContext, { BusConsumer } from '../src/context/Bus';
+import { useNavigation } from '@react-navigation/native';
+
 // 1. src/searchStation의 자식
 const Container = styled.View`
 flex : 1;
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
 
 const BusList = ({ item, saveResult, storage}) => {
 
+    const navigation = useNavigation();
     var choice = new Object();
 
     const [bus, setBus] = useState([]);
@@ -73,6 +76,7 @@ const BusList = ({ item, saveResult, storage}) => {
             console.log("see what is in ", item);
             setBus(item)
             dispatch(item);
+            navigation.navigate('BusRoute')
         }}
         style = {styles.button}
         >

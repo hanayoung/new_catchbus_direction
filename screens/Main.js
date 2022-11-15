@@ -24,22 +24,13 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
   
-const Main = ({ item, setItem }) => {
+const Main = ({navigation}) => {
 
     return (
         <Container>
             <StyledText>초기 화면</StyledText>
             <DetailText>Todo: 1. 즐겨찾기 목록이 빈 경우, 추가 버튼과 안내 문구</DetailText>
             <DetailText>2. 즐겨찾기가 선택된 경우, 해당 버스 정보 나타내기</DetailText>
-            <Button 
-            title = "+" 
-            onPress = {()=> <SearchStation item={item} setItem={setItem}/>}/>
-            <Button
-            title = "설정"
-            onPress = {()=> <Settings/>}/>
-            <Button
-            title = "버스 노선"
-            onPress = {() => <BusRoute/>}/>
         </Container>
     );
 }

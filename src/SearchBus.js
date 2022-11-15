@@ -76,9 +76,9 @@ const [endStation, setEndStation]=useState([]);
   const searchRouteName = async (routeId) => {
     try {
       findTurnYn(routeId);
+      const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busrouteservice/getBusRouteInfoItem'; 
-      var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
-      queryParams += '&' + encodeURIComponent('routeId') + '=' + encodeURIComponent(routeId); // xhr.open('GET', url + queryParams);    
+      var queryParams = `?serviceKey=${API_KEY}&routeId=${routeId}`;// xhr.open('GET', url + queryParams);    
       var data = await axios.get(url+queryParams);
       let xmlParser = new DOMParser();
       let xmlDoc = xmlParser.parseFromString(data.data, "text/xml");
@@ -108,9 +108,9 @@ const [endStation, setEndStation]=useState([]);
       console.log("before ");
       setIsRunning(true);
       console.log("in");
+      const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList'; 
-      var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
-      queryParams += '&' + encodeURIComponent('stationId') + '=' + encodeURIComponent(station.id); // xhr.open('GET', url + queryParams); 
+      var queryParams = `?serviceKey=${API_KEY}&stationId=${station.id}`; // xhr.open('GET', url + queryParams); 
       var getData = await axios.get(url+queryParams);
     //  console.log("getData",getData);
       let xmlParser = new DOMParser();
@@ -154,9 +154,9 @@ const [endStation, setEndStation]=useState([]);
   };
   const findTurnYn=async(routeId)=>{
     try {
+      const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busrouteservice/getBusRouteStationList'; 
-      var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
-      queryParams += '&' + encodeURIComponent('routeId') + '=' + encodeURIComponent(routeId); // xhr.open('GET', url + queryParams);    
+      var queryParams = `?serviceKey=${API_KEY}&routeId=${routeId}`; // xhr.open('GET', url + queryParams);    
       var data = await axios.get(url+queryParams);
       let xmlParser = new DOMParser();
       let xmlDoc = xmlParser.parseFromString(data.data, "text/xml");
