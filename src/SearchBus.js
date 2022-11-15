@@ -48,7 +48,7 @@ const [routeInfo, setRouteInfo] = useState([]); //노선정보 저장
 const [merge, setMerge] = useState([]); //두 배열 합치기
 const [isReady, setIsReady] = useState(false);
 const [isRunning, setIsRunning] = useState(false);
-const [delay, setDelay] = useState(30000);
+const [delay, setDelay] = useState(150000);
 const [routearray, setRouteArray] = useState([]);
 const [ok, setOk] = useState(false);
 const [endStation, setEndStation]=useState([]);
@@ -56,7 +56,7 @@ const [endStation, setEndStation]=useState([]);
 
   const { station } = useContext(StationContext);
 
-  console.log("from context", station.id);
+ // console.log("from context", station.id);
 
   const handleRouteInfo = (item) => {
     setRouteInfo(routeInfo => [...routeInfo, item]);
@@ -112,7 +112,7 @@ const [endStation, setEndStation]=useState([]);
       var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       queryParams += '&' + encodeURIComponent('stationId') + '=' + encodeURIComponent(station.id); // xhr.open('GET', url + queryParams); 
       var getData = await axios.get(url+queryParams);
-      console.log("getData",getData);
+    //  console.log("getData",getData);
       let xmlParser = new DOMParser();
       let xmlDoc = xmlParser.parseFromString(getData.data, "text/xml");    
       let i = 0;
@@ -271,7 +271,7 @@ const [endStation, setEndStation]=useState([]);
   useInterval(() => {
     console.log("call searchBus",isRunning, new Date());
     searchBus();
-  }, isRunning ? delay : 1);
+  }, isRunning ? delay : 0);
  useEffect(()=>{
    console.log("call handleRouteArray ",new Date());
    handleRouteArray();
@@ -280,7 +280,7 @@ const [endStation, setEndStation]=useState([]);
  useEffect(()=>{
    console.log("call merge by result", new Date());
    Merge();
- },[result])
+ },[result,routeInfo,endStation])
 
   return (
     console.log("result", result.length, "routeInfo", routeInfo.length),
