@@ -8,6 +8,17 @@ import {
 import Timeline from 'react-native-timeline-flatlist';
 import { DOMParser } from 'xmldom';
 import BusContext, { BusConsumer } from './context/Bus';
+import styled from 'styled-components/native';
+
+const Container = styled.View`
+flex : 1;
+justify-content: center;
+align-items: center;
+`;
+const StyledText = styled.Text`
+font-size : 30px;
+margin-bottom: 10px;
+`;
 
 const BusRouteList = () => {
   const [data, setData] = useState([]);
@@ -99,6 +110,8 @@ const BusRouteList = () => {
 
   return (
     //console.log(data),
+    <Container>
+    <StyledText>{bus.routeName}</StyledText>
     <View style={styles.container}>
       <Timeline
         style={styles.list}
@@ -108,6 +121,7 @@ const BusRouteList = () => {
         circleColor={'pink'}
       />
     </View>
+    </Container>
   );
 }
 

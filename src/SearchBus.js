@@ -52,7 +52,7 @@ const [delay, setDelay] = useState(150000);
 const [routearray, setRouteArray] = useState([]);
 const [ok, setOk] = useState(false);
 const [endStation, setEndStation]=useState([]);
-  
+const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운행, 4: 운행 종료
 
   const { station } = useContext(StationContext);
 
@@ -114,7 +114,12 @@ const [endStation, setEndStation]=useState([]);
       var getData = await axios.get(url+queryParams);
     //  console.log("getData",getData);
       let xmlParser = new DOMParser();
-      let xmlDoc = xmlParser.parseFromString(getData.data, "text/xml");    
+      let xmlDoc = xmlParser.parseFromString(getData.data, "text/xml");  
+
+      if(xmlDoc.getElementsByTagName("resultCode")[0].childNodes[0].nodeValue== 4){
+        console.log("버스 집갔음");
+        setResultCode(4);
+      }
       let i = 0;
       let array = [];
       let routearray = [];
@@ -286,6 +291,7 @@ const [endStation, setEndStation]=useState([]);
     console.log("result", result.length, "routeInfo", routeInfo.length),
 
     <Container>
+    <DetailText>{(()=> {if (resultCode === 4) return "운행 종료되었습니다"})()}</DetailText>
       <Bus merge={merge} storage={storage} setStorage={setStorage}/>
     </Container>
   );
