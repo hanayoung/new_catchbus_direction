@@ -19,7 +19,7 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-function Bus({ merge, storage, setStorage }) {
+function Bus({ merge, storage, setStorage, goRoute }) {
 
   const _saveResults = async result => {
     try {
@@ -42,6 +42,7 @@ function Bus({ merge, storage, setStorage }) {
             item={item}
             saveResult={_saveResults}
             storage={storage}
+            goRoute={goRoute}
           />
         )}
         windowSize={3}

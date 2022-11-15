@@ -10,7 +10,7 @@ import {FontAwesome} from '@expo/vector-icons';
 
 // 2. screens/SearchStation의 자식
 
-function SearchStation({stationToBus})
+function SearchStation({navigation})
  {
   const [station, setStation] = useState('');
   const [result, setResult] = useState([]);
@@ -20,7 +20,7 @@ function SearchStation({stationToBus})
   //함수형 컴포넌트 const -> useEffect로 해결
  
   const goBus = (item) => {
-    stationToBus(item);
+    navigation.navigate('SearchBus');
   }
   const handleResult=(arr)=>{
     arr.sort(function(a,b){
@@ -55,9 +55,10 @@ const setRegion=(x,y)=>{
   }
   const searchStation = async () => {
     try {
+      const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busstationservice/getBusStationList'; 
-      var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D'; 
-      queryParams += '&' + encodeURIComponent('keyword') + '=' + encodeURIComponent(station); /**/ 
+      var queryParams = `?serviceKey=${API_KEY}&keyword=${station}`; /**/ 
+      console.log("station");
       var result = await axios.get(url+queryParams);
       let xmlParser = new DOMParser();
       let xmlDoc = xmlParser.parseFromString(result.data, "text/xml");

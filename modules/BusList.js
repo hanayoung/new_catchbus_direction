@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 });
 
 
-const BusList = ({ item, saveResult, storage}) => {
+const BusList = ({ item, saveResult, storage, goRoute}) => {
 
     var choice = new Object();
 
@@ -73,6 +73,7 @@ const BusList = ({ item, saveResult, storage}) => {
             console.log("see what is in ", item);
             setBus(item)
             dispatch(item);
+            goRoute(item);
         }}
         style = {styles.button}
         >
