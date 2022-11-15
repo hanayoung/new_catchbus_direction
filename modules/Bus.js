@@ -31,7 +31,7 @@ function Bus({ merge, storage, setStorage }) {
   };
 
   return (
-    console.log("merge", merge.length),
+    //console.log("merge", merge.length),
     <Container>
       <FlatList
         keyExtractor={item => item.routeId}

@@ -7,8 +7,8 @@ const StationContext = createContext({
 
 const StationProvider = ({ children }) => {
   const [station, setStation] = useState([]);
-  console.log("providers", station.id);
-  console.log("in?", station.name);
+ // console.log("providers", station.id);
+ // console.log("in?", station.name);
 
   const value = { station , dispatch: setStation };
   return <StationContext.Provider value={value}>{children}</StationContext.Provider>;

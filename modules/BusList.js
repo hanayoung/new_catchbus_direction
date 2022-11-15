@@ -73,7 +73,7 @@ const BusList = ({ item, saveResult, storage}) => {
         <TouchableOpacity
         onPressOut = {() => {
             choice = item;
-            console.log("see what is in ", item);
+          //  console.log("see what is in ", item);
             setBus(item)
             dispatch(item);
             navigation.navigate('BusRoute')

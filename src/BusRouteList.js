@@ -9,6 +9,7 @@ import Timeline from 'react-native-timeline-flatlist';
 import { DOMParser } from 'xmldom';
 import BusContext, { BusConsumer } from './context/Bus';
 import styled from 'styled-components/native';
+import axios from 'axios';
 
 const Container = styled.View`
 flex : 1;
@@ -26,20 +27,17 @@ const BusRouteList = () => {
 
   const { bus } = useContext(BusContext);
 
-  console.log("bus routeId",bus.routeId);
+ // console.log("bus routeId",bus.routeId);
   const searchStation = async () => {
     //console.log("working");
     //console.log("location: ", location);
     try { 
-      var xhr = new XMLHttpRequest();
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busrouteservice/getBusRouteStationList'; /*URL*/
       var queryParams = `?serviceKey=${API_KEY}&routeId=${bus.routeId}`;
-      xhr.open('GET', url+queryParams);
-      xhr.onreadystatechange = function () {
-        if (this.readyState == 4) {
+      var getData = await axios.get(url+queryParams);
           let xmlParser = new DOMParser();
-          let xmlDoc = xmlParser.parseFromString(this.responseText, "text/xml");
+          let xmlDoc = xmlParser.parseFromString(getData.data, "text/xml");
           let i = 0;
           let array = [];
           while (1) {
@@ -57,12 +55,9 @@ const BusRouteList = () => {
             if (xmlDoc.getElementsByTagName("stationId")[i] == undefined) break;
           }
           setData(array);
-        }
-      }
-      xhr.send();
     }
     catch (err) {
-      alert(err);
+     // alert(err);
     }
     // if (result.length == 0) {
     //   console.log("result is empty");
@@ -72,15 +67,13 @@ const BusRouteList = () => {
   const locationList = async () => {
     //console.log("working");
     try {
-      var xhr = new XMLHttpRequest();
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/buslocationservice/getBusLocationList'; /*URL*/
       var queryParams = `${url}?serviceKey=${API_KEY}&routeId=${bus.routeId}`;
-      xhr.open('GET', queryParams);
-      xhr.onreadystatechange = function () {
-        if (this.readyState == 4) {
+      var getData = await axios.get(url+queryParams);
+       
           let xmlParser = new DOMParser();
-          let xmlDoc = xmlParser.parseFromString(this.responseText, "text/xml");
+          let xmlDoc = xmlParser.parseFromString(getData.data, "text/xml");
           let i = 0;
           let array = [];
           while (1) {
@@ -91,12 +84,9 @@ const BusRouteList = () => {
             if (xmlDoc.getElementsByTagName("stationId")[i] == undefined) break;
           }
           setLocation(array);
-        }
-      }
-      xhr.send();
     }
     catch (err) {
-      alert(err);
+     // alert(err);
     }
     // if (result.length == 0) {
     //   console.log("result is empty");

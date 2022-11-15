@@ -91,7 +91,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
       route.region = xmlDoc.getElementsByTagName("regionName")[0].textContent;
       route.startStationId=xmlDoc.getElementsByTagName("startStationId")[0].textContent;
       route.endStationId=xmlDoc.getElementsByTagName("endStationId")[0].textContent;
-      console.log("start handleRouteInfo ",new Date());
+    //  console.log("start handleRouteInfo ",new Date());
       handleRouteInfo(route);
         }
     catch (err) {
@@ -102,12 +102,12 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
   // 여기서부터 버스 도착 정보 검색, (Input; stationID, Output: 노선 정보와 기타 도착 정보)
   const searchBus = async () => {
     //getBusArrivalList, input param : stationId (ID)
-    console.log("searchBus start",new Date());
+  //  console.log("searchBus start",new Date());
     //getBusArrivalList, input param : stationId (ID)
     try {
-      console.log("before ");
+    //  console.log("before ");
       setIsRunning(true);
-      console.log("in");
+    //  console.log("in");
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList'; 
       var queryParams = `?serviceKey=${API_KEY}&stationId=${station.id}`; // xhr.open('GET', url + queryParams); 
@@ -117,13 +117,13 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
       let xmlDoc = xmlParser.parseFromString(getData.data, "text/xml");  
 
       if(xmlDoc.getElementsByTagName("resultCode")[0].childNodes[0].nodeValue== 4){
-        console.log("버스 집갔음");
+      //  console.log("버스 집갔음");
         setResultCode(4);
       }
       let i = 0;
       let array = [];
       let routearray = [];
-      console.log("searchBus -ing",new Date());
+     // console.log("searchBus -ing",new Date());
       while (1) {
         var tmpnode = new Object();
         tmpnode.routeId = xmlDoc.getElementsByTagName("routeId")[i].textContent;
@@ -145,7 +145,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
         }
         i++;
         if (xmlDoc.getElementsByTagName("routeId")[i] == undefined) { 
-          console.log("break,setRouteArray",i, new Date());
+       //   console.log("break,setRouteArray",i, new Date());
           setRouteArray(routearray);
           break; 
         }
@@ -173,7 +173,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
         if(xmlDoc.getElementsByTagName("turnYn")[i].textContent=="Y"){
             route.stationSeq=xmlDoc.getElementsByTagName("stationSeq")[i].textContent;
           handleEndStation(route);
-          console.log("break findTurnYn",new Date());
+          //console.log("break findTurnYn",new Date());
             break;
         }
         else i++;
@@ -211,9 +211,9 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
       }
     }// endStation에 있는 paramID랑 result에 있는 routeId랑 비교해서 같을 경우, stationSeq랑 staOrder 비교하기
    // setMerge(result);
-   console.log("findDirection end",new Date());
+//   console.log("findDirection end",new Date());
     if(result[result.length-1].breakFlag!=undefined){
-      console.log("getEndStationInfo start",new Date());
+  //    console.log("getEndStationInfo start",new Date());
     getEndStationInfo();
 
    }
@@ -228,7 +228,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
         for(let j=0;j<xmlDoc.getElementsByTagName("routeId").length;j++){
           if(xmlDoc.getElementsByTagName("routeId")[j].textContent==result[i].routeId){
             result[i].predict=xmlDoc.getElementsByTagName("predictTime1")[j].textContent;
-         console.log("finish ",new Date(), result[i].routeName);
+      //   console.log("finish ",new Date(), result[i].routeName);
       //  console.log("result",result);
             break;
           }
@@ -242,7 +242,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
           if(xmlDoc.getElementsByTagName("routeId")[j].textContent==result[i].routeId){
           result[i].predict=xmlDoc.getElementsByTagName("predictTime1")[j].textContent;
         //console.log("result",result);
-           console.log("finish ",new Date(), result[i].routeName);
+          // console.log("finish ",new Date(), result[i].routeName);
           break;
           }
         }   
@@ -266,7 +266,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
       }
     }
     if(result.length!=0&&result[result.length-1].endName!=undefined){
-      console.log("findDirection start ",new Date())
+    //  console.log("findDirection start ",new Date())
       findDirection();
   };
 };
@@ -274,21 +274,21 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
   //
   // 렌더링 핸들링
   useInterval(() => {
-    console.log("call searchBus",isRunning, new Date());
+   // console.log("call searchBus",isRunning, new Date());
     searchBus();
   }, isRunning ? delay : 0);
  useEffect(()=>{
-   console.log("call handleRouteArray ",new Date());
+  // console.log("call handleRouteArray ",new Date());
    handleRouteArray();
  }, [ok]);
  // 렌더링 핸들링
  useEffect(()=>{
-   console.log("call merge by result", new Date());
+  // console.log("call merge by result", new Date());
    Merge();
  },[result,routeInfo,endStation])
 
   return (
-    console.log("result", result.length, "routeInfo", routeInfo.length),
+  //  console.log("result", result.length, "routeInfo", routeInfo.length),
 
     <Container>
     <DetailText>{(()=> {if (resultCode === 4) return "운행 종료되었습니다"})()}</DetailText>

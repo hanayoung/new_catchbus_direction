@@ -59,7 +59,7 @@ const setRegion=(x,y)=>{
       const url = 'http://apis.data.go.kr/6410000/busstationservice/getBusStationList'; 
       /*var queryParams = `?serviceKey=${API_KEY}&keyword=${station}`; */
       var queryParams = `?serviceKey=${API_KEY}&keyword=`+encodeURIComponent(station); 
-      console.log("station");
+      //console.log("station");
       var result = await axios.get(url+queryParams);
       let xmlParser = new DOMParser();
       let xmlDoc = xmlParser.parseFromString(result.data, "text/xml");
@@ -84,33 +84,7 @@ const setRegion=(x,y)=>{
       //alert(err);
     }
   };
-  // const searchStationID=async()=>{
-  //   try{
-  //     const url='https://api.odsay.com/v1/api/searchStation';
-  //     var queryParams='?'+encodeURIComponent('apiKey')+'='+'z5Hqo2dueAcuLqjhotmeqGT2Q499QvuS25scQAuC03k';
-  //     queryParams+='&'+encodeURIComponent('stationName')+'='+encodeURIComponent(station)+'&'+encodeURIComponent('stationClass')+'='+encodeURIComponent('1')+'&'+encodeURIComponent('myLocation')+'='+encodeURIComponent(longitute)+':'+encodeURIComponent(latitude);
-  //     console.log("station",station);
-  //     let array=[];
-  //     let i=0;
-  //     await axios.get(url+queryParams).then((res)=>{
-  //       while(1){
-  //       var tmpnode=new Object();
-  //       if(i==res.data.result.station.length)
-  //       break;
-  //         tmpnode.index=i;
-  //         tmpnode.stationId=res.data.result.station[i].stationID;
-  //         tmpnode.stationName=res.data.result.station[i].stationName;
-  //         tmpnode.x=res.data.result.station[i].x;
-  //         tmpnode.y=res.data.result.station[i].y;
-  //         array.push(tmpnode);
-  //         i++;
-  //       }
-  //      setResult(array);
-  //     });
-  //   }
-  //   catch(err){
-  //   }
-  // }
+
   useEffect(() => {
     ask();
     searchStation();
