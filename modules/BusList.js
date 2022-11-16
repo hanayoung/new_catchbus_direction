@@ -45,7 +45,7 @@ const BusList = ({ item, saveResult, storage}) => {
     const [bus, setBus] = useState([]);
     const { dispatch } = useContext(BusContext);
 
-
+    //console.log(item);
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
@@ -73,7 +73,7 @@ const BusList = ({ item, saveResult, storage}) => {
         <TouchableOpacity
         onPressOut = {() => {
             choice = item;
-          //  console.log("see what is in ", item);
+            //console.log("see what is in ", item);
             setBus(item)
             dispatch(item);
             navigation.navigate('BusRoute')

@@ -262,6 +262,8 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
         result[i].startStationId=route.startStationId;
         result[i].startName=route.startName;
         result[i].endName=route.endName;
+        result[i].region=route.region;
+        result[i].routeType=route.routeType;
       //  buslist.push(result[i]); 
       }
     }
@@ -291,7 +293,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
   //  console.log("result", result.length, "routeInfo", routeInfo.length),
 
     <Container>
-    <DetailText>{(()=> {if (resultCode === 4) return "운행 종료되었습니다"})()}</DetailText>
+    <DetailText>{(()=> {if (resultCode === 4) return "운행이 종료되었습니다"})()}</DetailText>
       <Bus merge={merge} storage={storage} setStorage={setStorage}/>
     </Container>
   );

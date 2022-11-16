@@ -12,13 +12,17 @@ import styled from 'styled-components/native';
 import axios from 'axios';
 
 const Container = styled.View`
-flex : 1;
+flex : 2;
 justify-content: center;
 align-items: center;
 `;
 const StyledText = styled.Text`
 font-size : 30px;
 margin-bottom: 10px;
+`;
+const DetailText = styled.Text`
+font-size : 15px;
+margin-bottom : 10px;
 `;
 
 const BusRouteList = () => {
@@ -102,6 +106,8 @@ const BusRouteList = () => {
     //console.log(data),
     <Container>
     <StyledText>{bus.routeName}</StyledText>
+    <DetailText>{`${bus.startName} <-> ${bus.endName}`}</DetailText>
+    <DetailText>{`${bus.region} | ${bus.routeType}`}</DetailText>
     <View style={styles.container}>
       <Timeline
         style={styles.list}
