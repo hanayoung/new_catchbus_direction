@@ -82,7 +82,6 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
 
 
     return (
-        console.log("choice", choice),
         <Container width={width}>
             <Content_name>{item.routename}</Content_name>
             <IconButton

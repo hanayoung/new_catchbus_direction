@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import { DOMParser } from 'xmldom';
 import { FlatList, StyleSheet, Text } from 'react-native';
 import Bus from '../modules/Bus';
+import Notification from '../modules/Notification';
 import StationContext, { StationConsumer } from './context/Station';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -295,6 +296,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
     <Container>
     <DetailText>{(()=> {if (resultCode === 4) return "운행이 종료되었습니다"})()}</DetailText>
       <Bus merge={merge} storage={storage} setStorage={setStorage}/>
+      <Notification/>
     </Container>
   );
 }
