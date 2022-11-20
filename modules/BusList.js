@@ -5,7 +5,6 @@ import IconButton from '../components/IconButton'
 import {images} from '../modules/images'
 import {TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 import BusContext, { BusConsumer } from '../src/context/Bus';
-import AlertContext, { AlertConsumer } from '../src/context/Alert';
 import { useNavigation } from '@react-navigation/native';
 
 // 1. src/searchStation의 자식
@@ -45,15 +44,11 @@ const BusList = ({ item, saveResult, storage}) => {
 
     const [bus, setBus] = useState([]);
     const { dispatch } = useContext(BusContext);
-    const [alert, setAlert] = useState([]);
-    const { dispatch_alert } = useContext(AlertContext);
 
     //console.log(item);
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
-            setAlert(item);
-            dispatch_alert(item);
             const newStorageObject = {
                 [item.routeId] : {
                     routeid: item.routeId,
