@@ -45,6 +45,8 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
+            setAlert(item);
+            dispatch_alert(item);
             const newStorageObject = {
                 [item.routeid]: {
                     routeid: item.routeId,

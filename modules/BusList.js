@@ -49,11 +49,9 @@ const BusList = ({ item, saveResult, storage}) => {
     const { dispatch_alert } = useContext(AlertContext);
 
     //console.log(item);
-    const changeClicked = item => {
+    const changeClicked = item => { 
         if (item.clicked == false) {
             item.clicked = true;
-            setAlert(item);
-            dispatch_alert(item);
             const newStorageObject = {
                 [item.routeId] : {
                     routeid: item.routeId,
