@@ -27,7 +27,7 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const SearchBus = ({ route, navigation, storage, setStorage}) => {
+const SearchBus = ({ storage, setStorage}) => {
 
     return(
         <Container>

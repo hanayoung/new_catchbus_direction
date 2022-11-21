@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
-import TrainMainsrc from '../src/TrainMainsrc';
+import TrainContext from './context/Train';
 
 const Container = styled.View`
 flex : 1;
@@ -16,12 +16,15 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const TrainMain = () => {
-    return(
+const TrainOptionsrc = () => {
+    const { train } = useContext(TrainContext);
+
+    return (
+        console.log("Train: ", train),
         <Container>
-            <TrainMainsrc/>
+            <StyledText>기록</StyledText>
         </Container>
     )
 }
 
-export default TrainMain;
+export default TrainOptionsrc;

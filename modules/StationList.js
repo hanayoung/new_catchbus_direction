@@ -3,6 +3,7 @@ import StationContext, { StationConsumer } from '../src/context/Station';
 import styled from'styled-components/native';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 // 1. src/searchStation의 자식
 
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const StationList = ({ item, goBus}) => {
+const StationList = ({ item }) => {
 
     var choice = new Object();
 
@@ -39,7 +40,7 @@ const StationList = ({ item, goBus}) => {
         onPressOut = {() => {
             setStation(item)
             dispatch(item);
-            goBus(item);
+            navigation.navigate('SearchBus');
         }}
         style = {styles.button}
         >
