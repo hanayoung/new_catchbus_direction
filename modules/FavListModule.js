@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import IconButton from '../components/IconButton'
 import { images } from './images'
 import { StyleSheet, Dimensions } from 'react-native';
+import AlertContext, { AlertConsumer } from '../src/context/Alert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Notification from './Notification';
 // 1. src/searchStation의 자식
 const Container = styled.View`
 flex : 1;
@@ -33,6 +35,9 @@ const styles = StyleSheet.create({
 const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
     const width = Dimensions.get('window').width;
 
+    const [alert, setAlert] = useState([]);
+    const { dispatch_alert } = useContext(AlertContext);
+
     const saveResult = async result => {
         try {
             await AsyncStorage.setItem('results', JSON.stringify(result));
@@ -41,12 +46,16 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
             console.error(e);
         }
     };
-
+    // const clearAll = async () => {
+    //     try {
+    //       await AsyncStorage.clear();
+    //     } catch (e) {
+    //       // 오류 예외 처리
+    //     }
+    //   }
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
-            setAlert(item);
-            dispatch_alert(item);
             const newStorageObject = {
                 [item.routeid]: {
                     routeid: item.routeId,
@@ -74,17 +83,20 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
             }
             storage[item.routeid].selected = true;
             setChoice(item);
+            setAlert(item);
+            dispatch_alert(item);
+            
         }
         else {
             storage[item.routeid].selected = false;
         }
         saveResult(storage);
+        
+
     }
-
-
-
     return (
         <Container width={width}>
+            {console.log("alert in FavListModule",alert)}
             <Content_name>{item.routename}</Content_name>
             <IconButton
                 type={item.clicked ? images.clicked : images.unclicked}

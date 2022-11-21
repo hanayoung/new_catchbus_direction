@@ -22,7 +22,7 @@ const notificationListener = useRef();
 const responseListener = useRef();
 
   const { alert } = useContext(AlertContext);
-  console.log(">>>>>>>noti", alert);
+   console.log(">>>>>>>noti", alert);
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -82,7 +82,7 @@ useEffect(() => {
 }, []);
 useInterval(()=>{
   console.log("iiiiiinnnnnnnn");
-    setTime(Number(result.predict1)*60);
+    //setTime(Number(result.predict1)*60);
    // setTime(Number(stor.predict1)*60) // 일단 원하는 분 이전일 때 바로 알림이 뜨는지 확인 (time =1 이런 게 먹히는지 확인해보기 )
     //console.log("result in Nottttti second",result)
     schedulePushNotification();

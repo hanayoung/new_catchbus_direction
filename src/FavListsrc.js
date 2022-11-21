@@ -16,7 +16,7 @@ function FavListsrc({ storage, setStorage, choice, setChoice }) {
   const width = Dimensions.get('window').width;
 
   return (storage != null) ? (
-    console.log("storage", storage),
+   // console.log("storage", storage),
     <View style={styles.container}>
       <List width={width}>
         {Object.values(storage)

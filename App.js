@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import StackNavigation from './navigations/StackNavigation';
 import { StationProvider } from './src/context/Station'; 
 import { BusProvider } from './src/context/Bus';
+import Notification from './modules/Notification'
 
 const App = () => {
 
@@ -11,6 +12,7 @@ const App = () => {
         <BusProvider>
         <NavigationContainer>
             <StackNavigation/>
+            <Notification/>
         </NavigationContainer>
         </BusProvider>
         </StationProvider>

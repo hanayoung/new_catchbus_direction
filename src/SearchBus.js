@@ -296,7 +296,6 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
     <Container>
     <DetailText>{(()=> {if (resultCode === 4) return "운행이 종료되었습니다"})()}</DetailText>
       <Bus merge={merge} storage={storage} setStorage={setStorage}/>
-      <Notification/>
     </Container>
   );
 }
