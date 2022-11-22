@@ -16,10 +16,10 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const TrainOption = () => {
+const TrainOption = ({ trainsto, setTrainsto}) => {
     return(
         <Container>
-            <TrainOptionsrc/>
+            <TrainOptionsrc trainsto={trainsto} setTrainsto={setTrainsto}/>
         </Container>
     )
 }

@@ -14,7 +14,6 @@ const App = () => {
                 <TrainProvider>
                     <NavigationContainer>
                         <StackNavigation />
-                        <Notification />
                     </NavigationContainer>
                 </TrainProvider>
             </BusProvider>

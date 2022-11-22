@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 const StationList = ({ item }) => {
 
     var choice = new Object();
+    const navigation = useNavigation();
 
     const [station, setStation] = useState([]);
     const { dispatch } = useContext(StationContext);

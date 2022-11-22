@@ -7,7 +7,6 @@ import TrainMainDate from '../modules/TrainMainDate';
 import { useNavigation } from '@react-navigation/native';
 import TrainContext from './context/Train';
 import axios from 'axios';
-import SearchStation from './SearchStation';
 
 const Container = styled.ScrollView`
 flex : 1;
@@ -25,14 +24,14 @@ const TrainMain = () => {
     const [option, setOption] = useState('');
     const [optioncode, setOptioncode] = useState('');
 
-    
+
     const [station, setStation] = useState([]);
     const [stationcode, setStationcode] = useState([]);
     const [station2, setStation2] = useState([]);
     const [stationcode2, setStationcode2] = useState([]);
 
     const [trainInfo, setTrainInfo] = useState([]);
-    
+
     const navigation = useNavigation();
     const { dispatch } = useContext(TrainContext);
 
@@ -43,6 +42,7 @@ const TrainMain = () => {
                 break;
             }
     }
+
     useEffect(() => {
         findCitycode(startCity, city, citycode, setStartCityCode);
     }, [startCity]);

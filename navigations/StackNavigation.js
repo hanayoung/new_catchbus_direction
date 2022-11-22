@@ -46,11 +46,13 @@ const SettingStack = ({ navigation }) => {
   )
 }
 
-const TrainStack = ({ navigation }) => {
+const TrainStack = ({ navigation , trainsto, setTrainsto}) => {
   return (
     <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="TrainMain" component={TrainMain} />
-      <Stack.Screen name="TrainOption" component={TrainOption} />
+      <Stack.Screen name="TrainOption">
+        {({ navigation }) => <TrainOption  trainsto={trainsto} setTrainsto={setTrainsto}/>}
+        </Stack.Screen>
     </Stack.Navigator>
   )
 }
@@ -60,6 +62,7 @@ const TabNavigation = () => {
   const [storage, setStorage] = useState([]);
   const [item, setItem] = useState([]);
   const [choice, setChoice] = useState({});
+  const [trainsto, setTrainsto] = useState([]);
 
   const _loadResult = async () => {
     const loadedResult = await AsyncStorage.getItem('results');
@@ -68,7 +71,7 @@ const TabNavigation = () => {
 
 
   return isReady ? (
-    <Tab.Navigator initialRouteName='Train'
+    <Tab.Navigator initialRouteName='Main'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -113,7 +116,7 @@ const TabNavigation = () => {
       <Tab.Screen name="Main" component={Main} />
       <Tab.Screen name="AjouBusList" component={AjouList} />
       <Tab.Screen name="Train">
-        {({ navigation }) => <TrainStack />}
+        {({ navigation }) => <TrainStack trainsto={trainsto} setTrainsto={setTrainsto}/>}
       </Tab.Screen>
       <Tab.Screen name="Settings" component={SettingStack} />
     </Tab.Navigator>
