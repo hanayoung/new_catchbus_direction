@@ -23,106 +23,110 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const SearchStack = ({ navigation, storage, setStorage }) => {
-    return (
-        <Stack.Navigator initialRouteName="SearchStation" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="SearchStation">
-                {({ navigation }) => <SearchStation navigation={navigation} storage={storage} setStorage={setStorage} />}
-            </Stack.Screen>
-            <Stack.Screen name="SearchBus">
-                {({ navigation }) => <SearchBus storage={storage} setStorage={setStorage} navigation={navigation} />}
-            </Stack.Screen>
-            <Stack.Screen name = "BusList" component = {BusList}/>
-            <Stack.Screen name = "BusRoute" component = {BusRoute}/>
-        </Stack.Navigator>
-    )
+  return (
+    <Stack.Navigator initialRouteName="SearchStation" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="SearchStation">
+        {({ navigation }) => <SearchStation navigation={navigation} storage={storage} setStorage={setStorage} />}
+      </Stack.Screen>
+      <Stack.Screen name="SearchBus">
+        {({ navigation }) => <SearchBus storage={storage} setStorage={setStorage} navigation={navigation} />}
+      </Stack.Screen>
+      <Stack.Screen name="BusList" component={BusList} />
+      <Stack.Screen name="BusRoute" component={BusRoute} />
+    </Stack.Navigator>
+  )
 }
 
 const SettingStack = ({ navigation }) => {
-    return (
-        <Stack.Navigator initialRouteName="History" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="History" component={History} />
-        </Stack.Navigator>
-    )
+  return (
+    <Stack.Navigator initialRouteName="Setting" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Setting" component={Settings} />
+      <Stack.Screen name="History" component={History} />
+    </Stack.Navigator>
+  )
 }
 
-const TrainStack = ({ navigation }) => {
+const TrainStack = ({ navigation , trainsto, setTrainsto}) => {
   return (
-      <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="TrainMain" component={TrainMain} />
-          <Stack.Screen name="TrainOption" component={TrainOption} />
-      </Stack.Navigator>
+    <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="TrainMain" component={TrainMain} />
+      <Stack.Screen name="TrainOption">
+        {({ navigation }) => <TrainOption  trainsto={trainsto} setTrainsto={setTrainsto}/>}
+        </Stack.Screen>
+    </Stack.Navigator>
   )
 }
 
 const TabNavigation = () => {
-    const [isReady, setIsReady] = useState(false);
-    const [storage, setStorage] = useState([]);
-    const [item, setItem] = useState([]);
-    const [choice, setChoice] = useState({});
+  const [isReady, setIsReady] = useState(false);
+  const [storage, setStorage] = useState([]);
+  const [item, setItem] = useState([]);
+  const [choice, setChoice] = useState({});
+  const [trainsto, setTrainsto] = useState([]);
 
-    const _loadResult = async () => {
-        const loadedResult = await AsyncStorage.getItem('results');
-        setStorage(JSON.parse(loadedResult));
-    };
+  const _loadResult = async () => {
+    const loadedResult = await AsyncStorage.getItem('results');
+    setStorage(JSON.parse(loadedResult));
+  };
 
 
-    return isReady ? (
-        <Tab.Navigator initialRouteName='Main'
-        screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-  
-              if (route.name === 'Search') {
-                iconName = 'search1';
-                return <Icon name={iconName} size={size}  color={color}/>;
-              } else if (route.name === 'FavList'){
-                iconName = focused ? 'star' : 'staro';
-                return <Icon name={iconName} size={size}  color={color}/>;
-              } else if (route.name === 'BusRoute'){
-                iconName = 'route';
-                return <FontIcon name={iconName} size={size}  color={color}/>;
-              } else if (route.name === 'AjouBusList'){
-                iconName = 'bus';
-                return <FontIcon name={iconName} size={size}  color={color}/>;
-              } else if (route.name === 'Settings'){
-                iconName = focused ? 'settings' : 'settings-outline';
-                return <Ionicons name={iconName} size={size}  color={color}/>;
-              } else if (route.name === 'Train'){
-                iconName = focused ? 'train-sharp' : 'train-outline';
-                return <Ionicons name={iconName} size={size}  color={color}/>;
-              } else if (route.name === 'Main'){
-                iconName = focused ? 'alarm-sharp' : 'alarm-outline';
-                return <Ionicons name={iconName} size={size}  color={color}/>;
-              }
-  
-              // You can return any component that you like here!
-              return <Icon name={iconName} size={size}  color={color}/>;
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: 'black',
-            inactiveTintColor: 'gray',
-          }}>
-            <Tab.Screen name="Search">
-                {({ navigation }) => <SearchStack navigation={navigation} storage={storage} setStorage={setStorage} />}
-            </Tab.Screen>
-            <Tab.Screen name="FavList">
-                {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} />}
-            </Tab.Screen>
-            <Tab.Screen name="Main" component={Main} />
-            <Tab.Screen name="AjouBusList" component={AjouList} />
-            <Tab.Screen name="Train">
-                {({ navigation }) => <TrainStack/>}
-            </Tab.Screen>
-            <Tab.Screen name="Settings" component={SettingStack} />
-        </Tab.Navigator>
-    ) : (
-        <AppLoading
-            startAsync={_loadResult}
-            onFinish={() => setIsReady(true)}
-            onError={console.error}
-        />
-    )
+  return isReady ? (
+    <Tab.Navigator initialRouteName='Main'
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Search') {
+            iconName = 'search1';
+            return <Icon name={iconName} size={size} color={color} />;
+          } else if (route.name === 'FavList') {
+            iconName = focused ? 'star' : 'staro';
+            return <Icon name={iconName} size={size} color={color} />;
+          } else if (route.name === 'BusRoute') {
+            iconName = 'route';
+            return <FontIcon name={iconName} size={size} color={color} />;
+          } else if (route.name === 'AjouBusList') {
+            iconName = 'bus';
+            return <FontIcon name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'settings' : 'settings-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Train') {
+            iconName = focused ? 'train-sharp' : 'train-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Main') {
+            iconName = focused ? 'alarm-sharp' : 'alarm-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          }
+
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'black',
+        inactiveTintColor: 'gray',
+      }}>
+      <Tab.Screen name="Search">
+        {({ navigation }) => <SearchStack navigation={navigation} storage={storage} setStorage={setStorage} />}
+      </Tab.Screen>
+      <Tab.Screen name="FavList">
+        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} />}
+      </Tab.Screen>
+      <Tab.Screen name="Main" component={Main} />
+      <Tab.Screen name="AjouBusList" component={AjouList} />
+      <Tab.Screen name="Train">
+        {({ navigation }) => <TrainStack trainsto={trainsto} setTrainsto={setTrainsto}/>}
+      </Tab.Screen>
+      <Tab.Screen name="Settings" component={SettingStack} />
+    </Tab.Navigator>
+  ) : (
+    <AppLoading
+      startAsync={_loadResult}
+      onFinish={() => setIsReady(true)}
+      onError={console.error}
+    />
+  )
 }
 
 export default TabNavigation;
