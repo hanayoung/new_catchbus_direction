@@ -36,7 +36,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
     const width = Dimensions.get('window').width;
 
     const [alert, setAlert] = useState([]);
-    const { dispatch_alert } = useContext(AlertContext);
+    const { dispatch } = useContext(AlertContext);
 
     const saveResult = async result => {
         try {
@@ -63,6 +63,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
                     routetype: item.routetype,
                     region: item.region,
                     clicked: item.clicked,
+                    predict1: item.predict1,
                     selected: item.selected,
                 },
             };
@@ -84,7 +85,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
             storage[item.routeid].selected = true;
             setChoice(item);
             setAlert(item);
-            dispatch_alert(item);
+            dispatch(item);
             
         }
         else {

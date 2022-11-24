@@ -55,6 +55,7 @@ const BusList = ({ item, saveResult, storage}) => {
                     routename: item.routeName,
                     routetype: item.routetype,
                     region: item.region,
+                    predict1: item.predict1,
                     clicked: item.clicked,
                     selected: false,
                 },

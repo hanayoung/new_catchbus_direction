@@ -2,15 +2,14 @@ import React, { createContext, useState } from 'react';
 
 const AlertContext = createContext({
   Alert: [],
-  dispatch_alert: () => {},
+  dispatch: () => {},
 });
 
 const AlertProvider = ({ children }) => {
   const [alert, setAlert] = useState([]);
- // console.log("providers", bus.routeId);
-  //console.log("in?", bus.name);
+  console.log("in?", alert);
 
-  const value = { alert , dispatch_alert : setAlert };
+  const value = { alert , dispatch : setAlert };
   return <AlertContext.Provider value={value}>{children}</AlertContext.Provider>;
 };
 
