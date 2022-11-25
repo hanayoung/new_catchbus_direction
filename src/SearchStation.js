@@ -15,6 +15,7 @@ function SearchStation({navigation})
   const [station, setStation] = useState('');
   const [result, setResult] = useState([]);
   const [initialRegion, setinitialRegion] = useState();
+  // const [image,setImage]=useState(['../assets/icons/free-icon-pin-map-8358807.png']);
   //const [latitude,setLatitude]=useState('');
   //const [longitute, setLongitude]=useState('');
   //함수형 컴포넌트 const -> useEffect로 해결
@@ -38,6 +39,12 @@ const setRegion=(x,y)=>{
       longitudeDelta:0.002
   })
   }
+  // const pressHandler=(idx)=>{
+  //   let tmp_array=image;
+  //   console.log("tmp_array",tmp_array)
+  //   tmp_array[idx]='../assets/icons/free-icon-hearth-4225968.png';
+  //   setImage(tmp_array);
+  // }
   const ask = async () => {
     const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({ accuracy: 5 }); //coords를 통해 현재 위치의 좌표 받기
    // setLatitude(latitude);
@@ -89,7 +96,7 @@ const setRegion=(x,y)=>{
     ask();
     searchStation();
   }, []);
-
+// console.log("image",image);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>CatchBus</Text>
@@ -110,7 +117,7 @@ const setRegion=(x,y)=>{
         showsMyLocationButton={true}
         provider={PROVIDER_GOOGLE}
       >
-        {result && result.map((item) => {
+        {result && result.map((item,idx) => {
           return (
             <Marker
               key={item.id}
@@ -119,11 +126,14 @@ const setRegion=(x,y)=>{
                 latitude: Number(item.y),
                 longitude: Number(item.x),//리턴 해줘야지 마커 뜸
               }}
+              // onPress={(e)=>{pressHandler(e,idx)}}
+              // image={{image}}
             >
                <FontAwesome name="map-marker" size={30} color="#0067A3"/>
                </Marker>
           );
         }
+
         )}
       </MapView>
       <FlatList

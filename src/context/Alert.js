@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 
 const AlertContext = createContext({
   Alert: [],
-  dispatch_alert: () => {},
+  dispatch: () => {},
 });
 
 const AlertProvider = ({ children }) => {
@@ -10,7 +10,7 @@ const AlertProvider = ({ children }) => {
  // console.log("providers", bus.routeId);
   //console.log("in?", bus.name);
 
-  const value = { alert , dispatch_alert : setAlert };
+  const value = { alert , dispatch : setAlert };
   return <AlertContext.Provider value={value}>{children}</AlertContext.Provider>;
 };
 

@@ -6,7 +6,7 @@ import { images } from './images'
 import { StyleSheet, Dimensions } from 'react-native';
 import AlertContext, { AlertConsumer } from '../src/context/Alert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Notification from './Notification';
+
 // 1. src/searchStation의 자식
 const Container = styled.View`
 flex : 1;
@@ -36,7 +36,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
     const width = Dimensions.get('window').width;
 
     const [alert, setAlert] = useState([]);
-    const { dispatch_alert } = useContext(AlertContext);
+    const { dispatch } = useContext(AlertContext);
 
     const saveResult = async result => {
         try {
@@ -82,21 +82,19 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
                 storage[routeid].selected = false;
             }
             storage[item.routeid].selected = true;
-            setChoice(item);
-            setAlert(item);
-            dispatch_alert(item);
-            
+                setChoice(item);
+                setAlert(item);
+                dispatch(item);
         }
         else {
             storage[item.routeid].selected = false;
         }
         saveResult(storage);
         
-
+        console.log("storage",storage);
     }
     return (
         <Container width={width}>
-            {console.log("alert in FavListModule",alert)}
             <Content_name>{item.routename}</Content_name>
             <IconButton
                 type={item.clicked ? images.clicked : images.unclicked}
