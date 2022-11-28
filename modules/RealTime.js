@@ -34,7 +34,7 @@ const RealTime = () => {
     const [result, setResult] = useState({});
 
     const [isRunning, setIsRunning] = useState(false);
-    const [delay, setDelay] = useState(100000);
+    const [delay, setDelay] = useState(1000);
 
 
     function useInterval(callback, delay) {
@@ -52,6 +52,12 @@ const RealTime = () => {
           let id = setInterval(tick, delay); // delay에 맞추어 interval을 새로 실행시킨다.
           return () => clearInterval(id); // unmount될 때 clearInterval을 해준다.
       }, [delay]); // delay가 바뀔 때마다 새로 실행된다.
+    }
+
+    const delaymanager = async () => {
+      if(result.predict1 > 10) setDelay(600000)
+      else if(result.predict1 == 5) setDelay(100000)
+      else if(result.predict1 == 3) setDelay(10000)
     }
 
      // 여기서부터 버스 도착 정보 검색, (Input; stationID, Output: 노선 정보와 기타 도착 정보)
@@ -77,7 +83,7 @@ const RealTime = () => {
             tmpnode.remain2 = xmlDoc.getElementsByTagName("remainSeatCnt2")[0].textContent;
             tmpnode.staOrder = xmlDoc.getElementsByTagName("staOrder")[0].textContent;
             setResult(tmpnode);
-          //  console.log("result", result);
+            console.log("result", result);
           }
         }
         setIsRunning(false);
@@ -97,7 +103,7 @@ const RealTime = () => {
     const date = new Date();
     predictRealTime()
     console.log(date, "this realtime", result);
-    
+    //delaymanager()   
   }, isRunning ? delay : null);
 
 }

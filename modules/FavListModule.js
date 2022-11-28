@@ -83,6 +83,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
                 storage[routeid].selected = false;
             }
             storage[item.routeid].selected = true;
+            console.log(">>>>>>>>>>", item);
             setChoice(item);
             setAlert(item);
             dispatch(item);
@@ -99,6 +100,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
         <Container width={width}>
             {console.log("alert in FavListModule",alert)}
             <Content_name>{item.routename}</Content_name>
+            <Content_name>{item.stationName}</Content_name>
             <IconButton
                 type={item.clicked ? images.clicked : images.unclicked}
                 id={item}

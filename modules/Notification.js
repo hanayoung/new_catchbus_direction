@@ -22,7 +22,7 @@ const notificationListener = useRef();
 const responseListener = useRef();
 
   const { alert } = useContext(AlertContext);
-   console.log(">>>>>>>noti", alert);
+  console.log(">>>>>>>noti", alert);
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
