@@ -46,6 +46,7 @@ const setRegion=(x,y)=>{
   //   setImage(tmp_array);
   // }
   const ask = async () => {
+    const { granted } = await Location.requestForegroundPermissionsAsync();
     const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({ accuracy: 5 }); //coords를 통해 현재 위치의 좌표 받기
    // setLatitude(latitude);
     //setLongitude(longitude);

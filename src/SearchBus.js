@@ -119,7 +119,12 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
 
       if(xmlDoc.getElementsByTagName("resultCode")[0].childNodes[0].nodeValue== 4){
       //  console.log("버스 집갔음");
+      console.log("4");
         setResultCode(4);
+      }
+      else if(xmlDoc.getElementsByTagName("resultCode")[0].childNodes[0].nodeValue==23){
+        console.log("23");
+        setResultCode(23);
       }
       let i = 0;
       let array = [];
@@ -295,6 +300,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
 
     <Container>
     <DetailText>{(()=> {if (resultCode === 4) return "운행이 종료되었습니다"})()}</DetailText>
+    <DetailText>{(()=>{if (resultCode=== 23) return "버스도착정보가 없습니다"})}</DetailText>
       <Bus merge={merge} storage={storage} setStorage={setStorage}/>
     </Container>
   );

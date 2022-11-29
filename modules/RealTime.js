@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity, FlatList, StyleSheet, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
+import axios from 'axios';
 
 const Content_name = styled.Text`
 flex: 1;
@@ -34,7 +35,7 @@ const RealTime = () => {
     const [result, setResult] = useState({});
 
     const [isRunning, setIsRunning] = useState(false);
-    const [delay, setDelay] = useState(100000);
+    const [delay, setDelay] = useState(100000000);
 
 
     function useInterval(callback, delay) {
@@ -58,16 +59,14 @@ const RealTime = () => {
     const predictRealTime = async () => {
     //getBusArrivalList, input param : stationId (ID)
     try {
-      var xhr = new XMLHttpRequest();
+      console.log("innnnnnn");
+      setIsRunning(true);
+      const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalItem'; 
-      var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
-      queryParams += '&stationId=' + encodeURIComponent(stationId) + '&routeId=' + encodeURIComponent(routeId) + '&staOrder=' + encodeURIComponent(staOrder); // xhr.open('GET', url + queryParams); 
-      xhr.open('GET', url + queryParams);
-      xhr.onreadystatechange = function () {
-        if (this.readyState == 4) {
-          setIsRunning(true);
-          let xmlParser = new DOMParser();
-          let xmlDoc = xmlParser.parseFromString(this.responseText, "text/xml"); 
+      let queryParams = `?serviceKey=${API_KEY}&stationId=${stationId}&routeId=${routeId}&staOrder=${staOrder}`;
+      let getData=await axios.get(url+queryParams);
+      let xmlParser=new DOMParser();
+      let xmlDoc=xmlParser.parseFromString(getData.data,"text/xml");
             var tmpnode = new Object();
             tmpnode.predict1 = xmlDoc.getElementsByTagName("predictTime1")[0].textContent;
             tmpnode.loc1 = xmlDoc.getElementsByTagName("locationNo1")[0].textContent;
@@ -78,13 +77,9 @@ const RealTime = () => {
             tmpnode.staOrder = xmlDoc.getElementsByTagName("staOrder")[0].textContent;
             setResult(tmpnode);
           //  console.log("result", result);
-          }
-        }
-        setIsRunning(false);
-      xhr.send();
     }
     catch (err) {
-      alert(err);
+     // alert(err);
     }
     if (result.length == 0) {
       console.log("result is empty");
@@ -97,6 +92,7 @@ const RealTime = () => {
     const date = new Date();
     predictRealTime()
     console.log(date, "this realtime", result);
+    console.log("isRunning",isRunning)
     
   }, isRunning ? delay : null);
 
