@@ -49,6 +49,7 @@ const BusList = ({ item, saveResult, storage}) => {
     const changeClicked = item => { 
         if (item.clicked == false) {
             item.clicked = true;
+            //console.log("what is in the item >>>>>", item);
             const newStorageObject = {
                 [item.routeId] : {
                     routeid: item.routeId,
@@ -60,10 +61,14 @@ const BusList = ({ item, saveResult, storage}) => {
                     predict1:item.predict1,
                     predict2:item.predict2,
                     predict:item.predict,
+                    stationName: item.stationName,
+                    stationId: item.stationId,
+                    staOrder: item.staOrder,
                     selected: false,
                 },
             };
             saveResult({...storage, ...newStorageObject});
+            //console.log(">>>>>>>>", storage);
         }
         else {
             item.clicked = false;

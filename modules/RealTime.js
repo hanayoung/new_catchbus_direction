@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import styled from 'styled-components/native';
 import { DOMParser } from 'xmldom';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, FlatList, StyleSheet, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
+<<<<<<< HEAD
 import axios from 'axios';
+=======
+import AlertContext, { AlertConsumer } from '../src/context/Alert';
+>>>>>>> 5d025f28886f6dc3832b6e333cc285671f4182bf
 
 const Content_name = styled.Text`
 flex: 1;
@@ -26,17 +30,35 @@ const styles = StyleSheet.create({
 
 const RealTime = () => {
 
-    const parameter = {"clicked": false, "endName": "원시역2번출구", "item": {"id": "200000177", "index": 5, "name": "광교중앙.경기도청.아주대역환승센터", "x": "127.0518833", "y": "37.2884833"}, "routeId": "200000037", "routeName": "11", "routeType": "일반형시내버스", "staOrder": "19", "startName": "수원시동부차고지"} 
-    
-    const stationId = parameter.item.id;
-    const routeId = parameter.routeId;
-    const staOrder = parameter.staOrder;
-
+    const [alert, setAlert] = useState([]);
+    const { dispatch } = useContext(AlertContext);
+    const [check, setCheck] = useState(false);
+    const [one, setOne] = useState([]);
     const [result, setResult] = useState({});
-
     const [isRunning, setIsRunning] = useState(false);
     const [delay, setDelay] = useState(100000000);
 
+
+    const get = async () => {
+      const loadedResult = await AsyncStorage.getItem('results');
+      //console.log(">>>>loaded ok?", loadedResult);
+      let obj = JSON.parse(loadedResult); //string to object
+      for(value in obj) {
+        if(obj[value].selected === true){
+          //if(obj[value].routename != one.routename){
+            //console.log("have to be changed")
+            //setCheck(true);
+          //}
+          setOne(obj[value]);
+        }
+      }
+    };
+ 
+    const stationId = one.stationId;
+    const routeId = one.routeid;
+    const staOrder = one.staOrder;
+
+    //console.log(">>>>>>>>>>>>check if the param is ok", stationId, routeId, staOrder);
 
     function useInterval(callback, delay) {
     
@@ -53,6 +75,13 @@ const RealTime = () => {
           let id = setInterval(tick, delay); // delay에 맞추어 interval을 새로 실행시킨다.
           return () => clearInterval(id); // unmount될 때 clearInterval을 해준다.
       }, [delay]); // delay가 바뀔 때마다 새로 실행된다.
+    }
+
+    const delaymanager = async () => {
+      //if(check == true){ setDelay(1000), console.log("!!!!"), setCheck(false)}
+      if(result.predict1 > 10) setDelay(100000)
+      else if(result.predict1 == 5) setDelay(50000)
+      else if(result.predict1 == 3) setDelay(10000)
     }
 
      // 여기서부터 버스 도착 정보 검색, (Input; stationID, Output: 노선 정보와 기타 도착 정보)
@@ -75,11 +104,15 @@ const RealTime = () => {
             tmpnode.loc2 = xmlDoc.getElementsByTagName("locationNo2")[0].textContent;
             tmpnode.remain2 = xmlDoc.getElementsByTagName("remainSeatCnt2")[0].textContent;
             tmpnode.staOrder = xmlDoc.getElementsByTagName("staOrder")[0].textContent;
+            tmpnode.stationName = one.stationName;
+            tmpnode.routeName = one.routename;
             setResult(tmpnode);
+
           //  console.log("result", result);
     }
     catch (err) {
-     // alert(err);
+      if(result.predict1==undefined) result.predict1 = null;
+      if(result.predict2==undefined) result.predict2 = null;
     }
     if (result.length == 0) {
       console.log("result is empty");
@@ -89,11 +122,19 @@ const RealTime = () => {
   // 렌더링 핸들링
 
   useInterval(() => {
+    get();
+  }, 1000)
+
+  useInterval(() => {
     const date = new Date();
+    get()
     predictRealTime()
     console.log(date, "this realtime", result);
     console.log("isRunning",isRunning)
-    
+    //console.log(result)
+    delaymanager()
+    setAlert(result)
+    dispatch(result)
   }, isRunning ? delay : null);
 
 }
