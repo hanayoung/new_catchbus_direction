@@ -36,10 +36,10 @@ const RealTime = () => {
     const [isRunning, setIsRunning] = useState(false);
     const [delay, setDelay] = useState(100000000);
 
-
+    
     const get = async () => {
       const loadedResult = await AsyncStorage.getItem('results');
-      //console.log(">>>>loaded ok?", loadedResult);
+     // console.log(">>>>loaded ok?", loadedResult);
       let obj = JSON.parse(loadedResult); //string to object
       for(value in obj) {
         if(obj[value].selected === true){
@@ -86,7 +86,7 @@ const RealTime = () => {
     const predictRealTime = async () => {
     //getBusArrivalList, input param : stationId (ID)
     try {
-      console.log("innnnnnn");
+      //console.log("innnnnnn");
       setIsRunning(true);
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalItem'; 
@@ -115,7 +115,7 @@ const RealTime = () => {
       if(result.predict2==undefined) result.predict2 = null;
     }
     if (result.length == 0) {
-      console.log("result is empty");
+     // console.log("result is empty");
     }
   };
   //
@@ -123,7 +123,7 @@ const RealTime = () => {
 
   useInterval(() => {
     get();
-  }, 1000)
+  }, 1000000)
 
   useInterval(() => {
     const date = new Date();

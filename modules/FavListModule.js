@@ -38,6 +38,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
         try {
             await AsyncStorage.setItem('results', JSON.stringify(result));
             setStorage(result);
+            console.log("favlistmodule",result)
         } catch (e) {
             //console.error(e);
         }

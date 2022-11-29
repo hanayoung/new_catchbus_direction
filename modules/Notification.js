@@ -21,8 +21,10 @@ const [notification, setNotification] = useState(false);
 const notificationListener = useRef();
 const responseListener = useRef();
 
+
+
   const { alert } = useContext(AlertContext);
-  console.log("alert",alert);
+  //console.log("alert",alert);
 
 
 const routeName = alert.routeName;
@@ -45,6 +47,10 @@ function useInterval(callback, delay) {
       return () => clearInterval(id);
 }, [delay]);
 }
+
+useInterval(() => {
+  get();
+}, 100000000)
 
 useEffect(() => {
   // Permission for iOS
@@ -93,8 +99,9 @@ useEffect(() => {
 //     schedulePushNotification();
 // },60000);
 useEffect(()=>{
-  if(alert!=undefined){
-    console.log("alert Noti setTime",alert);
+  if(alert.name!=undefined){
+    //  console.log("one",one);
+    // console.log("alert Noti setTime",alert);
     setTime((Number((alert.predict1)*60)));
   }
 },[alert])
@@ -107,20 +114,20 @@ useInterval(()=>{
 },60000);
 
 useEffect(()=>{
-  if(time!=undefined){
-    console.log("alert in Noti schedulePushNotification ",alert);
+  if(alert.name!=undefined){
+   // console.log("alert in Noti schedulePushNotification ",alert);
     schedulePushNotification();
   }
 },[time]);
 
 async function schedulePushNotification() {
 
- console.log("alert.name",alert.routename)
+ //console.log("alert.name",alert.routename)
  if(time==300){
-  console.log("time",time)
+  //console.log("time",time)
  }
  //console.log("time",time)
- if(time<600){
+ else if(time<600){
 await Notifications.scheduleNotificationAsync({
    // 화면에 뜨는 내용
    content:{
@@ -134,7 +141,7 @@ await Notifications.scheduleNotificationAsync({
 });
 }
 else if(time>300){
-  console.log("time",time);
+  //console.log("time",time);
   
 }
 // else{

@@ -28,6 +28,7 @@ margin-bottom : 10px;
 const FavList = ({ navigation, storage, setStorage, choice, setChoice, trainsto, setTrainsto}) => {
     return(
       console.log(trainsto),
+      console.log("storage",storage),
         <Container>
             <Button
             title = "메인페이지"

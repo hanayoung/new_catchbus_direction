@@ -10,6 +10,7 @@ import History from '../screens/History';
 import TrainMain from '../screens/TrainMain';
 import TrainOption from '../screens/TrainOption';
 import Main from '../screens/Main';
+import Settings from '../screens/Settings';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import FontIcon from 'react-native-vector-icons/FontAwesome5';
