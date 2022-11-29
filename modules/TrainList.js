@@ -5,7 +5,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 import IconButton from '../components/IconButton'
 import { images } from '../modules/images';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 1. src/searchStation의 자식
 
@@ -14,7 +13,7 @@ justify-content: center;
 align-items: center;
 border-radius: 10;
 border-width: 1;
-height: 30;
+height: 35;
 padding: 5px;
 margin: 3px;
 flex-direction: row;
@@ -41,18 +40,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const TrainList = ({ item, trainsto, setTrainsto, train }) => {
+const TrainList = ({ item, trainsto, saveResult, train }) => {
     const [arrtime, setArrtime] = useState('');
     const [deptime, setDeptime] = useState('');
-
-    const saveResult = async result => {
-        try {
-            await AsyncStorage.setItem('train', JSON.stringify(result));
-            setTrainsto(result);
-        } catch (e) {
-            console.error(e);
-        }
-    };
 
     const changeClicked = item => {
         if (item.clicked == false) {
@@ -62,12 +52,11 @@ const TrainList = ({ item, trainsto, setTrainsto, train }) => {
                     depplacename: train.depplacename,
                     dephour: item.dephour,
                     depmin: item.depmin,
-                    arrplacename: train.arrplacename,
+                    startStationName: train.startStationName,
                     arrhour: item.arrhour,
                     arrmin: item.arrmin,
-                    traingradename: item.traingradename,
+                    endStationName: train.endStationName,
                     clicked: item.clicked,
-                    selected: false,
                 },
             };
             saveResult({ ...trainsto, ...newStorageObject });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import TrainOptionsrc from '../src/TrainOptionsrc';
 
@@ -17,10 +17,10 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const TrainOption = ({ trainsto, setTrainsto}) => {
+const TrainOption = ({trainsto, saveResult}) => {
     return(
         <Container>
-            <TrainOptionsrc trainsto={trainsto} setTrainsto={setTrainsto}/>
+            <TrainOptionsrc trainsto={trainsto} saveResult={saveResult}/>
         </Container>
     )
 }
