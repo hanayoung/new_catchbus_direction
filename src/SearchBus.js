@@ -264,6 +264,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
         result[i].region=route.region;
         result[i].routeType=route.routeType;
         result[i].stationName = station.name;
+        result[i].stationId = station.id;
       //  buslist.push(result[i]); 
       }
     }

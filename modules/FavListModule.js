@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import IconButton from '../components/IconButton'
 import { images } from './images'
 import { StyleSheet, Dimensions } from 'react-native';
-import AlertContext, { AlertConsumer } from '../src/context/Alert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Notification from './Notification';
 // 1. src/searchStation의 자식
@@ -38,9 +37,6 @@ const styles = StyleSheet.create({
 
 const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
     const width = Dimensions.get('window').width;
-
-    const [alert, setAlert] = useState([]);
-    const { dispatch } = useContext(AlertContext);
 
     const saveResult = async result => {
         try {
@@ -87,22 +83,16 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
                 storage[routeid].selected = false;
             }
             storage[item.routeid].selected = true;
-            console.log(">>>>>>>>>>", item);
+            //console.log(">>>>>>>>>>", item);
             setChoice(item);
-            setAlert(item);
-            dispatch(item);
-            
         }
         else {
             storage[item.routeid].selected = false;
         }
         saveResult(storage);
-        
-
     }
     return (
         <Container width={width}>
-            {console.log("alert in FavListModule",alert)}
             <Content_name>{item.routename}</Content_name>
             <Content_name2>{item.stationName}</Content_name2>
             <IconButton
