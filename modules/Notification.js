@@ -84,7 +84,6 @@ useEffect(() => {
     Notifications.removeNotificationSubscription(responseListener.current);
   };
 }, []);
-<<<<<<< HEAD
 // useInterval(()=>{
 //   console.log("iiiiiinnnnnnnn");
 //   console.log(alert.predict1)
@@ -119,7 +118,7 @@ async function schedulePushNotification() {
  console.log("alert.name",alert.routename)
  if(time==300){
   console.log("time",time)
-
+ }
  //console.log("time",time)
  if(time<600){
 await Notifications.scheduleNotificationAsync({

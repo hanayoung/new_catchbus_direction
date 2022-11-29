@@ -5,11 +5,9 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity, FlatList, StyleSheet, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
-<<<<<<< HEAD
 import axios from 'axios';
-=======
 import AlertContext, { AlertConsumer } from '../src/context/Alert';
->>>>>>> 5d025f28886f6dc3832b6e333cc285671f4182bf
+
 
 const Content_name = styled.Text`
 flex: 1;
@@ -98,8 +96,6 @@ const RealTime = () => {
       let xmlDoc=xmlParser.parseFromString(getData.data,"text/xml");
       //var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       //queryParams += '&stationId=' + encodeURIComponent(stationId) + '&routeId=' + encodeURIComponent(routeId) + '&staOrder=' + encodeURIComponent(staOrder); // xhr.open('GET', url + queryParams); 
-      
-
             var tmpnode = new Object();
             tmpnode.predict1 = xmlDoc.getElementsByTagName("predictTime1")[0].textContent;
             tmpnode.loc1 = xmlDoc.getElementsByTagName("locationNo1")[0].textContent;
@@ -133,8 +129,8 @@ const RealTime = () => {
     const date = new Date();
     get()
     predictRealTime()
-    console.log(date, "this realtime", result);
-    console.log("isRunning",isRunning)
+    //console.log(date, "this realtime", result);
+    //console.log("isRunning",isRunning)
     //console.log(result)
     delaymanager()
     setAlert(result)
