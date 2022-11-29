@@ -97,9 +97,12 @@ const BusRouteList = () => {
   };
 
   useEffect(() => {
-    searchStation();
     locationList();
   }, [bus]);
+
+  useEffect(() => {
+    searchStation();
+  }, [location]);
 
   return (
     //console.log(data),

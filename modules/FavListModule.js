@@ -18,10 +18,6 @@ const Content_name = styled.Text`
 flex: 1;
 font-size: 14px;
 `;
-const Content_name2 = styled.Text`
-flex: 2;
-font-size: 14px;
-`;
 
 const Content_locate = styled.Text`
 flex: 1;
@@ -94,7 +90,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
     return (
         <Container width={width}>
             <Content_name>{item.routename}</Content_name>
-            <Content_name2>{item.stationName}</Content_name2>
+            <Content_name>{item.stationName}</Content_name>
             <IconButton
                 type={item.clicked ? images.clicked : images.unclicked}
                 id={item}
