@@ -1,13 +1,6 @@
 import React from 'react';
-import {Button} from 'react-native';
 import styled from 'styled-components/native';
-
-/*검색 기록*/
-/*todo: (1) 즐겨찾기로 지정했던 목록을 보여준다
-(2) 나중에 하차기능까지 구현한다면!!!! ㅎㅎㅎ
-(3) 그럴 수 있었으면 좋겠다!!!!!!!!!
-(4) 할 수 있다!!!!!!!!!!!!!!!
-*/
+import TrainMainsrc from '../src/TrainMainsrc';
 
 const Container = styled.View`
 flex : 1;
@@ -23,10 +16,10 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const TrainMain = ({ navigation }) => {
+const TrainMain = () => {
     return(
         <Container>
-            <StyledText>기록</StyledText>
+            <TrainMainsrc/>
         </Container>
     )
 }

@@ -63,6 +63,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
                     routetype: item.routetype,
                     region: item.region,
                     clicked: item.clicked,
+                    predict1: item.predict1,
                     selected: item.selected,
                 },
             };
@@ -82,9 +83,10 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
                 storage[routeid].selected = false;
             }
             storage[item.routeid].selected = true;
-                setChoice(item);
-                setAlert(item);
-                dispatch(item);
+            setChoice(item);
+            setAlert(item);
+            dispatch(item);
+            
         }
         else {
             storage[item.routeid].selected = false;

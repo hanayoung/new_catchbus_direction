@@ -15,7 +15,6 @@ Notifications.setNotificationHandler({
 });
 
 function GetNotification(){ 
-  
 const [time,setTime]=useState();
 const [expoPushToken, setExpoPushToken] = useState('');
 const [notification, setNotification] = useState(false);
@@ -24,9 +23,9 @@ const responseListener = useRef();
 
   const { alert } = useContext(AlertContext);
   console.log("alert",alert);
+  
 function useInterval(callback, delay) {
   const savedCallback = useRef();
-
   // Remember the latest function.
   useEffect(() => {
       savedCallback.current = callback;
@@ -88,23 +87,24 @@ useEffect(() => {
 //     //console.log("result in Nottttti second",result)
 //     schedulePushNotification();
 // },60000);
-
 useEffect(()=>{
   if(alert!=undefined){
-    console.log("alert.predict1",alert.predict1)
-    console.log((Number(alert.predict1)*60))
+    console.log("alert Noti setTime",alert);
     setTime((Number((alert.predict1)*60)));
-    console.log("alert in Noti useEffect ",alert);
+  }
+},[alert])
+
+useEffect(()=>{
+  if(time!=undefined){
+    console.log("alert in Noti schedulePushNotification ",alert);
     schedulePushNotification();
   }
-},[alert]);
+},[time]);
 
 async function schedulePushNotification() {
-
- 
  console.log("alert.name",alert.routename)
- console.log("time",time)
- if(time<600){
+ if(time==300){
+  console.log("time",time)
 await Notifications.scheduleNotificationAsync({
    // 화면에 뜨는 내용
    content:{
@@ -116,6 +116,10 @@ await Notifications.scheduleNotificationAsync({
     channelId:'default', 
   },
 });
+}
+else if(time>300){
+  console.log("time",time);
+  
 }
 // else{
 //   setTime(Number(time)-30);
