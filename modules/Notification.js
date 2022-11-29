@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View,Button } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import React,{ useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import * as Permissions from "expo-permissions";
 import * as Device from 'expo-device';
 import AlertContext, { AlertConsumer } from '../src/context/Alert';
@@ -21,8 +21,13 @@ const [notification, setNotification] = useState(false);
 const notificationListener = useRef();
 const responseListener = useRef();
 
-  const { alert } = useContext(AlertContext);
-  console.log(">>>>>>>noti", alert);
+const { alert } = useContext(AlertContext);
+
+console.log(">>>>>>>>>>>alert", alert);
+
+const routeName = alert.routeName;
+const stationName = alert.stationName;
+const predict1 = alert.predict1;
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -72,7 +77,7 @@ useEffect(() => {
   });
 
   responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-    console.log(response);
+
   });
 
   return () => {
@@ -81,7 +86,7 @@ useEffect(() => {
   };
 }, []);
 useInterval(()=>{
-  console.log("iiiiiinnnnnnnn");
+  //console.log("iiiiiinnnnnnnn");
     //setTime(Number(result.predict1)*60);
    // setTime(Number(stor.predict1)*60) // 일단 원하는 분 이전일 때 바로 알림이 뜨는지 확인 (time =1 이런 게 먹히는지 확인해보기 )
     //console.log("result in Nottttti second",result)
@@ -96,7 +101,7 @@ useInterval(()=>{
 },[result]);*/
 
 async function schedulePushNotification() {
- console.log("time",time)
+ //console.log("time",time)
  if(time<600){
 await Notifications.scheduleNotificationAsync({
    // 화면에 뜨는 내용

@@ -4,6 +4,7 @@ import { DOMParser } from 'xmldom';
 //import BusContext, { BusConsumer } from './context/Bus';
 import styled from 'styled-components/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AlertContext, { AlertConsumer } from '../src/context/Alert';
 import axios from 'axios';
 
 const Container = styled.View`
@@ -26,29 +27,20 @@ const Mainsrc = () => {
   const [obj, setObj] = useState([]);
   const [one, setOne] = useState([]);
 
-  const get = async () => {
+  const { alert } = useContext(AlertContext);
 
-    const loadedResult = await AsyncStorage.getItem('results');
-    //setStorage(JSON.parse(loadedResult));
-    let obj = JSON.parse(loadedResult); //string to object
-    setObj(obj);
-    for(value in obj) {
-      if(obj[value].selected === true){
-        setOne(obj[value]);
-      }
-    }
-  };
+  console.log(">>>>>>>>>>>alert in main", alert);
 
-  useEffect(()=>{
-    get(),
-  }, []);
+  const routeName = alert.routeName;
+  const stationName = alert.stationName;
+  const predict1 = alert.predict1;
 
   return(
     <Container>
       <StyledText>메인페이지 테스트</StyledText>
-      <DetailText>{one.routename}번 버스가</DetailText>
-      <DetailText>{one.stationName}정류장에</DetailText>
-      <DetailText>{one.predict1}분 후 도착 예정입니다</DetailText>
+      <DetailText>{routeName}번 버스가</DetailText>
+      <DetailText>{stationName}정류장에</DetailText>
+      <DetailText>{predict1}분 후 도착 예정입니다</DetailText>
     </Container>
   )
 }
