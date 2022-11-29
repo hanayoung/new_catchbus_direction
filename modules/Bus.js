@@ -26,7 +26,7 @@ function Bus({ merge, storage, setStorage }) {
       await AsyncStorage.setItem('results', JSON.stringify(result));
       setStorage(result);
     } catch (e) {
-      console.error(e);
+      //console.error(e);
     }
   };
 

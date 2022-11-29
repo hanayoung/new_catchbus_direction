@@ -34,7 +34,7 @@ const RealTime = () => {
     const [result, setResult] = useState({});
 
     const [isRunning, setIsRunning] = useState(false);
-    const [delay, setDelay] = useState(1000);
+    const [delay, setDelay] = useState(100000);
 
 
     function useInterval(callback, delay) {
@@ -90,7 +90,8 @@ const RealTime = () => {
       xhr.send();
     }
     catch (err) {
-      alert(err);
+      if(result.predict1==undefined) result.predict1 = null;
+      if(result.predict2==undefined) result.predict2 = null;
     }
     if (result.length == 0) {
       console.log("result is empty");
@@ -102,7 +103,7 @@ const RealTime = () => {
   useInterval(() => {
     const date = new Date();
     predictRealTime()
-    console.log(date, "this realtime", result);
+    //console.log(date, "this realtime", result);
     //delaymanager()   
   }, isRunning ? delay : null);
 
