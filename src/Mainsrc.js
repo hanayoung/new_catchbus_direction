@@ -32,10 +32,6 @@ const Mainsrc = () => {
   console.log(">>>>>>>>>>>alert in main", alert);
 
 
-  useEffect(()=>{
-    get()
-  }, []);
-
   const routeName = alert.routeName;
   const stationName = alert.stationName;
   const predict1 = alert.predict1;

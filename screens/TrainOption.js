@@ -6,6 +6,7 @@ const Container = styled.View`
 flex : 1;
 justify-content: center;
 align-items: center;
+background-color: #F0F8FF;
 `;
 const StyledText = styled.Text`
 font-size : 30px;
