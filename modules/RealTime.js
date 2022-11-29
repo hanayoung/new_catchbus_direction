@@ -8,6 +8,7 @@ import AppLoading from 'expo-app-loading';
 import axios from 'axios';
 import AlertContext, { AlertConsumer } from '../src/context/Alert';
 
+
 const Content_name = styled.Text`
 flex: 1;
 font-size: 14px;
@@ -35,10 +36,10 @@ const RealTime = () => {
     const [isRunning, setIsRunning] = useState(false);
     const [delay, setDelay] = useState(100000000);
 
-
+    
     const get = async () => {
       const loadedResult = await AsyncStorage.getItem('results');
-      //console.log(">>>>loaded ok?", loadedResult);
+     // console.log(">>>>loaded ok?", loadedResult);
       let obj = JSON.parse(loadedResult); //string to object
       for(value in obj) {
         if(obj[value].selected === true){
@@ -114,7 +115,7 @@ const RealTime = () => {
       if(result.predict2==undefined) result.predict2 = null;
     }
     if (result.length == 0) {
-      console.log("result is empty");
+     // console.log("result is empty");
     }
   };
   //
@@ -122,7 +123,7 @@ const RealTime = () => {
 
   useInterval(() => {
     get();
-  }, 1000)
+  }, 1000000)
 
   useInterval(() => {
     const date = new Date();
