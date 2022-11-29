@@ -12,15 +12,12 @@ const App = () => {
 
 /*  const [delay, setDelay] = useState(10000);
     const [count, setCount] = useState(0);
-
     function useInterval(callback, delay) {
     
     const savedCallback = useRef(); // 최근에 들어온 callback을 저장할 ref를 하나 만든다.
-
     useEffect(() => {
       savedCallback.current = callback; // callback이 바뀔 때마다 ref를 업데이트 해준다.
     }, [callback]);
-
     useEffect(() => {
       function tick() {
         savedCallback.current(); // tick이 실행되면 callback 함수를 실행시킨다.
@@ -31,8 +28,6 @@ const App = () => {
       }
       }, [delay]); // delay가 바뀔 때마다 새로 실행된다.
 };
-
-
   useInterval(() => {
     const date = new Date();
     console.log(date, "hello it is working");

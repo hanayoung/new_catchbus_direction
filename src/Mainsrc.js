@@ -31,6 +31,7 @@ const Mainsrc = () => {
 
   console.log(">>>>>>>>>>>alert in main", alert);
 
+
   const routeName = alert.routeName;
   const stationName = alert.stationName;
   const predict1 = alert.predict1;

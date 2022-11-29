@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
         borderWidth: 1,
+        borderColor: '#6495ED',
         padding: 5,
         margin: 3,
         width: Dimensions.get('window').width-40,

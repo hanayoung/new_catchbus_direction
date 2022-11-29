@@ -132,10 +132,13 @@ const TrainMain = () => {
     const trainmerge = () => {
         var tmpnode = new Object();
         tmpnode.startCity = startCityCode;
+        tmpnode.startStationName = startStation;
         tmpnode.startStation = startStationCode;
         tmpnode.endCity = endCityCode;
+        tmpnode.endStationName = endStation;
         tmpnode.endStation = endStationCode;
         tmpnode.trainDate = trainDate;
+        tmpnode.trainOptName = option;
         tmpnode.trainOpt = optioncode;
         setTrainInfo(tmpnode);
     }

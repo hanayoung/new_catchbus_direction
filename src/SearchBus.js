@@ -5,7 +5,6 @@ import { FlatList, StyleSheet, Text } from 'react-native';
 import Bus from '../modules/Bus';
 import Notification from '../modules/Notification';
 import StationContext, { StationConsumer } from './context/Station';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const Container = styled.View`
@@ -47,7 +46,6 @@ function SearchBus({storage,setStorage}) {
 const [result, setResult] = useState([]); //도착정보 저장
 const [routeInfo, setRouteInfo] = useState([]); //노선정보 저장
 const [merge, setMerge] = useState([]); //두 배열 합치기
-const [isReady, setIsReady] = useState(false);
 const [isRunning, setIsRunning] = useState(false);
 const [delay, setDelay] = useState(150000);
 const [routearray, setRouteArray] = useState([]);

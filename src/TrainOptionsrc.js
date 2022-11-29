@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import TrainContext from './context/Train';
 import axios from 'axios';
 import { DOMParser } from 'xmldom';
-import { FlatList, StyleSheet, Dimensions } from 'react-native';
+import { FlatList, StyleSheet, Dimensions, Text } from 'react-native';
 
 import TrainList from '../modules/TrainList';
 
@@ -37,13 +37,25 @@ const TrainOptionsrc = (trainsto, setTrainsto) => {
             let array = [];
             while (1) {
                 var tmpnode = new Object();
+                let arr = [];
+                let time = [];
                 tmpnode.index = i;
-                tmpnode.adultcharge = xmlDoc.getElementsByTagName("adultcharge")[i].textContent;       //운임
-                tmpnode.arrplacename = xmlDoc.getElementsByTagName("arrplacename")[i].textContent;     //도착지
-                tmpnode.arrplandtime = xmlDoc.getElementsByTagName("arrplandtime")[i].textContent;     //도착시간
-                tmpnode.depplacename = xmlDoc.getElementsByTagName("depplacename")[i].textContent;     //출발지
-                tmpnode.depplandtime = xmlDoc.getElementsByTagName("depplandtime")[i].textContent;     //출발시간
-                tmpnode.traingradename = xmlDoc.getElementsByTagName("traingradename")[i].textContent; //차량종류명
+                arr = [...xmlDoc.getElementsByTagName("arrplandtime")[i].textContent];   
+                time[0] = arr[8];
+                time[1] = arr[9]; 
+                tmpnode.arrhour = time.join('');
+                time[0] = arr[10];
+                time[1] = arr[11];
+                tmpnode.arrmin = time.join('');
+                
+                arr = [...xmlDoc.getElementsByTagName("depplandtime")[i].textContent];   
+                time[0] = arr[8];
+                time[1] = arr[9]; 
+                tmpnode.dephour = time.join('');
+                time[0] = arr[10];
+                time[1] = arr[11];
+                tmpnode.depmin = time.join('');
+
                 array.push(tmpnode);
                 i++;
                 if (xmlDoc.getElementsByTagName("adultcharge")[i] == undefined) break;
@@ -58,6 +70,10 @@ const TrainOptionsrc = (trainsto, setTrainsto) => {
 
     return (
         <Container width={width}>
+            <Text>출발지: {train.startStationName}</Text>
+            <Text>도착지: {train.endStationName}</Text>
+            <Text>날짜: {train.trainDate}</Text>
+            <Text>종류: {train.trainOptName}</Text>
             <FlatList
                 keyExtractor={item => item.arrplacename}
                 data={trainList}
@@ -65,11 +81,12 @@ const TrainOptionsrc = (trainsto, setTrainsto) => {
                 renderItem={({ item }) => (
                     <TrainList
                         item={item}
+                        train={train}
                         trainsto={trainsto}
                         setTrainsto={setTrainsto}
                     />
                 )}
-                windowSize={3}
+                windowSize={2}
             />
         </Container>
     )

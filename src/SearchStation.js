@@ -65,7 +65,8 @@ const setRegion=(x,y)=>{
     try {
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busstationservice/getBusStationList'; 
-      var queryParams = `?serviceKey=${API_KEY}&keyword=`+encodeURIComponent(station); 
+      //var queryParams = `?serviceKey=${API_KEY}&keyword=`+encodeURIComponent(station);
+      var queryParams = `?serviceKey=${API_KEY}&keyword=${station}`; 
       //console.log("station");
       var result = await axios.get(url+queryParams);
       let xmlParser = new DOMParser();

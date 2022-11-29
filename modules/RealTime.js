@@ -96,6 +96,10 @@ const RealTime = () => {
       let getData=await axios.get(url+queryParams);
       let xmlParser=new DOMParser();
       let xmlDoc=xmlParser.parseFromString(getData.data,"text/xml");
+      //var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
+      //queryParams += '&stationId=' + encodeURIComponent(stationId) + '&routeId=' + encodeURIComponent(routeId) + '&staOrder=' + encodeURIComponent(staOrder); // xhr.open('GET', url + queryParams); 
+      
+
             var tmpnode = new Object();
             tmpnode.predict1 = xmlDoc.getElementsByTagName("predictTime1")[0].textContent;
             tmpnode.loc1 = xmlDoc.getElementsByTagName("locationNo1")[0].textContent;
