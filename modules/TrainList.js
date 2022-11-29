@@ -17,6 +17,7 @@ border-width: 1;
 height: 30;
 padding: 5px;
 margin: 3px;
+flex-direction: row;
 `;
 
 const Content_name = styled.Text`
@@ -82,6 +83,12 @@ const TrainList = ({ item, trainsto, setTrainsto, train }) => {
     return (
         <Container>
             <Content_locate>{item.dephour}시 {item.depmin}분 ~ {item.arrhour}시 {item.arrmin}분</Content_locate>
+            <IconButton 
+            type={item.clicked ? images.clicked : images.unclicked} 
+            id={item} 
+            onPressOut={changeClicked}
+            clicked={item.clicked}
+            />
         </Container>
     );
 };

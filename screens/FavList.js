@@ -25,8 +25,9 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const FavList = ({ navigation, storage, setStorage, choice, setChoice }) => {
+const FavList = ({ navigation, storage, setStorage, choice, setChoice, trainsto, setTrainsto}) => {
     return(
+      console.log(trainsto),
         <Container>
             <Button
             title = "메인페이지"

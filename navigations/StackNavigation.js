@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import FavList from '../screens/FavList';
 import SearchStation from '../screens/SearchStation';
@@ -67,8 +67,9 @@ const TabNavigation = () => {
   const _loadResult = async () => {
     const loadedResult = await AsyncStorage.getItem('results');
     setStorage(JSON.parse(loadedResult));
+    const loadedTrain = await AsyncStorage.getItem('train');
+    setStorage(JSON.parse(loadedTrain));
   };
-
 
   return isReady ? (
     <Tab.Navigator initialRouteName='Main'
@@ -114,7 +115,7 @@ const TabNavigation = () => {
         {({ navigation }) => <SearchStack navigation={navigation} storage={storage} setStorage={setStorage} />}
       </Tab.Screen>
       <Tab.Screen name="FavList">
-        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} />}
+        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} trainsto={trainsto} setTrainsto={setTrainsto}/>}
       </Tab.Screen>
       <Tab.Screen name="Main" component={Main} />
       <Tab.Screen name="AjouBusList" component={AjouList} />
