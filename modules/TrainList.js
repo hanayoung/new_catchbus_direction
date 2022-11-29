@@ -14,6 +14,7 @@ justify-content: center;
 align-items: center;
 border-radius: 10;
 border-width: 1;
+height: 30;
 padding: 5px;
 margin: 3px;
 `;
@@ -39,13 +40,13 @@ const styles = StyleSheet.create({
     },
 });
 
-const TrainList = ({ item, trainsto, setTrainsto }) => {
+const TrainList = ({ item, trainsto, setTrainsto, train }) => {
     const [arrtime, setArrtime] = useState('');
     const [deptime, setDeptime] = useState('');
 
     const saveResult = async result => {
         try {
-            await AsyncStorage.setItem('results', JSON.stringify(result));
+            await AsyncStorage.setItem('train', JSON.stringify(result));
             setTrainsto(result);
         } catch (e) {
             console.error(e);
@@ -57,10 +58,12 @@ const TrainList = ({ item, trainsto, setTrainsto }) => {
             item.clicked = true;
             const newStorageObject = {
                 [item.index]: {
-                    depplacename: item.depplacename,
-                    deptime: deptime,
-                    arrplacename: item.arrplacename,
-                    arrtime: item.arrtime,
+                    depplacename: train.depplacename,
+                    dephour: item.dephour,
+                    depmin: item.depmin,
+                    arrplacename: train.arrplacename,
+                    arrhour: item.arrhour,
+                    arrmin: item.arrmin,
                     traingradename: item.traingradename,
                     clicked: item.clicked,
                     selected: false,
@@ -76,46 +79,9 @@ const TrainList = ({ item, trainsto, setTrainsto }) => {
         }
     }
 
-    const plandtime = (item, index) => {
-        let array = [...item];
-        let arr = [];
-        for (let i = 0; i < 4; i++)
-            arr[i] = array[i];
-        arr[4] = "년";
-        arr[5] = " ";
-        arr[6] = array[4]
-        arr[7] = array[5]
-        arr[8] = "월";
-        arr[9] = " ";
-        arr[10] = array[6];
-        arr[11] = array[7];
-        arr[12] = "일";
-        arr[13] = " ";
-        arr[14] = array[8];
-        arr[15] = array[9];
-        arr[16] = "시";
-        arr[17] = " ";
-        arr[18] = array[10];
-        arr[19] = array[11];
-        arr[20] = "분";
-        if (index == 0)
-            setDeptime(arr.join(''));
-        else
-            setArrtime(arr.join(''));
-    };
-
-    useEffect(() => {
-        plandtime(item.arrplandtime, 0);
-        plandtime(item.depplandtime, 1);
-    }, []);
-
     return (
         <Container>
-            <Content_name>출발지: {item.depplacename}</Content_name>
-            <Content_locate>출발시간: {deptime}</Content_locate>
-            <Content_locate>도착지: {item.arrplacename}</Content_locate>
-            <Content_locate>도착시간: {arrtime}</Content_locate>
-            <Content_locate>열차 종류: {item.traingradename}</Content_locate>
+            <Content_locate>{item.dephour}시 {item.depmin}분 ~ {item.arrhour}시 {item.arrmin}분</Content_locate>
         </Container>
     );
 };
