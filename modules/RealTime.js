@@ -54,6 +54,12 @@ const RealTime = () => {
       }, [delay]); // delay가 바뀔 때마다 새로 실행된다.
     }
 
+    const delaymanager = async () => {
+      if(result.predict1 > 10) setDelay(600000)
+      else if(result.predict1 == 5) setDelay(100000)
+      else if(result.predict1 == 3) setDelay(10000)
+    }
+
      // 여기서부터 버스 도착 정보 검색, (Input; stationID, Output: 노선 정보와 기타 도착 정보)
     const predictRealTime = async () => {
     //getBusArrivalList, input param : stationId (ID)
@@ -80,14 +86,15 @@ const RealTime = () => {
             tmpnode.remain2 = xmlDoc.getElementsByTagName("remainSeatCnt2")[0].textContent;
             tmpnode.staOrder = xmlDoc.getElementsByTagName("staOrder")[0].textContent;
             setResult(tmpnode);
-          //  console.log("result", result);
+            console.log("result", result);
           }
         }
         setIsRunning(false);
       xhr.send();
     }
     catch (err) {
-      alert(err);
+      if(result.predict1==undefined) result.predict1 = null;
+      if(result.predict2==undefined) result.predict2 = null;
     }
     if (result.length == 0) {
       console.log("result is empty");
@@ -99,8 +106,8 @@ const RealTime = () => {
   useInterval(() => {
     const date = new Date();
     predictRealTime()
-    console.log(date, "this realtime", result);
-    
+    //console.log(date, "this realtime", result);
+    //delaymanager()   
   }, isRunning ? delay : null);
 
 }
