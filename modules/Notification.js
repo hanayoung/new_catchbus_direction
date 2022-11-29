@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import * as Permissions from "expo-permissions";
 import * as Device from 'expo-device';
 import AlertContext, { AlertConsumer } from '../src/context/Alert';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -14,16 +15,15 @@ Notifications.setNotificationHandler({
 });
 
 function GetNotification(){ 
-  
-const [time,setTime]=useState(0);
+const [time,setTime]=useState();
 const [expoPushToken, setExpoPushToken] = useState('');
 const [notification, setNotification] = useState(false);
 const notificationListener = useRef();
 const responseListener = useRef();
 
-const { alert } = useContext(AlertContext);
+  const { alert } = useContext(AlertContext);
+  console.log("alert",alert);
 
-console.log(">>>>>>>>>>>alert", alert);
 
 const routeName = alert.routeName;
 const stationName = alert.stationName;
@@ -31,7 +31,6 @@ const predict1 = alert.predict1;
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
-
   // Remember the latest function.
   useEffect(() => {
       savedCallback.current = callback;
@@ -85,6 +84,21 @@ useEffect(() => {
     Notifications.removeNotificationSubscription(responseListener.current);
   };
 }, []);
+<<<<<<< HEAD
+// useInterval(()=>{
+//   console.log("iiiiiinnnnnnnn");
+//   console.log(alert.predict1)
+//     setTime(Number((alert.predict1)*60));
+//    // setTime(Number(stor.predict1)*60) // 일단 원하는 분 이전일 때 바로 알림이 뜨는지 확인 (time =1 이런 게 먹히는지 확인해보기 )
+//     //console.log("result in Nottttti second",result)
+//     schedulePushNotification();
+// },60000);
+useEffect(()=>{
+  if(alert!=undefined){
+    console.log("alert Noti setTime",alert);
+    setTime((Number((alert.predict1)*60)));
+  }
+},[alert])
 useInterval(()=>{
   //console.log("iiiiiinnnnnnnn");
     //setTime(Number(result.predict1)*60);
@@ -93,20 +107,25 @@ useInterval(()=>{
     schedulePushNotification();
 },60000);
 
-/*useEffect(()=>{
-  console.log("jjjjjjjj");
-  setTime(Number(result.predict1)*60)
-  console.log("result in Noti useEffect ",result);
-  schedulePushNotification();
-},[result]);*/
+useEffect(()=>{
+  if(time!=undefined){
+    console.log("alert in Noti schedulePushNotification ",alert);
+    schedulePushNotification();
+  }
+},[time]);
 
 async function schedulePushNotification() {
+
+ console.log("alert.name",alert.routename)
+ if(time==300){
+  console.log("time",time)
+
  //console.log("time",time)
  if(time<600){
 await Notifications.scheduleNotificationAsync({
    // 화면에 뜨는 내용
    content:{
-    title:"Bus is Coming!",
+    title:`${alert.routename} is Coming!`,
     body:`${(time/60)} 분 후에 도착 !`,
    },
    trigger: { 
@@ -115,6 +134,14 @@ await Notifications.scheduleNotificationAsync({
   },
 });
 }
+else if(time>300){
+  console.log("time",time);
+  
+}
+// else{
+//   setTime(Number(time)-30);
+//   setTimeout(()=>schedulePushNotification(),300000);
+// }
 }
 
 async function registerForPushNotificationsAsync() {

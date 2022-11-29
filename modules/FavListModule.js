@@ -5,7 +5,7 @@ import IconButton from '../components/IconButton'
 import { images } from './images'
 import { StyleSheet, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Notification from './Notification';
+
 // 1. src/searchStation의 자식
 const Container = styled.View`
 flex : 1;
@@ -86,6 +86,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
             storage[item.routeid].selected = false;
         }
         saveResult(storage);
+
     }
     return (
         <Container width={width}>

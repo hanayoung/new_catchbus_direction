@@ -58,6 +58,9 @@ const BusList = ({ item, saveResult, storage}) => {
                     region: item.region,
                     predict1: item.predict1,
                     clicked: item.clicked,
+                    predict1:item.predict1,
+                    predict2:item.predict2,
+                    predict:item.predict,
                     stationName: item.stationName,
                     stationId: item.stationId,
                     staOrder: item.staOrder,
@@ -79,7 +82,7 @@ const BusList = ({ item, saveResult, storage}) => {
         <TouchableOpacity
         onPressOut = {() => {
             choice = item;
-            //console.log("see what is in ", item);
+            console.log("see what is in ", item);
             setBus(item)
             dispatch(item);
             navigation.navigate('BusRoute')
