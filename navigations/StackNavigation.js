@@ -106,6 +106,9 @@ const TabNavigation = () => {
       tabBarOptions={{
         activeTintColor: 'black',
         inactiveTintColor: 'gray',
+        activeBackgroundColor: '#B0C4DE',
+        inactiveBackgroundColor: '#B0C4DE',
+        hideOnKeyboard: true,
       }}>
       <Tab.Screen name="Search">
         {({ navigation }) => <SearchStack navigation={navigation} storage={storage} setStorage={setStorage} />}

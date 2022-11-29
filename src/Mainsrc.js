@@ -40,7 +40,7 @@ const Mainsrc = () => {
   };
 
   useEffect(()=>{
-    get(),
+    get()
   }, []);
 
   return(
