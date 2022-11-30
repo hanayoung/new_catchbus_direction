@@ -34,28 +34,48 @@ const RealTime = () => {
     const [one, setOne] = useState([]);
     const [result, setResult] = useState({});
     const [isRunning, setIsRunning] = useState(false);
-    const [delay, setDelay] = useState(100000000);
+    const [delay, setDelay] = useState(10000);
 
-    
+    const [stationId, setStationId] = useState(0);
+    const [routeId, setRouteId] = useState(0);
+    const [staOrder, setStaOrder] = useState(0);
+
+    const handleone = (one) => {
+      setOne(one),
+      setStationId(one.stationId),
+      setRouteId(one.routeid),
+      setStaOrder(one.staOrder);
+    }
+
+    const handleresult = (result) => {
+      //console.log("here ok", result)
+      setResult(result)
+      setAlert(result)
+      dispatch(result)
+    }
+
     const get = async () => {
       const loadedResult = await AsyncStorage.getItem('results');
-     // console.log(">>>>loaded ok?", loadedResult);
+      //console.log(">>>>loaded ok?", loadedResult);
       let obj = JSON.parse(loadedResult); //string to object
+      let flag = 0;
       for(value in obj) {
         if(obj[value].selected === true){
-          //if(obj[value].routename != one.routename){
-            //console.log("have to be changed")
-            //setCheck(true);
-          //}
-          setOne(obj[value]);
+          flag = 1; // 3. 아무것도 핀 없을 때 판단
+          if(obj[value].routename != one.routename){
+            setCheck(1)
+            //console.log("will be turn", one.routename, "to", obj[value].routename)
+            //1. 새로운 핀 설정 감지
+            handleone(obj[value])
+            setCheck(1)
+          }
+          else setCheck(2); //2. 전이랑 같은 핀 감지
         }
       }
+      if (flag == 0){
+        setCheck(3); // 3. 아무 핀 없을 때
+      }
     };
- 
-    const stationId = one.stationId;
-    const routeId = one.routeid;
-    const staOrder = one.staOrder;
-
     //console.log(">>>>>>>>>>>>check if the param is ok", stationId, routeId, staOrder);
 
     function useInterval(callback, delay) {
@@ -86,7 +106,7 @@ const RealTime = () => {
     const predictRealTime = async () => {
     //getBusArrivalList, input param : stationId (ID)
     try {
-      //console.log("innnnnnn");
+      //console.log("in predict time", one.routename)
       setIsRunning(true);
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalItem'; 
@@ -106,8 +126,7 @@ const RealTime = () => {
             tmpnode.staOrder = xmlDoc.getElementsByTagName("staOrder")[0].textContent;
             tmpnode.stationName = one.stationName;
             tmpnode.routeName = one.routename;
-            setResult(tmpnode);
-
+            handleresult(tmpnode);
           //  console.log("result", result);
     }
     catch (err) {
@@ -123,18 +142,26 @@ const RealTime = () => {
 
   useInterval(() => {
     get();
-  }, 1000000)
+    if(check == 1){ // pin changed
+      predictRealTime()
+    }
+  }, 1000)
 
   useInterval(() => {
     const date = new Date();
     get()
-    predictRealTime()
+    if(check == 2){ // delay manager
+      predictRealTime()
+      delaymanager();
+    }
+    else if(check == 3){
+      //console.log("no pin")
+      setAlert([])
+      dispatch([])
+    }
     //console.log(date, "this realtime", result);
     //console.log("isRunning",isRunning)
     //console.log(result)
-    delaymanager()
-    setAlert(result)
-    dispatch(result)
   }, isRunning ? delay : null);
 
 }

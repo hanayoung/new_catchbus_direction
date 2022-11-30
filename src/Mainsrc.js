@@ -29,14 +29,18 @@ const Mainsrc = () => {
 
   const { alert } = useContext(AlertContext);
 
-  console.log(">>>>>>>>>>>alert in main", alert);
-
+  //console.log(">>>>>>>>>>>alert in main", alert);
 
   const routeName = alert.routeName;
   const stationName = alert.stationName;
   const predict1 = alert.predict1;
 
   return(
+    alert.length === 0 ? 
+    <Container>
+    <StyledText>버스를 선택해주세요!</StyledText>
+    </Container>
+    :
     <Container>
       <StyledText>메인페이지 테스트</StyledText>
       <DetailText>{routeName}번 버스가</DetailText>
