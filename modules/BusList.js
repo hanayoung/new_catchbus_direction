@@ -16,7 +16,12 @@ align-items: center;
 
 const Content_name = styled.Text`
 flex: 1;
-font-size: 14px;
+font-size: 13px;
+`;
+
+const Rname = styled.Text`
+flex: 1;
+font-size: 16px;
 `;
 
 const Content_locate = styled.Text`
@@ -30,8 +35,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderRadius: 10,
         borderWidth: 1,
-        padding: 5,
+        padding: 8,
         margin: 3,
+        backgroundColor: "#FFFFFF",
         width: Dimensions.get('window').width-40,
     },
 });
@@ -82,18 +88,26 @@ const BusList = ({ item, saveResult, storage}) => {
         <TouchableOpacity
         onPressOut = {() => {
             choice = item;
-            console.log("see what is in ", item);
             setBus(item)
+            console.log(item.predict)
             dispatch(item);
             navigation.navigate('BusRoute')
         }}
         style = {styles.button}
         >
             <Container>
-            <Content_name>{item.routeName}</Content_name>
-            <Content_locate>{item.predict1}분 후 도착  {item.predict2} 분 후 도착</Content_locate>
+            <Rname>{item.routeName}</Rname>
+            <>{
+                item.predict2.length != 0 ? 
+                <Content_locate>{item.predict1}분 후 도착  {item.predict2} 분 후 도착</Content_locate>
+                : <Content_locate>{item.predict1}분 후 도착 </Content_locate> 
+            }</>
             <Content_locate>{item.stationDirection} 방면</Content_locate>
-            <Content_locate>{item.predict} 분 후 회차지 도착</Content_locate>
+            <>{
+                item.predict != undefined ?
+                <Content_locate>{item.predict} 분 후 회차지 도착</Content_locate>
+                    : null
+            }</>
             </Container>
             <IconButton 
             type={item.clicked ? images.clicked : images.unclicked} 

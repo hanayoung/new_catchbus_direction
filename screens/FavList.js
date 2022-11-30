@@ -26,15 +26,14 @@ margin-bottom : 10px;
 `;
 
 const FavList = ({ navigation, storage, setStorage, choice, setChoice, trainsto, setTrainsto}) => {
-    return(
-      console.log(trainsto),
+    return (storage!=null) ? (
         <Container>
-            <Button
-            title = "메인페이지"
-            onPress = {()=> navigation.navigate('Main')}/>
             <FavListsrc storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} style={[styles.favlistsrc]}></FavListsrc>
         </Container>
-    )
+    ) : 
+    ( 
+    <Button title = "버스를 등록하세요" onPress = {()=> navigation.navigate('Main')}/>
+    );
 }
 
 const styles = StyleSheet.create({
