@@ -124,7 +124,7 @@ async function schedulePushNotification() {
  }
  //console.log("time",time)
  else if(time<=600){
-  console.log("time",time)
+ //console.log("time",time)
 await Notifications.scheduleNotificationAsync({
    // 화면에 뜨는 내용
    content:{
@@ -138,7 +138,7 @@ await Notifications.scheduleNotificationAsync({
 });
 }
 else if(time>600){
-  console.log("time",time);
+ // console.log("time",time);
   
 }
 // else{
