@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     },
 });
 
-
 const RealTime = () => {
 
     const [alert, setAlert] = useState([]);
@@ -35,7 +34,6 @@ const RealTime = () => {
     const [result, setResult] = useState({});
     const [isRunning, setIsRunning] = useState(false);
     const [delay, setDelay] = useState(100000000);
-
     
     const get = async () => {
       const loadedResult = await AsyncStorage.getItem('results');

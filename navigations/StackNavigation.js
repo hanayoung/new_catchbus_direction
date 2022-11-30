@@ -46,13 +46,13 @@ const SettingStack = ({ navigation }) => {
   )
 }
 
-const TrainStack = ({ navigation , trainsto, setTrainsto}) => {
+const TrainStack = ({ navigation, trainsto, saveResult }) => {
   return (
     <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="TrainMain" component={TrainMain} />
       <Stack.Screen name="TrainOption">
-        {({ navigation }) => <TrainOption  trainsto={trainsto} setTrainsto={setTrainsto}/>}
-        </Stack.Screen>
+        {({ navigation }) => <TrainOption trainsto={trainsto} saveResult={saveResult} navigtaion={navigation} />}
+      </Stack.Screen>
     </Stack.Navigator>
   )
 }
@@ -68,7 +68,16 @@ const TabNavigation = () => {
     const loadedResult = await AsyncStorage.getItem('results');
     setStorage(JSON.parse(loadedResult));
     const loadedTrain = await AsyncStorage.getItem('train');
-    setStorage(JSON.parse(loadedTrain));
+    setTrainsto(JSON.parse(loadedTrain));
+  };
+
+  const saveResult = async result => {
+    try {
+      await AsyncStorage.setItem('train', JSON.stringify(result));
+      setTrainsto(result);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return isReady ? (
@@ -115,12 +124,12 @@ const TabNavigation = () => {
         {({ navigation }) => <SearchStack navigation={navigation} storage={storage} setStorage={setStorage} />}
       </Tab.Screen>
       <Tab.Screen name="FavList">
-        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} trainsto={trainsto} setTrainsto={setTrainsto}/>}
+        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} trainsto={trainsto} saveResult={saveResult} />}
       </Tab.Screen>
       <Tab.Screen name="Main" component={Main} />
       <Tab.Screen name="AjouBusList" component={AjouList} />
       <Tab.Screen name="Train">
-        {({ navigation }) => <TrainStack trainsto={trainsto} setTrainsto={setTrainsto}/>}
+        {({ navigation }) => <TrainStack trainsto={trainsto} saveResult={saveResult} />}
       </Tab.Screen>
       <Tab.Screen name="Settings" component={SettingStack} />
     </Tab.Navigator>

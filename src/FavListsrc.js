@@ -14,7 +14,7 @@ width: ${({ width }) => width - 40}px;
 function FavListsrc({ storage, setStorage, choice, setChoice }) {
   //함수형 컴포넌트 const -> useEffect로 해결
   const width = Dimensions.get('window').width;
-
+  console.log("storage in FavListsrc",storage);
   return (storage != null) ? (
    // console.log("storage", storage),
     <View style={styles.container}>
