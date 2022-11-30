@@ -77,12 +77,12 @@ const TrainMainDate = ({trainDate, setTrainDate}) => {
 
 const styles = StyleSheet.create({
     textsize: {
-        fontSize: 30,
+        fontSize: 20,
         marginTop: 15,
-        marginBottom: 5,
+        marginBottom: 7,
     },
     container: {
-
+        backgroundColor: '#F0F8FF'
     },
     textInput: {
         fontSize: 16,

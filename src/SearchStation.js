@@ -96,7 +96,7 @@ const setRegion=(x,y)=>{
   useEffect(() => {
     ask();
     searchStation();
-  }, []);
+  }, 1000);
 // console.log("image",image);
   return (
     <View style={styles.container}>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#FFFFFF",
     padding: 10,
   },
   container: {
