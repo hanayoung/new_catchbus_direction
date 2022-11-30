@@ -24,7 +24,7 @@ const responseListener = useRef();
 
 
   const { alert } = useContext(AlertContext);
-  console.log("alert",alert);
+  //console.log("alert",alert);
 
 
 const routeName = alert.routeName;

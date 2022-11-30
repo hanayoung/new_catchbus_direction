@@ -14,14 +14,20 @@ align-items: center;
 flex-direction: row;
 width: ${({ width }) => width - 40}px;
 `;
-const Content_name = styled.Text`
+
+const RName = styled.Text`
 flex: 1;
-font-size: 14px;
+font-size: 18px;
+`;
+
+const SName = styled.Text`
+flex: 1;
+font-size: 13.8px;
 `;
 
 const Content_locate = styled.Text`
 flex: 1;
-font-size: 15px;
+font-size: 10px;
 `;
 
 const styles = StyleSheet.create({
@@ -90,8 +96,8 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
     }
     return (
         <Container width={width}>
-            <Content_name>{item.routename}</Content_name>
-            <Content_name>{item.stationName}</Content_name>
+            <RName>{item.routename}</RName>
+            <SName>{item.stationName}</SName>
             <IconButton
                 type={item.clicked ? images.clicked : images.unclicked}
                 id={item}

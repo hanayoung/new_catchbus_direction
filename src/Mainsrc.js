@@ -13,7 +13,7 @@ justify-content: center;
 align-items: center;
 `;
 const StyledText = styled.Text`
-font-size : 30px;
+font-size : 25px;
 margin-bottom: 10px;
 `;
 const DetailText = styled.Text`
@@ -38,11 +38,10 @@ const Mainsrc = () => {
   return(
     alert.length === 0 ? 
     <Container>
-    <StyledText>버스를 선택해주세요!</StyledText>
+    <StyledText>버스를 등록해주세요</StyledText>
     </Container>
     :
     <Container>
-      <StyledText>메인페이지 테스트</StyledText>
       <DetailText>{routeName}번 버스가</DetailText>
       <DetailText>{stationName}정류장에</DetailText>
       <DetailText>{predict1}분 후 도착 예정입니다</DetailText>
