@@ -16,15 +16,13 @@ Notifications.setNotificationHandler({
 
 function GetNotification(){ 
 const [time,setTime]=useState();
+const [breakTime,setBreakTime]=useState();
 const [expoPushToken, setExpoPushToken] = useState('');
 const [notification, setNotification] = useState(false);
 const notificationListener = useRef();
 const responseListener = useRef();
 
-
-
-  const { alert } = useContext(AlertContext);
-  //console.log("alert",alert);
+const { alert } = useContext(AlertContext);
 
 
 const routeName = alert.routeName;
@@ -95,12 +93,13 @@ useEffect(() => {
 //     schedulePushNotification();
 // },60000);
 useEffect(()=>{
-  if(alert!=undefined){
+  if(routeName!=undefined){
     // console.log("one",one);
     // console.log("alert Noti setTime",alert);
-    setTime((Number((alert.predict1)*60)));
+    setTime((Number((predict1)*60)));
   }
 },[alert])
+
 useInterval(()=>{
   //console.log("iiiiiinnnnnnnn");
     //setTime(Number(result.predict1)*60);
@@ -110,7 +109,7 @@ useInterval(()=>{
 },60000);
 
 useEffect(()=>{
-  if(time!=undefined){
+  if(routeName!=undefined){
    // console.log("alert in Noti schedulePushNotification ",alert);
     schedulePushNotification();
   }
