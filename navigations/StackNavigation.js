@@ -47,11 +47,11 @@ const SettingStack = ({ navigation }) => {
 }
 
 const TrainStack = ({ navigation, trainsto, saveResult }) => {
-  return (
+  return(
     <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="TrainMain" component={TrainMain} />
       <Stack.Screen name="TrainOption">
-        {({ navigation }) => <TrainOption trainsto={trainsto} saveResult={saveResult} navigtaion={navigation} />}
+        {({ navigation }) => <TrainOption trainsto={trainsto} saveResult={saveResult} />}
       </Stack.Screen>
     </Stack.Navigator>
   )
@@ -81,6 +81,7 @@ const TabNavigation = () => {
   };
 
   return isReady ? (
+    console.log("train", trainsto),
     <Tab.Navigator initialRouteName='Main'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {

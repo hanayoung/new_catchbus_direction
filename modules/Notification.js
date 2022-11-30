@@ -24,7 +24,7 @@ const responseListener = useRef();
 
 
   const { alert } = useContext(AlertContext);
-  //console.log("alert",alert);
+  console.log("alert",alert);
 
 
 const routeName = alert.routeName;
@@ -123,11 +123,12 @@ async function schedulePushNotification() {
   //console.log("time",time)
  }
  //console.log("time",time)
- else if(time<600){
+ else if(time<=600){
+  console.log("time",time)
 await Notifications.scheduleNotificationAsync({
    // 화면에 뜨는 내용
    content:{
-    title:`${alert.routename} is Coming!`,
+    title:`${routeName} is Coming!`,
     body:`${(time/60)} 분 후에 도착 !`,
    },
    trigger: { 
@@ -136,8 +137,8 @@ await Notifications.scheduleNotificationAsync({
   },
 });
 }
-else if(time>300){
-  //console.log("time",time);
+else if(time>600){
+  console.log("time",time);
   
 }
 // else{

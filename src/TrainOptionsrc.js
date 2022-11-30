@@ -14,7 +14,7 @@ align-items: center;
 width: ${({ width }) => width - 40}px;
 `;
 
-const TrainOptionsrc = (trainsto, setTrainsto) => {
+const TrainOptionsrc = ({ trainsto, saveResult }) => {
     const { train } = useContext(TrainContext);
 
     const width = Dimensions.get('window').width;
@@ -40,21 +40,28 @@ const TrainOptionsrc = (trainsto, setTrainsto) => {
                 let arr = [];
                 let time = [];
                 tmpnode.index = i;
-                arr = [...xmlDoc.getElementsByTagName("arrplandtime")[i].textContent];   
+                arr = [...xmlDoc.getElementsByTagName("arrplandtime")[i].textContent];
                 time[0] = arr[8];
-                time[1] = arr[9]; 
+                time[1] = arr[9];
                 tmpnode.arrhour = time.join('');
                 time[0] = arr[10];
                 time[1] = arr[11];
                 tmpnode.arrmin = time.join('');
-                
-                arr = [...xmlDoc.getElementsByTagName("depplandtime")[i].textContent];   
+
+                arr = [...xmlDoc.getElementsByTagName("depplandtime")[i].textContent];
                 time[0] = arr[8];
-                time[1] = arr[9]; 
+                time[1] = arr[9];
                 tmpnode.dephour = time.join('');
                 time[0] = arr[10];
                 time[1] = arr[11];
                 tmpnode.depmin = time.join('');
+
+                tmpnode.clicked = false;
+
+                for (var index in trainsto) {
+                    if (tmpnode.index == index)
+                        tmpnode.clicked = true;
+                }
 
                 array.push(tmpnode);
                 i++;
@@ -66,7 +73,6 @@ const TrainOptionsrc = (trainsto, setTrainsto) => {
             //alert(err);
         }
     };
-
 
     return (
         <Container width={width}>
@@ -83,7 +89,7 @@ const TrainOptionsrc = (trainsto, setTrainsto) => {
                         item={item}
                         train={train}
                         trainsto={trainsto}
-                        setTrainsto={setTrainsto}
+                        saveResult={saveResult}
                     />
                 )}
                 windowSize={2}
@@ -93,9 +99,9 @@ const TrainOptionsrc = (trainsto, setTrainsto) => {
 }
 const styles = StyleSheet.create({
     flatlist: {
-      flex: 1,
-      width: '100%',
+        flex: 1,
+        width: '100%',
     }
-  });
-  
+});
+
 export default TrainOptionsrc;
