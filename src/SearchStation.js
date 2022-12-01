@@ -100,7 +100,7 @@ const setRegion=(x,y)=>{
 // console.log("image",image);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>CatchBus</Text>
+      <Text style={styles.title}></Text>
       <TextInput
         style={styles.input}
         placeholder='정류장 이름을 입력하세요'
@@ -111,6 +111,7 @@ const setRegion=(x,y)=>{
         multiline={false}
         returnKeyType="search"
       />
+      <Text style={styles.title}></Text>
       <MapView
         region={initialRegion}
         style={[styles.map]}
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   title: {
-    margin: 5 ,
+    margin: 0.3 ,
     top: 0,
     bottom: 0,
     justifyContent: 'center',
