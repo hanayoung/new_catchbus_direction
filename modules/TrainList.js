@@ -17,6 +17,7 @@ height: 35;
 padding: 5px;
 margin: 3px;
 flex-direction: row;
+background-color: white;
 `;
 
 const Content_name = styled.Text`
@@ -27,6 +28,7 @@ font-size: 14px;
 const Content_locate = styled.Text`
 flex: 1;
 font-size: 15px;
+background-color: white;
 `;
 
 const styles = StyleSheet.create({
@@ -49,13 +51,14 @@ const TrainList = ({ item, trainsto, saveResult, train }) => {
             item.clicked = true;
             const newStorageObject = {
                 [item.index]: {
-                    depplacename: train.depplacename,
+                    trainDate: train.trainDate,
                     dephour: item.dephour,
                     depmin: item.depmin,
                     startStationName: train.startStationName,
                     arrhour: item.arrhour,
                     arrmin: item.arrmin,
                     endStationName: train.endStationName,
+                    trainOpt: train.trainOpt,
                     clicked: item.clicked,
                 },
             };
@@ -70,7 +73,7 @@ const TrainList = ({ item, trainsto, saveResult, train }) => {
     }
 
     return (
-        <Container>
+        <Container style={styles.Container}>
             <Content_locate>{item.dephour}시 {item.depmin}분 ~ {item.arrhour}시 {item.arrmin}분</Content_locate>
             <IconButton 
             type={item.clicked ? images.clicked : images.unclicked} 

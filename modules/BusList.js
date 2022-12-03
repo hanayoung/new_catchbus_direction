@@ -16,12 +16,12 @@ align-items: center;
 
 const Content_name = styled.Text`
 flex: 1;
-font-size: 13px;
+font-size: 10px;
 `;
 
 const Rname = styled.Text`
 flex: 1;
-font-size: 16px;
+font-size: 14px;
 `;
 
 const Content_locate = styled.Text`
