@@ -7,6 +7,7 @@ import { AlertProvider } from './src/context/Alert';
 import Notification from './modules/Notification'
 import { TrainProvider } from './src/context/Train';
 import RealTime from './modules/RealTime';
+import { DirectionProvider } from './src/context/Direction';
 
 const App = () => {
 

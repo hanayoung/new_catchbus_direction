@@ -52,6 +52,7 @@ const [routearray, setRouteArray] = useState([]);
 const [ok, setOk] = useState(false);
 const [endStation, setEndStation]=useState([]);
 const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운행, 4: 운행 종료
+const [way,setWay]=useState([]);
 
   const { station } = useContext(StationContext);
 
@@ -195,6 +196,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
           if(Number(endStation[j].stationSeq)<Number(result[i].staOrder)){
             result[i].stationDirectionId=1;//0이 종점을 항헤 가는 거, 1이 기점을 향해 이건 찐방면 
             result[i].stationDirection=result[i].startName;
+           // setWay([...way,result[i].stationDirection]);
             let count=Number(result[i].staOrder)-Number(endStation[j].stationSeq);
             if(count<8&&count>=0)
             result[i].breakFlag=true;
@@ -205,6 +207,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
           else{
             result[i].stationDirectionId=0;
             result[i].stationDirection=result[i].endName;
+           // setWay([...way,result[i].stationDirection]);
             if(Number(result[i].staOrder)<8)
             result[i].breakFlag=true;
             else{
@@ -237,8 +240,8 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
             break;
           }
         }   
-       
       }else{
+        //console.log("lastStationId",lastStationId)
         let data=await axios.get(`http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList?serviceKey=UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D&stationId=${result[i].startStationId}`)
         let xmlParser = new DOMParser();
         let xmlDoc = xmlParser.parseFromString(data.data, "text/xml"); 
@@ -270,7 +273,6 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
         result[i].routeType=route.routeType;
         result[i].stationName = station.name;
         result[i].stationId = station.id;
-      //  buslist.push(result[i]); 
       }
     }
     if(result.length!=0&&result[result.length-1].endName!=undefined){
@@ -299,8 +301,8 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
   //  console.log("result", result.length, "routeInfo", routeInfo.length),
 
     <Container>
-    <DetailText>{(()=> {if (resultCode === 4) return "운행이 종료되었습니다"})()}</DetailText>
-    <DetailText>{(()=>{if (resultCode=== 23) return "버스도착정보가 없습니다"})}</DetailText>
+    <DetailText>{(()=> {if (resultCode === 4) return "버스도착정보가 없습니다"})()}</DetailText>
+    <DetailText>{(()=>{if (resultCode=== 23) return "운행이 종료되었습니다"})}</DetailText>
       <Bus merge={merge} storage={storage} setStorage={setStorage}/>
     </Container>
   );

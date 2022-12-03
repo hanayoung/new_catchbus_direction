@@ -100,13 +100,13 @@ useEffect(()=>{
   }
 },[alert])
 
-useInterval(()=>{
-  //console.log("iiiiiinnnnnnnn");
-    //setTime(Number(result.predict1)*60);
-   // setTime(Number(stor.predict1)*60) // 일단 원하는 분 이전일 때 바로 알림이 뜨는지 확인 (time =1 이런 게 먹히는지 확인해보기 )
-    //console.log("result in Nottttti second",result)
-    schedulePushNotification();
-},60000);
+// useInterval(()=>{
+//   //console.log("iiiiiinnnnnnnn");
+//     //setTime(Number(result.predict1)*60);
+//    // setTime(Number(stor.predict1)*60) // 일단 원하는 분 이전일 때 바로 알림이 뜨는지 확인 (time =1 이런 게 먹히는지 확인해보기 )
+//     //console.log("result in Nottttti second",result)
+//     schedulePushNotification();
+// },60000);
 
 useEffect(()=>{
   if(routeName!=undefined){
@@ -122,7 +122,7 @@ async function schedulePushNotification() {
   //console.log("time",time)
  }
  //console.log("time",time)
- else if(time<=600){
+ else if(time==600){
  //console.log("time",time)
 await Notifications.scheduleNotificationAsync({
    // 화면에 뜨는 내용
@@ -136,7 +136,7 @@ await Notifications.scheduleNotificationAsync({
   },
 });
 }
-else if(time>600){
+else if(time>=600){
  // console.log("time",time);
   
 }

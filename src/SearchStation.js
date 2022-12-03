@@ -6,7 +6,6 @@ import StationList from '../modules/StationList';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from "expo-location";
 import axios from 'axios';
-import {FontAwesome} from '@expo/vector-icons';
 
 // 2. screens/SearchStation의 자식
 
@@ -15,6 +14,7 @@ function SearchStation({navigation})
   const [station, setStation] = useState('');
   const [result, setResult] = useState([]);
   const [initialRegion, setinitialRegion] = useState();
+ // const { direction } = useContext(DirectionContext);
   // const [image,setImage]=useState(['../assets/icons/free-icon-pin-map-8358807.png']);
   //const [latitude,setLatitude]=useState('');
   //const [longitute, setLongitude]=useState('');
@@ -39,12 +39,6 @@ const setRegion=(x,y)=>{
       longitudeDelta:0.002
   })
   }
-  // const pressHandler=(idx)=>{
-  //   let tmp_array=image;
-  //   console.log("tmp_array",tmp_array)
-  //   tmp_array[idx]='../assets/icons/free-icon-hearth-4225968.png';
-  //   setImage(tmp_array);
-  // }
   const ask = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
     const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({ accuracy: 5 }); //coords를 통해 현재 위치의 좌표 받기
@@ -118,7 +112,7 @@ const setRegion=(x,y)=>{
         showsMyLocationButton={true}
         provider={PROVIDER_GOOGLE}
       >
-        {result && result.map((item,idx) => {
+        {result && result.map((item) => {
           return (
             <Marker
               key={item.id}
@@ -127,11 +121,10 @@ const setRegion=(x,y)=>{
                 latitude: Number(item.y),
                 longitude: Number(item.x),//리턴 해줘야지 마커 뜸
               }}
-              // onPress={(e)=>{pressHandler(e,idx)}}
-              // image={{image}}
-            >
-               <FontAwesome name="map-marker" size={30} color="#0067A3"/>
-               </Marker>
+              description={item.id}
+              pinColor={"#B0C4DE"}
+               
+            />
           );
         }
 
