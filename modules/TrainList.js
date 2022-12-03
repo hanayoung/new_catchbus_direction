@@ -51,13 +51,14 @@ const TrainList = ({ item, trainsto, saveResult, train }) => {
             item.clicked = true;
             const newStorageObject = {
                 [item.index]: {
-                    depplacename: train.depplacename,
+                    trainDate: train.trainDate,
                     dephour: item.dephour,
                     depmin: item.depmin,
                     startStationName: train.startStationName,
                     arrhour: item.arrhour,
                     arrmin: item.arrmin,
                     endStationName: train.endStationName,
+                    trainOpt: train.trainOpt,
                     clicked: item.clicked,
                 },
             };

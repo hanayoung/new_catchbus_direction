@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native';
-import { View, StyleSheet, FlatList, Text, Button } from 'react-native';
-import FavListModule from '../modules/FavListModule';
+import { View, StyleSheet, Button } from 'react-native';
+import FavTrainModule from '../modules/FavTrainModule';
 import { Dimensions } from 'react-native';
 
 // 2. screens/SearchStation의 자식
@@ -11,28 +11,26 @@ flex: 1;
 width: ${({ width }) => width - 40}px;
 `;
 
-function FavListsrc({ storage, setStorage, choice, setChoice }) {
+function FavListTrain({ trainsto, saveResult}) {
   //함수형 컴포넌트 const -> useEffect로 해결
   const width = Dimensions.get('window').width;
-  return (storage != null) ? (
-   // console.log("storage", storage),
+  return (trainsto != null) ? (
+   console.log("storage", trainsto),
     <View style={styles.container}>
       <List width={width}>
-        {Object.values(storage)
+        {Object.values(trainsto)
           .map(item => (
-            <FavListModule
-              key={item.id}
+            <FavTrainModule
+              key={item.trainsto}
               item={item}
-              storage={storage}
-              setStorage={setStorage}
-              choice={choice}
-              setChoice={setChoice}
+              trainsto={trainsto}
+              saveResult={saveResult}
             />
           ))}
       </List>
     </View>
   ) : ( 
-  <Button title = "버스를 등록하세요" onPress = {()=> navigation.navigate('Main')}/>
+  <Button title = "기차를 등록하세요" onPress = {()=> navigation.navigate('TrainMain')}/>
   );
 
 }
@@ -49,4 +47,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default FavListsrc;
+export default FavListTrain;
