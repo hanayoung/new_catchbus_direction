@@ -4,6 +4,7 @@ import { DOMParser } from 'xmldom';
 //import BusContext, { BusConsumer } from './context/Bus';
 import styled from 'styled-components/native';
 import catchbus from '../components/catchbus.gif';
+import sleepingbus from '../components/sleepingbus.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertContext, { AlertConsumer } from '../src/context/Alert';
 import axios from 'axios';
@@ -39,7 +40,8 @@ const Mainsrc = () => {
   return(
     alert.length === 0 ? 
     <Container>
-    <StyledText>버스를 등록해주세요</StyledText>
+    <Image source = {sleepingbus}/>
+    <DetailText>  버스를 등록해주세요</DetailText>
     </Container>
     :
     <Container>

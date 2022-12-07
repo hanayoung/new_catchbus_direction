@@ -9,7 +9,8 @@ import { TrainProvider } from './src/context/Train';
 import RealTime from './modules/RealTime';
 
 const App = () => {
-
+  
+    console.disableYellowBox = true;
 /*  const [delay, setDelay] = useState(10000);
     const [count, setCount] = useState(0);
     function useInterval(callback, delay) {
