@@ -37,21 +37,14 @@ const SearchStack = ({ navigation, storage, setStorage }) => {
   )
 }
 
-const SettingStack = ({ navigation }) => {
-  return (
-    <Stack.Navigator initialRouteName="Setting" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Setting" component={Settings} />
-      <Stack.Screen name="History" component={History} />
-    </Stack.Navigator>
-  )
-}
 
 const TrainStack = ({ navigation, trainsto, saveResult }) => {
   return(
     <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="TrainMain" component={TrainMain} />
+      {({ navigation }) => <TrainMain navigation={navigation}/>}
       <Stack.Screen name="TrainOption">
-        {({ navigation }) => <TrainOption trainsto={trainsto} saveResult={saveResult} />}
+        {({ navigation }) => <TrainOption navigation = {navigation} trainsto={trainsto} saveResult={saveResult} />}
       </Stack.Screen>
     </Stack.Navigator>
   )
@@ -81,7 +74,7 @@ const TabNavigation = () => {
   };
 
   return isReady ? (
-    console.log("train", trainsto),
+    //console.log("train", trainsto),
     <Tab.Navigator initialRouteName='Main'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -99,9 +92,6 @@ const TabNavigation = () => {
           } else if (route.name === 'AjouBusList') {
             iconName = 'bus';
             return <FontIcon name={iconName} size={size} color={color} />;
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
-            return <Ionicons name={iconName} size={size} color={color} />;
           } else if (route.name === 'Train') {
             iconName = focused ? 'train-sharp' : 'train-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -130,9 +120,8 @@ const TabNavigation = () => {
       <Tab.Screen name="Main" component={Main} />
       <Tab.Screen name="AjouBusList" component={AjouList} />
       <Tab.Screen name="Train">
-        {({ navigation }) => <TrainStack trainsto={trainsto} saveResult={saveResult} />}
+        {({ navigation }) => <TrainStack navigation = {navigation} trainsto={trainsto} saveResult={saveResult} />}
       </Tab.Screen>
-      <Tab.Screen name="Settings" component={SettingStack} />
     </Tab.Navigator>
   ) : (
     <AppLoading

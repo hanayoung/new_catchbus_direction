@@ -22,6 +22,10 @@ const DetailText = styled.Text`
 font-size : 18px;
 margin-bottom : 15px;
 `;
+const MiniText = styled.Text`
+font-size : 12px;
+margin-bottom : 15px;
+`;
 
 const Mainsrc = () => {
 
@@ -30,9 +34,6 @@ const Mainsrc = () => {
   const [one, setOne] = useState([]);
 
   const { alert } = useContext(AlertContext);
-
-  //console.log(">>>>>>>>>>>alert in main", alert);
-
   const routeName = alert.routeName;
   const stationName = alert.stationName;
   const predict1 = alert.predict1;
@@ -43,13 +44,23 @@ const Mainsrc = () => {
     <Image source = {sleepingbus}/>
     <DetailText>  버스를 등록해주세요</DetailText>
     </Container>
-    :
+    :(
+      alert[0] == -1 ?
+      <Container>
+    <Image source = {sleepingbus}/>
+    <DetailText>  {alert[1]} 번 버스는</DetailText>
+    <DetailText> 운행 종료 되었습니다</DetailText>
+    </Container>
+      :
     <Container>
       <Image source = {catchbus}/>
       <DetailText>{routeName}번 버스가</DetailText>
       <DetailText>{stationName}정류장에</DetailText>
       <DetailText>{predict1}분 후 도착 예정입니다</DetailText>
+      <MiniText/>
+      <MiniText>잔여 좌석 {alert.remain1}   |   {alert.loc1} 정류장 전</MiniText>
     </Container>
+    )
   )
 }
 

@@ -39,6 +39,8 @@ const RealTime = () => {
     const [routeId, setRouteId] = useState(0);
     const [staOrder, setStaOrder] = useState(0);
 
+    const [routename, setRouteName] = useState(0);
+
     const handleone = (one) => {
       setOne(one),
       setStationId(one.stationId),
@@ -62,6 +64,7 @@ const RealTime = () => {
         if(obj[value].selected === true){
           flag = 1; // 3. 아무것도 핀 없을 때 판단
           if(obj[value].routename != one.routename){
+            setRouteName(obj[value].routename);
             setCheck(1)
             //console.log("will be turn", one.routename, "to", obj[value].routename)
             //1. 새로운 핀 설정 감지
@@ -112,9 +115,13 @@ const RealTime = () => {
       let queryParams = `?serviceKey=${API_KEY}&stationId=${stationId}&routeId=${routeId}&staOrder=${staOrder}`;
       let getData=await axios.get(url+queryParams);
       let xmlParser=new DOMParser();
-      let xmlDoc=xmlParser.parseFromString(getData.data,"text/xml");
-      //var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
+      let xmlDoc=xmlParser.parseFromString(getData.data,"text/xml");      //var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       //queryParams += '&stationId=' + encodeURIComponent(stationId) + '&routeId=' + encodeURIComponent(routeId) + '&staOrder=' + encodeURIComponent(staOrder); // xhr.open('GET', url + queryParams); 
+      if(xmlDoc.getElementsByTagName("resultCode")[0].childNodes[0].nodeValue== 4){
+        let tmp = [-1, routename];
+        setAlert(tmp);
+        dispatch(tmp); 
+        }
             var tmpnode = new Object();
             tmpnode.predict1 = xmlDoc.getElementsByTagName("predictTime1")[0].textContent;
             tmpnode.loc1 = xmlDoc.getElementsByTagName("locationNo1")[0].textContent;
@@ -126,7 +133,6 @@ const RealTime = () => {
             tmpnode.stationName = one.stationName;
             tmpnode.routeName = one.routename;
             handleresult(tmpnode);
-          //  console.log("result", result);
     }
     catch (err) {
       if(result.predict1==undefined) result.predict1 = null;

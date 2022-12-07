@@ -3,6 +3,8 @@ import styled from 'styled-components/native';
 import { View, StyleSheet, FlatList, Text, Button } from 'react-native';
 import FavListModule from '../modules/FavListModule';
 import { Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 // 2. screens/SearchStation의 자식
 
@@ -13,6 +15,7 @@ width: ${({ width }) => width - 40}px;
 
 function FavListsrc({ storage, setStorage, choice, setChoice }) {
   //함수형 컴포넌트 const -> useEffect로 해결
+  const navigation = useNavigation();
   const width = Dimensions.get('window').width;
   return (storage != null) ? (
    // console.log("storage", storage),
@@ -32,7 +35,7 @@ function FavListsrc({ storage, setStorage, choice, setChoice }) {
       </List>
     </View>
   ) : ( 
-  <Button title = "버스를 등록하세요" onPress = {()=> navigation.navigate('Main')}/>
+  <Button title = "버스를 등록하세요" onPress = {()=> navigation.navigate('Search')}/>
   );
 
 }
