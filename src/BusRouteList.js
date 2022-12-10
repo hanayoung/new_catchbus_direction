@@ -103,6 +103,10 @@ const BusRouteList = () => {
     locationList();
   }, [bus]);
 
+  useEffect(() => {
+    searchStation();
+  }, [location]);
+
   return (
     //console.log(data),
     <Container>
