@@ -5,6 +5,7 @@ import { DOMParser } from 'xmldom';
 import styled from 'styled-components/native';
 import catchbus from '../components/catchbus.gif';
 import sleepingbus from '../components/sleepingbus.png';
+import happybus from '../components/happybus.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AlertContext, { AlertConsumer } from '../src/context/Alert';
 import axios from 'axios';
@@ -41,7 +42,7 @@ const Mainsrc = () => {
   return(
     alert.length === 0 ? 
     <Container>
-    <Image source = {sleepingbus}/>
+    <Image source = {happybus}/>
     <DetailText>  버스를 등록해주세요</DetailText>
     </Container>
     :(
@@ -51,15 +52,25 @@ const Mainsrc = () => {
     <DetailText>  {alert[1]} 번 버스는</DetailText>
     <DetailText> 운행 종료 되었습니다</DetailText>
     </Container>
+      :( alert.remain1 == -1 ? 
+      <Container>
+        <Image source = {catchbus}/>
+        <DetailText>{routeName}번 버스가</DetailText>
+        <DetailText>{stationName}정류장에</DetailText>
+        <DetailText>{predict1}분 후 도착 예정입니다</DetailText>
+        <MiniText/>
+        <MiniText>{alert.loc1} 정류장 전</MiniText>
+      </Container>
       :
-    <Container>
-      <Image source = {catchbus}/>
-      <DetailText>{routeName}번 버스가</DetailText>
-      <DetailText>{stationName}정류장에</DetailText>
-      <DetailText>{predict1}분 후 도착 예정입니다</DetailText>
-      <MiniText/>
-      <MiniText>잔여 좌석 {alert.remain1}   |   {alert.loc1} 정류장 전</MiniText>
-    </Container>
+      <Container>
+        <Image source = {catchbus}/>
+        <DetailText>{routeName}번 버스가</DetailText>
+        <DetailText>{stationName}정류장에</DetailText>
+        <DetailText>{predict1}분 후 도착 예정입니다</DetailText>
+        <MiniText/>
+        <MiniText>잔여 좌석 {alert.remain1}   |   {alert.loc1} 정류장 전</MiniText>
+      </Container>
+    )
     )
   )
 }
