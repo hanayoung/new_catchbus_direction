@@ -9,12 +9,12 @@ import { useNavigation } from '@react-navigation/native';
 
 const Content_name = styled.Text`
 flex: 1;
-font-size: 14px;
+font-size: 16.7px;
 `;
 
 const Content_locate = styled.Text`
 flex: 1;
-font-size: 15px;
+font-size: 14px;
 `;
 
 const styles = StyleSheet.create({
@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#6495ED',
-        padding: 5,
+        backgroundColor: '#FFFFFF',
+        padding: 7,
         margin: 3,
         width: Dimensions.get('window').width-40,
     },

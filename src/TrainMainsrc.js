@@ -9,8 +9,10 @@ import TrainContext from './context/Train';
 import axios from 'axios';
 
 const Container = styled.ScrollView`
-flex : 1;
+    flex : 1;
+    background-color: '#F0F8FF';
 `;
+
 const TrainMain = () => {
     const [trainDate, setTrainDate] = useState('');
     const [startCity, setStartCity] = useState('');
@@ -148,7 +150,11 @@ const TrainMain = () => {
     }, [startCityCode, startStationCode, endCityCode, endStationCode, trainDate, optioncode])
 
     return (
-        <Container>
+        <Container style = {styles.Container}>
+            <TrainMainDate
+                trainDate={trainDate}
+                setTrainDate={setTrainDate}
+            />
             <Text style={styles.textsize}>출발지</Text>
             <TrainMainDropdown
                 LocationName='출발 도시'
@@ -171,10 +177,6 @@ const TrainMain = () => {
                 setLocation={setEndStation}
                 locations={station2}
             />
-            <TrainMainDate
-                trainDate={trainDate}
-                setTrainDate={setTrainDate}
-            />
             <Text style={styles.textsize}>기차 종류</Text>
             <TrainMainDropdown
                 LocationName='기차 종류'
@@ -183,6 +185,7 @@ const TrainMain = () => {
             />
             <Button
                 title="검색"
+                color = 'black'
                 onPress={() => {
                     dispatch(trainInfo);
                     navigation.navigate('TrainOption');
@@ -210,10 +213,13 @@ const trainListCode = ["00", "01", "02", "03", "04", "06",
 
 const styles = StyleSheet.create({
     textsize: {
-        fontSize: 30,
+        fontSize: 20,
         marginTop: 15,
-        marginBottom: 5,
-    }
+        marginBottom: 13,
+    },
+    Container:{
+        backgroundColor: '#F0F8FF'
+    },
 });
 
 export default TrainMain;

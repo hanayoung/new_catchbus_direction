@@ -260,6 +260,7 @@ const [resultCode, setResultCode] = useState(0); // 결과코드 0: 정상 운�
     for (var i = 0; i < result.length; i++) {
       let routeId = result[i].routeId;
       let route = routeInfo.find((r) => r.paramID == routeId)
+      console.log(result)
       if(route != undefined){
         result[i].routeName = route.routeName;
         result[i].endStationId=route.endStationId;

@@ -5,7 +5,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 import IconButton from '../components/IconButton'
 import { images } from '../modules/images';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 1. src/searchStation의 자식
 
@@ -14,10 +13,11 @@ justify-content: center;
 align-items: center;
 border-radius: 10;
 border-width: 1;
-height: 30;
+height: 35;
 padding: 5px;
 margin: 3px;
 flex-direction: row;
+background-color: white;
 `;
 
 const Content_name = styled.Text`
@@ -28,6 +28,7 @@ font-size: 14px;
 const Content_locate = styled.Text`
 flex: 1;
 font-size: 15px;
+background-color: white;
 `;
 
 const styles = StyleSheet.create({
@@ -41,33 +42,24 @@ const styles = StyleSheet.create({
     },
 });
 
-const TrainList = ({ item, trainsto, setTrainsto, train }) => {
+const TrainList = ({ item, trainsto, saveResult, train }) => {
     const [arrtime, setArrtime] = useState('');
     const [deptime, setDeptime] = useState('');
-
-    const saveResult = async result => {
-        try {
-            await AsyncStorage.setItem('train', JSON.stringify(result));
-            setTrainsto(result);
-        } catch (e) {
-            console.error(e);
-        }
-    };
 
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
             const newStorageObject = {
                 [item.index]: {
-                    depplacename: train.depplacename,
+                    trainDate: train.trainDate,
                     dephour: item.dephour,
                     depmin: item.depmin,
-                    arrplacename: train.arrplacename,
+                    startStationName: train.startStationName,
                     arrhour: item.arrhour,
                     arrmin: item.arrmin,
-                    traingradename: item.traingradename,
+                    endStationName: train.endStationName,
+                    trainOpt: train.trainOpt,
                     clicked: item.clicked,
-                    selected: false,
                 },
             };
             saveResult({ ...trainsto, ...newStorageObject });
@@ -81,7 +73,7 @@ const TrainList = ({ item, trainsto, setTrainsto, train }) => {
     }
 
     return (
-        <Container>
+        <Container style={styles.Container}>
             <Content_locate>{item.dephour}시 {item.depmin}분 ~ {item.arrhour}시 {item.arrmin}분</Content_locate>
             <IconButton 
             type={item.clicked ? images.clicked : images.unclicked} 

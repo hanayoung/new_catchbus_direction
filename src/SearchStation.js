@@ -65,8 +65,8 @@ const setRegion=(x,y)=>{
     try {
       const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
       const url = 'http://apis.data.go.kr/6410000/busstationservice/getBusStationList'; 
-      //var queryParams = `?serviceKey=${API_KEY}&keyword=`+encodeURIComponent(station);
-      var queryParams = `?serviceKey=${API_KEY}&keyword=${station}`; 
+      var queryParams = `?serviceKey=${API_KEY}&keyword=`+encodeURIComponent(station);
+      //var queryParams = `?serviceKey=${API_KEY}&keyword=${station}`; 
       //console.log("station");
       var result = await axios.get(url+queryParams);
       let xmlParser = new DOMParser();
@@ -96,11 +96,11 @@ const setRegion=(x,y)=>{
   useEffect(() => {
     ask();
     searchStation();
-  }, []);
+  }, 1000);
 // console.log("image",image);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>CatchBus</Text>
+      <Text style={styles.title}></Text>
       <TextInput
         style={styles.input}
         placeholder='정류장 이름을 입력하세요'
@@ -111,6 +111,7 @@ const setRegion=(x,y)=>{
         multiline={false}
         returnKeyType="search"
       />
+      <Text style={styles.title}></Text>
       <MapView
         region={initialRegion}
         style={[styles.map]}
@@ -156,9 +157,12 @@ const setRegion=(x,y)=>{
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
+    height: 42,
+    width: 250,
     margin: 12,
     borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: "#FFFFFF",
     padding: 10,
   },
   container: {
@@ -170,8 +174,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   title: {
-    margin: 10,
-    fontsize: 10
+    margin: 0.3 ,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontsize: 10,
   },
   map: {
     flex: 1,

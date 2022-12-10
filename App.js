@@ -7,9 +7,11 @@ import { AlertProvider } from './src/context/Alert';
 import Notification from './modules/Notification'
 import { TrainProvider } from './src/context/Train';
 import RealTime from './modules/RealTime';
+import { LogBox } from 'react-native';
 
 const App = () => {
-
+  LogBox.ignoreAllLogs();
+    console.disableYellowBox = true;
 /*  const [delay, setDelay] = useState(10000);
     const [count, setCount] = useState(0);
     function useInterval(callback, delay) {

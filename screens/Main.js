@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button} from 'react-native';
 import styled from 'styled-components/native';
-import Settings from '../screens/Settings';
 import SearchStation from '../screens/SearchStation';
 import BusRoute from '../screens/BusRoute';
 import Mainsrc from '../src/Mainsrc';

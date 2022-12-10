@@ -6,11 +6,9 @@ import SearchBus from '../screens/SearchBus';
 import BusRoute from '../screens/BusRoute';
 import AjouList from '../screens/AjouList';
 import BusList from '../modules/BusList';
-import History from '../screens/History';
 import TrainMain from '../screens/TrainMain';
 import TrainOption from '../screens/TrainOption';
 import Main from '../screens/Main';
-import Settings from '../screens/Settings';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import FontIcon from 'react-native-vector-icons/FontAwesome5';
@@ -38,22 +36,15 @@ const SearchStack = ({ navigation, storage, setStorage }) => {
   )
 }
 
-const SettingStack = ({ navigation }) => {
-  return (
-    <Stack.Navigator initialRouteName="Setting" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Setting" component={Settings} />
-      <Stack.Screen name="History" component={History} />
-    </Stack.Navigator>
-  )
-}
 
-const TrainStack = ({ navigation , trainsto, setTrainsto}) => {
-  return (
+const TrainStack = ({ navigation, trainsto, saveResult }) => {
+  return(
     <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="TrainMain" component={TrainMain} />
+      {({ navigation }) => <TrainMain navigation={navigation}/>}
       <Stack.Screen name="TrainOption">
-        {({ navigation }) => <TrainOption  trainsto={trainsto} setTrainsto={setTrainsto}/>}
-        </Stack.Screen>
+        {({ navigation }) => <TrainOption navigation = {navigation} trainsto={trainsto} saveResult={saveResult} />}
+      </Stack.Screen>
     </Stack.Navigator>
   )
 }
@@ -69,10 +60,20 @@ const TabNavigation = () => {
     const loadedResult = await AsyncStorage.getItem('results');
     setStorage(JSON.parse(loadedResult));
     const loadedTrain = await AsyncStorage.getItem('train');
-    setStorage(JSON.parse(loadedTrain));
+    setTrainsto(JSON.parse(loadedTrain));
+  };
+
+  const saveResult = async result => {
+    try {
+      await AsyncStorage.setItem('train', JSON.stringify(result));
+      setTrainsto(result);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return isReady ? (
+    //console.log("train", trainsto),
     <Tab.Navigator initialRouteName='Main'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -90,9 +91,6 @@ const TabNavigation = () => {
           } else if (route.name === 'AjouBusList') {
             iconName = 'bus';
             return <FontIcon name={iconName} size={size} color={color} />;
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
-            return <Ionicons name={iconName} size={size} color={color} />;
           } else if (route.name === 'Train') {
             iconName = focused ? 'train-sharp' : 'train-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -116,14 +114,13 @@ const TabNavigation = () => {
         {({ navigation }) => <SearchStack navigation={navigation} storage={storage} setStorage={setStorage} />}
       </Tab.Screen>
       <Tab.Screen name="FavList">
-        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} trainsto={trainsto} setTrainsto={setTrainsto}/>}
+        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} trainsto={trainsto} saveResult={saveResult} />}
       </Tab.Screen>
       <Tab.Screen name="Main" component={Main} />
       <Tab.Screen name="AjouBusList" component={AjouList} />
       <Tab.Screen name="Train">
-        {({ navigation }) => <TrainStack trainsto={trainsto} setTrainsto={setTrainsto}/>}
+        {({ navigation }) => <TrainStack navigation = {navigation} trainsto={trainsto} saveResult={saveResult} />}
       </Tab.Screen>
-      <Tab.Screen name="Settings" component={SettingStack} />
     </Tab.Navigator>
   ) : (
     <AppLoading

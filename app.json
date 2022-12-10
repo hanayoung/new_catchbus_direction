@@ -4,8 +4,8 @@
     "slug": "react-native-navigation",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/catchbus-logo.png",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.a_oreo.reactnativenavigation",
+      "package": "com.a_oreo.catchbus",
       "config":{
         "googleMaps":{"apiKey":"AIzaSyAgUi6VYh2Ov1Bbs7dAu1uj2VngP3586dE"}
       }

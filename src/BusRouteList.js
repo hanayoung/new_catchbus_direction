@@ -116,7 +116,7 @@ const BusRouteList = () => {
           data={data}
           innerCircle={'icon'}
           circleSize={30}
-          circleColor={'pink'}
+          circleColor={'#B0C4DE'}
         />
       </View>
     </Container>

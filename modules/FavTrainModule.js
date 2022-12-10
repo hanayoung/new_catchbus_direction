@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import IconButton from '../components/IconButton'
 import { images } from './images'
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 1. src/searchStation의 자식
@@ -35,46 +35,37 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flex: 1,
     },
+    trainName: {
+        alignItems: "center",
+        flex: 1,
+        flexDirection: "column",
+    },
 });
 
-const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
+const FavTrainModule = ({ item, trainsto, saveResult }) => {
     const width = Dimensions.get('window').width;
-
-    const saveResult = async result => {
-        try {
-            await AsyncStorage.setItem('results', JSON.stringify(result));
-            setStorage(result);
-            console.log("favlistmodule",result)
-        } catch (e) {
-            //console.error(e);
-        }
-    };
-    // const clearAll = async () => {
-    //     try {
-    //       await AsyncStorage.clear();
-    //     } catch (e) {
-    //       // 오류 예외 처리
-    //     }
-    //   }
+    
     const changeClicked = item => {
         if (item.clicked == false) {
             item.clicked = true;
             const newStorageObject = {
-                [item.routeid]: {
-                    routeid: item.routeId,
-                    routename: item.routeName,
-                    routetype: item.routetype,
-                    region: item.region,
+                [item.index]: {
+                    trainDate: train.trainDate,
+                    dephour: item.dephour,
+                    depmin: item.depmin,
+                    startStationName: train.startStationName,
+                    arrhour: item.arrhour,
+                    arrmin: item.arrmin,
+                    endStationName: train.endStationName,
+                    trainOpt: train.trainOpt,
                     clicked: item.clicked,
-                    predict1: item.predict1,
-                    selected: item.selected,
                 },
             };
-            saveResult({ ...storage, ...newStorageObject });
+            saveResult({ ...trainsto, ...newStorageObject });
         }
         else {
-            const currentResults = Object.assign({}, storage);
-            delete currentResults[item.routeid];
+            const currentResults = Object.assign({}, trainsto);
+            delete currentResults[item.index];
             saveResult(currentResults);
             item.clicked = false;
         }
@@ -82,46 +73,50 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
 
     const changeSelected = item => {
         if (item.selected == false) {
-            for (var routeid in storage) {
-                storage[routeid].selected = false;
+            for (var index in trainsto) {
+                trainsto[index].selected = false;
             }
-            storage[item.routeid].selected = true;
+            trainsto[item.index].selected = true;
             //console.log(">>>>>>>>>>", item);
-            setChoice(item);
+            //setChoice(item);
         }
         else {
-            storage[item.routeid].selected = false;
+            trainsto[item.index].selected = false;
         }
-        saveResult(storage);
+        saveResult(trainsto);
 
     }
     return (
         <Container width={width}>
-            <RName>{item.routename}</RName>
-            <SName>{item.stationName}</SName>
+            <View style={styles.trainName}>
+            <RName>{item.trainDate}일 {item.dephour}시 {item.depmin}분 ~ {item.arrhour}시 {item.arrmin}분</RName>
+            <SName>{item.startStationName} ~ {item.endStationName}</SName>
+            </View>
             <IconButton
                 type={item.clicked ? images.clicked : images.unclicked}
                 id={item}
                 onPressOut={changeClicked}
                 clicked={item.clicked}
             />
-            <IconButton
+            {/* <IconButton
                 type={item.selected ? images.selected : images.unselected}
                 id={item}
                 onPressOut={changeSelected}
                 selected={item.selected}
-            />
+            /> */}
         </Container>
     );
 };
 
-FavListModule.defaultProps = {
+
+
+FavTrainModule.defaultProps = {
     onPressOut: () => { },
 };
 
-FavListModule.propTypes = {
+FavTrainModule.propTypes = {
     item: PropTypes.object.isRequired,
     onPressOut: PropTypes.func,
 };
 
-export default FavListModule;
+export default FavTrainModule;
