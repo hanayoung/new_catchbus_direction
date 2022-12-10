@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "react-native-navigation",
-    "slug": "react-native-navigation",
+    "name": "CATCHBUS",
+    "slug": "catchbus",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/catchbus-logo.png",
+    "icon": "./assets/app-icons/catchbus-app-main-icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/catchbus-logo.png",
+      "image": "./assets/app-icons/app-loading.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,9 +21,10 @@
       "supportsTablet": true
     },
     "android": {
+      "icon":"./assets/app-icons/catchbus-app-main-icon.png",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/app-icons/catchbus-app-main-icon.png",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.a_oreo.catchbus",
       "config":{

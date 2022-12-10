@@ -8,6 +8,8 @@ import Notification from './modules/Notification'
 import { TrainProvider } from './src/context/Train';
 import RealTime from './modules/RealTime';
 import { LogBox } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
+
 
 const App = () => {
   LogBox.ignoreAllLogs();
@@ -35,8 +37,19 @@ const App = () => {
     console.log(date, "hello it is working");
   }, ); 
   */
-
+  function sleep(time){
+    return new Promise(
+      resolve=>setTimeout(resolve,time)
+    );
+   }
+ async function delay_splash(){
+  await SplashScreen.preventAutoHideAsync();
+  await sleep(5000);
+  await SplashScreen.hideAsync();
+ }
+  delay_splash();
     return (
+   
         <StationProvider>
         <BusProvider>
         <AlertProvider>
@@ -50,7 +63,7 @@ const App = () => {
         </AlertProvider>
         </BusProvider>
         </StationProvider>
-    )
+    );
 }
 
 export default App;
