@@ -23,6 +23,8 @@ const responseListener = useRef();
 
 
 
+
+
   const { alert } = useContext(AlertContext);
   //console.log("alert",alert);
 
@@ -48,9 +50,7 @@ function useInterval(callback, delay) {
 }, [delay]);
 }
 
-useInterval(() => {
-  get();
-}, 100000000)
+
 
 useEffect(() => {
   // Permission for iOS
