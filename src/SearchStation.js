@@ -20,24 +20,8 @@ function SearchStation({navigation})
   //const [longitute, setLongitude]=useState('');
   //함수형 컴포넌트 const -> useEffect로 해결
  
-  const goBus = (item) => {
-    navigation.navigate('SearchBus');
-  }
-  const handleResult=(arr)=>{
-    arr.sort(function(a,b){
-        return a.dis-b.dis;
-    });
-   // console.log("arr",arr);
-    setResult(arr);
-    setRegion(arr[0].x,arr[0].y);
-}
-const setRegion=(x,y)=>{
-  setinitialRegion({
-      latitude:Number(y),
-      longitude:Number(x),
-      latitudeDelta:0.002,
-      longitudeDelta:0.002
-  })
+  const goBus = () => {
+    stationToBus();
   }
   // const pressHandler=(idx)=>{
   //   let tmp_array=image;

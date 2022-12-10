@@ -30,9 +30,11 @@ const BusRouteList = () => {
   const [location, setLocation] = useState([]);
 
   const { bus } = useContext(BusContext);
+  console.log("in route list from context", bus.routeName);
 
   // console.log("bus routeId",bus.routeId);
   const searchStation = async () => {
+    console.log("go");
     //console.log("working");
     //console.log("location: ", location);
     try {
@@ -97,12 +99,9 @@ const BusRouteList = () => {
   };
 
   useEffect(() => {
+    searchStation(),
     locationList();
   }, [bus]);
-
-  useEffect(() => {
-    searchStation();
-  }, [location]);
 
   return (
     //console.log(data),
