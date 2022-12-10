@@ -43,7 +43,7 @@ const StationList = ({ item }) => {
         onPressOut = {() => {
             setStation(item)
             dispatch(item);
-            goBus();
+            navigation.navigate('SearchBus');
         }}
         style = {styles.button}
         >

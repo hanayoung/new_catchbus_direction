@@ -26,11 +26,7 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const SearchStation = ({ navigation, storage, setStorage, }) => {
-
-    const stationToBus = (item) => {
-        navigation.navigate('SearchBus');
-      }
+const SearchStation = ({ navigation }) => {
 
     return(
         <Container>
