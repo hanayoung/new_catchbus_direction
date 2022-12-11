@@ -39,7 +39,9 @@ const TrainOptionsrc = ({ trainsto, saveResult }) => {
                 var tmpnode = new Object();
                 let arr = [];
                 let time = [];
-                tmpnode.index = i;
+                tmpnode.index = train.trainDate + train.startStation + train.endStation + i;
+                console.log("index: ", tmpnode.index);
+
                 arr = [...xmlDoc.getElementsByTagName("arrplandtime")[i].textContent];
                 time[0] = arr[8];
                 time[1] = arr[9];
@@ -75,10 +77,11 @@ const TrainOptionsrc = ({ trainsto, saveResult }) => {
     };
 
     return (
+        console.log("train: ", train),
         <Container width={width}>
             <Text>출발지: {train.startStationName}</Text>
             <Text>도착지: {train.endStationName}</Text>
-            <Text>날짜: {train.trainDate}</Text>
+            <Text>날짜: {train.trainYear}년 {train.trainMonth}월 {train.trainDay}일</Text>
             <Text>종류: {train.trainOptName}</Text>
             <FlatList
                 keyExtractor={item => item.arrplacename}

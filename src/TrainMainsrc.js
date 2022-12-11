@@ -133,6 +133,10 @@ const TrainMain = () => {
 
     const trainmerge = () => {
         var tmpnode = new Object();
+        var arr = [...trainDate];
+        var year = arr[0]+arr[1]+arr[2]+arr[3];
+        var month = arr[4]+arr[5];
+        var day = arr[6]+arr[7];
         tmpnode.startCity = startCityCode;
         tmpnode.startStationName = startStation;
         tmpnode.startStation = startStationCode;
@@ -140,6 +144,9 @@ const TrainMain = () => {
         tmpnode.endStationName = endStation;
         tmpnode.endStation = endStationCode;
         tmpnode.trainDate = trainDate;
+        tmpnode.trainYear = year;
+        tmpnode.trainMonth = month;
+        tmpnode.trainDay = day;
         tmpnode.trainOptName = option;
         tmpnode.trainOpt = optioncode;
         setTrainInfo(tmpnode);

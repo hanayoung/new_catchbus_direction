@@ -3,16 +3,21 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import IconButton from '../components/IconButton'
 import { images } from './images'
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, View  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 1. src/searchStation의 자식
 const Container = styled.View`
-flex : 1;
 justify-content: center;
 align-items: center;
+border-radius: 10;
+border-width: 1;
+height: 60;
+padding: 5px;
+margin: 3px;
 flex-direction: row;
-width: ${({ width }) => width - 40}px;
+background-color: white;
+width: ${({ width }) => width - 50}px;
 `;
 
 const RName = styled.Text`
@@ -35,6 +40,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flex: 1,
     },
+    trainName: {
+        alignItems: "center",
+        flex: 1,
+        flexDirection: "column",
+    },
 });
 
 const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
@@ -44,7 +54,6 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
         try {
             await AsyncStorage.setItem('results', JSON.stringify(result));
             setStorage(result);
-            console.log("favlistmodule",result)
         } catch (e) {
             //console.error(e);
         }
@@ -97,8 +106,10 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
     }
     return (
         <Container width={width}>
+            <View style={styles.trainName}>
             <RName>{item.routename}</RName>
             <SName>{item.stationName}</SName>
+            </View>
             <IconButton
                 type={item.clicked ? images.clicked : images.unclicked}
                 id={item}

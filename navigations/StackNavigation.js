@@ -39,7 +39,7 @@ const SearchStack = ({ navigation, storage, setStorage }) => {
 
 const TrainStack = ({ navigation, trainsto, saveResult }) => {
   return(
-    <Stack.Navigator initialRouteName="Train" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName="TrainMain" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="TrainMain" component={TrainMain} />
       {({ navigation }) => <TrainMain navigation={navigation}/>}
       <Stack.Screen name="TrainOption">
@@ -114,7 +114,7 @@ const TabNavigation = () => {
         {({ navigation }) => <SearchStack navigation={navigation} storage={storage} setStorage={setStorage} />}
       </Tab.Screen>
       <Tab.Screen name="FavList">
-        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} trainsto={trainsto} saveResult={saveResult} />}
+        {({ navigation }) => <FavList navigation={navigation} storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} trainsto={trainsto} setTrainsto={setTrainsto} saveResult={saveResult} />}
       </Tab.Screen>
       <Tab.Screen name="Main" component={Main} />
       <Tab.Screen name="AjouBusList" component={AjouList} />

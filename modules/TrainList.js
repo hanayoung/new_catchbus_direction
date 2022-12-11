@@ -51,7 +51,11 @@ const TrainList = ({ item, trainsto, saveResult, train }) => {
             item.clicked = true;
             const newStorageObject = {
                 [item.index]: {
+                    index : item.index,
                     trainDate: train.trainDate,
+                    trainYear: train.trainYear,
+                    trainMonth: train.trainMonth,
+                    trainDay: train.trainDay,
                     dephour: item.dephour,
                     depmin: item.depmin,
                     startStationName: train.startStationName,
@@ -68,6 +72,7 @@ const TrainList = ({ item, trainsto, saveResult, train }) => {
             item.clicked = false;
             const currentResults = Object.assign({}, trainsto);
             delete currentResults[item.index];
+            console.log("current : ", currentResults);
             saveResult(currentResults);
         }
     }

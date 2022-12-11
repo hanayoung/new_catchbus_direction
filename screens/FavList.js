@@ -29,14 +29,14 @@ font-size : 15px;
 margin-bottom : 10px;
 `;
 
-const FavList = ({ navigation, storage, setStorage, choice, setChoice, trainsto, saveResult}) => {
+const FavList = ({ navigation, storage, setStorage, choice, setChoice, trainsto, setTrainsto, saveResult}) => {
     return (
       <Tab.Navigator>
       <Tab.Screen name="Bus">
-        {({ navigation }) => <FavListsrc storage={storage} setStorage={setStorage} choice={choice} setChoice={setChoice} style={[styles.favlistsrc]}></FavListsrc>}
+        {({ navigation }) => <FavListsrc storage={storage} setStorage={setStorage} setTrainsto={setTrainsto} choice={choice} setChoice={setChoice} style={[styles.favlistsrc]}></FavListsrc>}
       </Tab.Screen>
       <Tab.Screen name="Train">
-        {({ navigation }) => <FavListTrain trainsto={trainsto} saveResult={saveResult} style={[styles.favlistsrc]}></FavListTrain>}
+        {({ navigation }) => <FavListTrain trainsto={trainsto} setTrainsto={setTrainsto} setStorage={setStorage} saveResult={saveResult} style={[styles.favlistsrc]}></FavListTrain>}
       </Tab.Screen>
     </Tab.Navigator>
     )
