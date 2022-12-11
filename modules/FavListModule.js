@@ -100,6 +100,7 @@ const FavListModule = ({ item, storage, setStorage, choice, setChoice }) => {
         }
         else {
             storage[item.routeid].selected = false;
+            setChoice(null);
         }
         saveResult(storage);
 
