@@ -9,11 +9,14 @@ import { TrainProvider } from './src/context/Train';
 import RealTime from './modules/RealTime';
 import { LogBox } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
+import { useFonts } from 'expo-font';
 
 const App = () => {
   LogBox.ignoreAllLogs();
     console.disableYellowBox = true;
-
+    const [fontsLoaded]=useFonts({
+      'BinggraeSamanco':require('./assets/fonts/BinggraeSamanco.ttf'),
+    });
    
     // 폰트 적용
     

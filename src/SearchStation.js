@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#FFFFFF",
     padding: 10,
+    fontFamily:'BinggraeSamanco'
   },
   container: {
     flex: 1,
@@ -180,6 +181,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontsize: 10,
+   
   },
   map: {
     flex: 1,
@@ -189,6 +191,7 @@ const styles = StyleSheet.create({
   flatlist: {
     flex: 1,
     width: '100%',
+    
   }
 });
 

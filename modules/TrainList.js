@@ -29,6 +29,7 @@ const Content_locate = styled.Text`
 flex: 1;
 font-size: 15px;
 background-color: white;
+fontFamily:"BinggraeSamanco";
 `;
 
 const styles = StyleSheet.create({

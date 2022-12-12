@@ -10,11 +10,13 @@ import { useNavigation } from '@react-navigation/native';
 const Content_name = styled.Text`
 flex: 1;
 font-size: 16.7px;
+fontFamily:'BinggraeSamanco';
 `;
 
 const Content_locate = styled.Text`
 flex: 1;
 font-size: 14px;
+fontFamily:'BinggraeSamanco';
 `;
 
 const styles = StyleSheet.create({
