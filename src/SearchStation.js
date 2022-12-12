@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Dimensions, FlatList, StatusBar, SafeAreaView } from 'react-native';
+import { View, StyleSheet, TextInput, Dimensions,Text, FlatList, StatusBar, SafeAreaView } from 'react-native';
 import { DOMParser } from 'xmldom';
 import StationList from '../modules/StationList';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';

@@ -3,8 +3,7 @@ import styled from 'styled-components/native';
 import TrainContext from './context/Train';
 import axios from 'axios';
 import { DOMParser } from 'xmldom';
-import { FlatList, StyleSheet, Dimensions, Text } from 'react-native';
-
+import { FlatList, StyleSheet, Dimensions,Text } from 'react-native';
 import TrainList from '../modules/TrainList';
 
 const Container = styled.View`

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { StyleSheet, Text, Button } from 'react-native';
+import { StyleSheet, Button,Text } from 'react-native';
 import styled from 'styled-components/native';
 import { DOMParser } from 'xmldom';
 import TrainMainDropdown from '../modules/TrainMainDropdown';

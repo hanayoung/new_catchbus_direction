@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useMemo, useContext,useRef } from 'react'
 import styled from 'styled-components/native';
 import { DOMParser } from 'xmldom';
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { FlatList, StyleSheet,Text} from 'react-native';
 import Bus from '../modules/Bus';
 import Notification from '../modules/Notification';
 import StationContext, { StationConsumer } from './context/Station';
 import axios from 'axios';
-
 const Container = styled.View`
 flex : 1;
 justify-content: center;

@@ -10,10 +10,13 @@ import RealTime from './modules/RealTime';
 import { LogBox } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 
-
 const App = () => {
   LogBox.ignoreAllLogs();
     console.disableYellowBox = true;
+
+   
+    // 폰트 적용
+    
 /*  const [delay, setDelay] = useState(10000);
     const [count, setCount] = useState(0);
     function useInterval(callback, delay) {
