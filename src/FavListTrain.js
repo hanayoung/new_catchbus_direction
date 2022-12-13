@@ -48,7 +48,7 @@ function FavListTrain({ trainsto, setTrainsto, setStorage, saveResult}) {
       <Button title = "초기화" style={styles.button} onPress = {clearItem}/>
     </View>
   ) : ( 
-  <Button title = "기차를 등록하세요" onPress = {()=> navigation.navigate('Train')}/>
+  <Button title = "기차를 등록하세요" onPress = {()=> navigation.navigate('TrainMain')}/>
   );
 
 }

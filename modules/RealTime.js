@@ -147,8 +147,14 @@ const RealTime = () => {
 
   useInterval(() => {
     get();
+    console.log(check);
     if(check == 1){ // pin changed
       predictRealTime()
+    }
+    else if(check == 3){
+      //console.log("no pin")
+      setAlert([])
+      dispatch([])
     }
   }, 1000)
 
