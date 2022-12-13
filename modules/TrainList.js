@@ -73,7 +73,7 @@ const TrainList = ({ item, trainsto, saveResult, train }) => {
             item.clicked = false;
             const currentResults = Object.assign({}, trainsto);
             delete currentResults[item.index];
-            console.log("current : ", currentResults);
+            //console.log("current : ", currentResults);
             saveResult(currentResults);
         }
     }

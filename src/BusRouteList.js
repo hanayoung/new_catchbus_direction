@@ -30,7 +30,7 @@ const BusRouteList = () => {
   const [location, setLocation] = useState([]);
 
   const { bus } = useContext(BusContext);
-  console.log("in route list from context", bus.routeName);
+  //console.log("in route list from context", bus.routeName);
 
   // console.log("bus routeId",bus.routeId);
   const searchStation = async () => {
