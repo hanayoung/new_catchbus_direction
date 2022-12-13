@@ -51,7 +51,7 @@ function FavListsrc({ storage, setStorage, setTrainsto, choice, setChoice }) {
       <Button title = "초기화" style={styles.button} onPress = {clearItem}/>
     </View>
   ) : ( 
-  <Button title = "버스를 등록하세요" onPress = {()=> navigation.navigate('Search')}/>
+  <Button title = "버스를 등록하세요" style={styles.button} onPress = {()=> navigation.navigate('Search')}/>
   );
 
 }
@@ -69,8 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0F8FF',
     borderRadius: 4,
     marginBottom: 100,
+    fontFamily:'MobileBold',
   }
 });
-
-
 export default FavListsrc;

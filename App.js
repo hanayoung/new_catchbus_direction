@@ -16,6 +16,10 @@ const App = () => {
     console.disableYellowBox = true;
     const [fontsLoaded]=useFonts({
       'BinggraeSamanco':require('./assets/fonts/BinggraeSamanco.ttf'),
+      'MobilePOP':require('./assets/fonts/ONE Mobile POP.ttf'),
+      'MobileBold':require('./assets/fonts/ONEMobileBold.ttf'),
+      'MobileLight':require('./assets/fonts/ONE Mobile Light.ttf'),
+      'MobileRegular':require('./assets/fonts/ONE Mobile Regular.ttf'),
     });
    
     // 폰트 적용

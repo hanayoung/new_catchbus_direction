@@ -67,7 +67,6 @@ const TrainMainDate = ({trainDate, setTrainDate}) => {
                     headerTextIOS={placeholder}
                     isVisible={isDatePickerVisible}
                     mode="date"
-                    display="default"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
                 />
