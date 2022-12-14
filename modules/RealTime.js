@@ -147,7 +147,7 @@ const RealTime = () => {
 
   useInterval(() => {
     get();
-    console.log(check);
+    // console.log(check);
     if(check == 1){ // pin changed
       predictRealTime()
     }

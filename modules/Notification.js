@@ -26,7 +26,7 @@ const responseListener = useRef();
 
 
   const { alert } = useContext(AlertContext);
-  //console.log("alert",alert);
+  console.log("alert",alert);
 
 
 const routeName = alert.routeName;
@@ -99,36 +99,50 @@ useEffect(() => {
 //     schedulePushNotification();
 // },60000);
 useEffect(()=>{
-  if(alert.name!=undefined){
+  if(alert.routeName!=undefined){
     //  console.log("one",one);
     // console.log("alert Noti setTime",alert);
-    setTime((Number((alert.predict1)*60)));
+    console.log("num",Number((predict1)*60));
+    setTime((Number((predict1)*60)));
   }
 },[alert])
-useInterval(()=>{
-  //console.log("iiiiiinnnnnnnn");
-    //setTime(Number(result.predict1)*60);
-   // setTime(Number(stor.predict1)*60) // 일단 원하는 분 이전일 때 바로 알림이 뜨는지 확인 (time =1 이런 게 먹히는지 확인해보기 )
-    //console.log("result in Nottttti second",result)
-    schedulePushNotification();
-},60000);
+// useInterval(()=>{
+//   //console.log("iiiiiinnnnnnnn");
+//     //setTime(Number(result.predict1)*60);
+//    // setTime(Number(stor.predict1)*60) // 일단 원하는 분 이전일 때 바로 알림이 뜨는지 확인 (time =1 이런 게 먹히는지 확인해보기 )
+//     //console.log("result in Nottttti second",result)
+//     schedulePushNotification();
+// },60000);
 
 useEffect(()=>{
-  if(alert.name!=undefined){
+  if(alert.routeName!=undefined){
    // console.log("alert in Noti schedulePushNotification ",alert);
-    schedulePushNotification();
+   console.log("time",time); 
+   schedulePushNotification();
   }
 },[time]);
 
 async function schedulePushNotification() {
 
  //console.log("alert.name",alert.routename)
+
  if(time==300){
-  //console.log("time",time)
- }
+  console.log("time",time);
+  await Notifications.scheduleNotificationAsync({
+    // 화면에 뜨는 내용
+    content:{
+     title:`${routeName} is Coming!`,
+     body:`${(time/60)} 분 후에 도착 !`,
+    },
+    trigger: { 
+     seconds: 1, // 0은 안 먹히고 1도 한 5초? 후에 뜸
+     channelId:'default', 
+   },
+ });
+}
  //console.log("time",time)
- else if(time<=600){
- //console.log("time",time)
+ else if(time==600){
+ console.log("time",time)
 await Notifications.scheduleNotificationAsync({
    // 화면에 뜨는 내용
    content:{
@@ -141,8 +155,11 @@ await Notifications.scheduleNotificationAsync({
   },
 });
 }
+else if(time<600){
+  console.log("short time",time)
+ }
 else if(time>600){
- // console.log("time",time);
+  console.log("long time",time);
   
 }
 // else{
