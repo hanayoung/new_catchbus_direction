@@ -7,7 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
 import axios from 'axios';
 import AlertContext, { AlertConsumer } from '../src/context/Alert';
-
+import * as BackgroundFetch from 'expo-background-fetch';
+import * as TaskManager from 'expo-task-manager';
 
 const Content_name = styled.Text`
 flex: 1;
@@ -23,6 +24,43 @@ const styles = StyleSheet.create({
     button: {
         alignItems: "center",
     },
+});
+
+const BACKGROUND_TASK_NAME = 'myTask';
+
+TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
+  try {    
+    // Fetch data from API
+    await get();
+    console.log("background in working!");
+    // await predictRealTimeBackground();
+    await Notifications.scheduleNotificationAsync({
+      // 화면에 뜨는 내용
+      content:{
+       title:`alarm`,
+       body:`alarm is working!`,
+      },
+      trigger: { 
+       seconds: 1, // 0은 안 먹히고 1도 한 5초? 후에 뜸
+       channelId:'default', 
+     },
+   });
+
+    // Process the data
+    console.log("background work is working");
+
+    // Return a value to indicate the success of the task
+    return {
+      resultCode: TaskManager.TaskResult.Success,
+    };
+  } catch (error) {
+    console.log('Failed to execute background task:', error);
+
+    // Return a value to indicate the failure of the task
+    return {
+      resultCode: TaskManager.TaskResult.Failure,
+    };
+  }
 });
 
 const RealTime = () => {
@@ -47,7 +85,7 @@ const RealTime = () => {
     }
 
     const handleresult = (result) => {
-      //console.log("here ok", result)
+      console.log("here ok", result)
       setResult(result)
       setAlert(result)
       dispatch(result)
@@ -163,7 +201,27 @@ const RealTime = () => {
     //console.log(result)
   }, isRunning ? delay : null);
 
+  useEffect(() => {
+    BackgroundFetch.registerTaskAsync(BACKGROUND_TASK_NAME, {
+      minimumInterval: 60, // Execute the task at least once per minute
+    });
+  }, []);
+
+  useEffect(() => {
+    TaskManager.getTaskOptionsAsync(BACKGROUND_TASK_NAME)
+      .then((options) => {
+        if (options?.error) {
+          console.log('Failed to get task options:', options.error);
+        } else if (options?.lastTimestamp) {
+          console.log(`Task executed in the background at ${options.lastTimestamp}`);
+        }
+      })
+      .catch((error) => {
+        console.log('Failed to get task options:', error);
+      });
+  }, []);
 }
+// 제대로 task 등록되는지 확인할 것
 
 
 export default RealTime;

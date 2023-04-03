@@ -242,17 +242,22 @@ const [way,setWay]=useState([]);
         }   
       }else{
         //console.log("lastStationId",lastStationId)
-        let data=await axios.get(`http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList?serviceKey=UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D&stationId=${result[i].startStationId}`)
-        let xmlParser = new DOMParser();
-        let xmlDoc = xmlParser.parseFromString(data.data, "text/xml"); 
-        for(let j=0;j<xmlDoc.getElementsByTagName("routeId").length;j++){
-          if(xmlDoc.getElementsByTagName("routeId")[j].textContent==result[i].routeId){
-          result[i].predict=xmlDoc.getElementsByTagName("predictTime1")[j].textContent;
-        //console.log("result",result);
-          // console.log("finish ",new Date(), result[i].routeName);
-          break;
+        try{
+          let data=await axios.get(`http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList?serviceKey=UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D&stationId=${result[i].startStationId}`)
+          let xmlParser = new DOMParser();
+          let xmlDoc = xmlParser.parseFromString(data.data, "text/xml"); 
+          for(let j=0;j<xmlDoc.getElementsByTagName("routeId").length;j++){
+            if(xmlDoc.getElementsByTagName("routeId")[j].textContent==result[i].routeId){
+            result[i].predict=xmlDoc.getElementsByTagName("predictTime1")[j].textContent;
+          //console.log("result",result);
+            // console.log("finish ",new Date(), result[i].routeName);
+            break;
+        }
           }
-        }   
+        } 
+        catch(err){
+
+        }  
       }
     }
   }
